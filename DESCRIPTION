@@ -1,4 +1,4 @@
-Package: CDCtrackR
+Package: EPHTrackR
 Type: Package
 Title: Access the CDC Tracking API
 Version: 0.1.0
