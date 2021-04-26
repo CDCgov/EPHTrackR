@@ -69,8 +69,11 @@ update_measures<-function(){
                               Meas_Inds_CAs_clean$indicator_ID,
                               Meas_Inds_CAs_clean$content_area_ID),]
   
-  
   save(measures_indicators_CAs,
-       file="measures_indicators_CAs.RData")
+       file=paste(file.path(system.file(package=EPHTrackR), 
+                            "data/measures_indicators_CAs.RData")))
+       
+  # save(measures_indicators_CAs,
+  #      file="data/measures_indicators_CAs.RData")
 
 }
