@@ -2,8 +2,8 @@
 ##  Update the content area, indicator and measure data   ##
 ############################################################
 
-.onLoad <- function(libname, pkgname) {
-  ### Content Areas ###
+.onAttach <- function(libname, pkgname) {
 
-data(measures_indicators_CAs)
+  packageStartupMessage("Run `update_measures()` to download most recent list of content areas, indicators, and measures.")
+  
 }
