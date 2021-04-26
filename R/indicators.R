@@ -5,9 +5,9 @@
 #' @param format indicate whether the content_area variable is an ID, name or shortName
 #' @return The indicators in the specified content areas on the CDC Tracking API.
 #' @examples
-#' indicators(15,"ID")
-#' indicators("Climate Change","name")
-#' indicators("CC","shortName")
+#' indicators(25,"ID")
+#' indicators("Drought","name")
+#' indicators("DR","shortName")
 #'
 #' indicators(c(15,25),"ID")
 #' indicators(c("Climate Change","Drought"),"name")

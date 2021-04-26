@@ -1,6 +1,6 @@
 #' @name update_measures
 #' @title Update Measures List
-#' @description  Download the latest list of content areas, indicators, and measures using the CDC Tracking API.
+#' @description  Update the stored list of content areas, indicators, and measures using the CDC Tracking API.
 #' @return A dataset with the latest updates from CDC Tracking API.
 #' @examples
 #' update_measures()
@@ -8,6 +8,8 @@
 
 
 update_measures<-function(){
+  
+  message("Downloading data...")
   
   CAs_raw<-
     httr::GET("https://ephtracking.cdc.gov:443/apigateway/api/v1/contentareas/json")
