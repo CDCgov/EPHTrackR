@@ -70,7 +70,7 @@ update_measures<-function(){
                               Meas_Inds_CAs_clean$content_area_ID),]
   
   
-  usethis::use_data(measures_indicators_CAs, measures_indicators_CAs,
-                    overwrite = TRUE)
+  save(measures_indicators_CAs,
+       file="measures_indicators_CAs.RData")
 
 }
