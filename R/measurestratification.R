@@ -47,7 +47,7 @@ measurestratification<-
            format=c("name","shortName","ID"),smoothing=0){
   format<-match.arg(format)
 
-  GL_table<-geographicLevels(measure,indicator,
+  GL_table<-geography_types(measure,indicator,
                              content_area,format)
 
   if(!any(is.na(geo_type_ID)) | !any(is.na(geo_type))){
