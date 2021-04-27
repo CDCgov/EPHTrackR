@@ -19,12 +19,12 @@
 #' dat1_id<-
 #'   Measure_Data(measure=370,content_area = 25,
 #'                geo_type_ID = c(1,2),geo_items_ID = c(4,32,35),
-#'                temporal_ID = c(2015,2016),strat_level = c("State","ST_CT"),
+#'                temporal = c(2015,2016),strat_level = c("State","ST_CT"),
 #'                format = "ID")
 #' dat2_shortName<-
 #'   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
 #'                indicator="Monthly Drought",geo_type_ID = c(1,2),
-#'                geo_items_ID = c(4,32,35),temporal_ID=2015:2016,
+#'                geo_items_ID = c(4,32,35),temporal=2015:2016,
 #'                strat_level_ID = 1:2,format="shortName")
 #' dat3_name<-
 #'   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
@@ -38,7 +38,7 @@
 Measure_Data<-
   function(measure=NA,indicator=NA,content_area=NA,
            geo_type=NA,geo_type_ID=NA,geo_items=NA,
-           geo_items_ID=NA,temporal_ID=NA,strat_level=NA,
+           geo_items_ID=NA,temporal=NA,strat_level=NA,
            strat_level_ID=NA,
            format=c("name","shortName","ID"),smoothing=0){
   format<-match.arg(format)
@@ -47,11 +47,11 @@ Measure_Data<-
                        geo_type,geo_type_ID,geo_items,
                        geo_items_ID,format)
 
-  if(!any(is.na(temporal_ID))){
+  if(!any(is.na(temporal))){
     temp_list<-list()
     for(tp in 1:nrow(temp_table)){
       temp_list[[tp]]<-
-        temp_table$Temporal[[tp]][which(temp_table$Temporal[[tp]]%in%temporal_ID)]
+        temp_table$Temporal[[tp]][which(temp_table$Temporal[[tp]]%in%temporal)]
     }
   }else{
     temp_list<-temp_table$Temporal

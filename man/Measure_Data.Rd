@@ -12,7 +12,7 @@ Measure_Data(
   geo_type_ID = NA,
   geo_items = NA,
   geo_items_ID = NA,
-  temporal_ID = NA,
+  temporal = NA,
   strat_level = NA,
   strat_level_ID = NA,
   format = c("name", "shortName", "ID"),
@@ -34,6 +34,8 @@ Measure_Data(
 
 \item{geo_items_ID}{specify Geographic items by ID.}
 
+\item{temporal}{specify the years of interest.}
+
 \item{strat_level}{specify stratification level by name or abbreviation.}
 
 \item{strat_level_ID}{specify stratification level by ID.}
@@ -41,8 +43,6 @@ Measure_Data(
 \item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
 
 \item{smoothing}{default is 0. Specify whether data is geographically smoothed(1) or not (0).}
-
-\item{temporal}{specify the years of interest.}
 }
 \value{
 The specified data from the CDC Tracking API.
@@ -55,12 +55,12 @@ Pull data from CDC Tracking API for multiple measures, geographies, stratificati
 dat1_id<-
   Measure_Data(measure=370,content_area = 25,
                geo_type_ID = c(1,2),geo_items_ID = c(4,32,35),
-               temporal_ID = c(2015,2016),strat_level = c("State","ST_CT"),
+               temporal = c(2015,2016),strat_level = c("State","ST_CT"),
                format = "ID")
 dat2_shortName<-
   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
                indicator="Monthly Drought",geo_type_ID = c(1,2),
-               geo_items_ID = c(4,32,35),temporal_ID=2015:2016,
+               geo_items_ID = c(4,32,35),temporal=2015:2016,
                strat_level_ID = 1:2,format="shortName")
 dat3_name<-
   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
