@@ -6,23 +6,20 @@
 #' @param format indicate whether the indicator and/or content_area variables are ID, name or shortName
 #' @return The measures in the specified indicators and/or content areas on the CDC Tracking API.
 #' @examples \dontrun{
-# measures(indicator=67,format="ID")
-# 
-# measures(indicator=c(67,173),format = "ID")
-# 
-# measures(indicator=c("Heat-Related Mortality",
-#                      "Historical Temperature & Heat Index"),
-#          format="name")
-# 
-# measures(content_area = 25,format="ID")
-# 
-# measures(indicator=67,content_area =25,format="ID")
-# 
-# measures(indicator="Heat-Related Mortality",content_area ="Drought",format="name")
-# 
-# measures(indicator="Heat-Related Mortality",content_area ="DR",format="shortName")
-# 
-# all_measures<-measures()
+#'measures(indicator=67,format="ID")
+#'
+#'measures(indicator=c(67,173),format = "ID")
+#'
+#'measures(indicator="Heat-Related Mortality",
+#'         format="name")
+#'
+#'measures(content_area = 25,format="ID")
+#'
+#'measures(indicator=67,content_area =25,format="ID")
+#'
+#'measures(indicator="Historical Temperature & Heat Index",content_area ="Drought",format="name")
+#'
+#'all_measures<-measures()
 #' }
 #' @export
 

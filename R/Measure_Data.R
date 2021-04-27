@@ -16,19 +16,19 @@
 #' @param smoothing default is 0. Specify whether data is geographically smoothed(1) or not (0).
 #' @return The specified data from the CDC Tracking API.
 #' @examples \dontrun{
-# dat1_id<-
-#   Measure_Data(measure=370,content_area = 25,
-#                geo_type_ID = c(1,2),geo_items_ID = c(4,32,35),
-#                temporal_ID = c(2015,2016),strat_level = c("State","ST_CT"),
-#                format = "ID")
-# dat2_shortName<-
-#   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
-#                indicator="Monthly Drought",geo_type_ID = c(1,2),
-#                geo_items_ID = c(4,32,35),temporal_ID=2015:2016,
-#                strat_level_ID = 1:2,format="shortName")
-# dat3_name<-
-#   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
-#                content_area = "Drought",geo_items_ID = c(4,32,35),format="name")
+#' dat1_id<-
+#'   Measure_Data(measure=370,content_area = 25,
+#'                geo_type_ID = c(1,2),geo_items_ID = c(4,32,35),
+#'                temporal_ID = c(2015,2016),strat_level = c("State","ST_CT"),
+#'                format = "ID")
+#' dat2_shortName<-
+#'   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
+#'                indicator="Monthly Drought",geo_type_ID = c(1,2),
+#'                geo_items_ID = c(4,32,35),temporal_ID=2015:2016,
+#'                strat_level_ID = 1:2,format="shortName")
+#' dat3_name<-
+#'   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
+#'                content_area = "Drought",geo_items_ID = c(4,32,35),format="name")
 #' }
 #' @export
 

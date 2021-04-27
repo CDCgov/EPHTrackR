@@ -37,5 +37,29 @@ Find stratification levels for specified measures and geographic types available
 }
 \examples{
 \dontrun{
+measurestratification(measure=370,format="ID")
+
+measurestratification(measure=c(370,423,707),format="ID")
+
+measurestratification(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+                                "Number of extreme heat days","Number of months of drought per year"),
+                      format="shortName")
+
+measurestratification(content_area = 25,format="ID")
+
+measurestratification(indicator="Historical Heat Days",
+                      content_area ="DR",format="shortName")
+
+measurestratification(indicator="Historical Heat Days",
+                      content_area ="DR",geo_type = "County",
+                      format="shortName")
+
+measurestratification(indicator="Historical Heat Days",
+                      content_area ="DR",geo_type_ID = 7,
+                      format="shortName")
+
+measurestratification(measure="Number of summertime (May-Sep) heat-related deaths, by year",
+                      indicator="Historical Extreme Heat Days and Events",
+                      content_area ="Drought",format="name")
 }
 }

@@ -43,6 +43,8 @@ Find temporal periods on CDC Tracking API for multiple measures and geographies.
 }
 \examples{
 \dontrun{
-temp2_shortName<-temporal(content_area = "DR",geo_items_ID = c(4,32,35),format="shortName")
+temp2_shortName<-temporal(content_area = "DR",
+                          geo_items_ID = c(4,32,35),
+                          format="shortName")
 }
 }
