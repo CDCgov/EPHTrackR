@@ -52,7 +52,7 @@ geography_types<-function(measure=NA,indicator=NA,
   GL_list<-list()
   for(geolev in 1:length(meas_ID)){
     GL<-
-      httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/geography_types/",
+      httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/geographicLevels/",
                  meas_ID[geolev]))
 
     GL_list[[geolev]]<-jsonlite::fromJSON(rawToChar(GL$content))
