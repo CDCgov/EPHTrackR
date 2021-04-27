@@ -23,7 +23,7 @@
 #'                format = "ID")
 #' dat2_shortName<-
 #'   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
-#'                indicator="Monthly Drought",geo_type_ID = c(1,2),
+#'                indicator="Historical Drought",geo_type_ID = c(1,2),
 #'                geo_items_ID = c(4,32,35),temporal=2015:2016,
 #'                strat_level_ID = 1:2,format="shortName")
 #' dat3_name<-

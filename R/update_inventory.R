@@ -1,14 +1,14 @@
-#' @name update_measures
+#' @name update_inventory
 #' @title Update Measures List
 #' @description  Update the stored list of content areas, indicators, and measures using the CDC Tracking API.
 #' @return A dataset with the latest updates from CDC Tracking API.
 #' @examples \dontrun{
-#' update_measures()
+#' update_inventory()
 #' }
 #' @export
 
 
-update_measures<-function(){
+update_inventory<-function(){
   
   message("Downloading data...")
   

@@ -44,6 +44,7 @@ temporal<-function(measure=NA,indicator=NA,content_area=NA,
   geo_parentid_table<-
     aggregate(parentGeographicId~Measure_ID+Geo_Type_ID,
               geo_table2,paste0,collapse=",")
+  
   geo_ordered_table<-
     aggregate(parentName~Measure_Name+Geo_Type+Measure_ID+
                 Geo_Type_ID,geo_table2,paste0,collapse=",")
