@@ -10,8 +10,10 @@ update_measures()
 A dataset with the latest updates from CDC Tracking API.
 }
 \description{
-Download the latest list of content areas, indicators, and measures using the CDC Tracking API.
+Update the stored list of content areas, indicators, and measures using the CDC Tracking API.
 }
 \examples{
+\dontrun{
 update_measures()
+}
 }

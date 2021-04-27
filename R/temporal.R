@@ -12,8 +12,9 @@
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
 #' @param geo_filter default is 1. Filter to only retrieve filtered geographic type. Most of the time should equal 1.
 #' @return The years for specified measures and geographies on the CDC Tracking API.
-#' @examples
+#' @examples \dontrun{
 #' temp2_shortName<-temporal(content_area = "DR",geo_items_ID = c(4,32,35),format="shortName")
+#' }
 #' @export
 
 

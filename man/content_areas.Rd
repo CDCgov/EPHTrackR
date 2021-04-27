@@ -13,5 +13,7 @@ The content areas on the CDC Tracking API.
 Print the content areas available on the CDC Tracking API.
 }
 \examples{
+\dontrun{
 content_areas()
+}
 }

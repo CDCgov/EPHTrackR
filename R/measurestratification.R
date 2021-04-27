@@ -10,16 +10,28 @@
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
 #' @param smoothing default is 0. Specify whether data is geographically smoothed(1) or not (0).
 #' @return The stratification for the specified measures and geographic levels on the CDC Tracking API.
-#' @examples
-#' measurestratification(measure=370,format="ID")
-#' measurestratification(measure=c(370,423,707),format="ID")
-#' measurestratification(measure=c("Number of summertime (May-Sep) heat-related deaths, by year","Number of extreme heat days","Number of months of mild drought or worse per year"),format="name")
-#' measurestratification(measure=c("Number of summertime (May-Sep) heat-related deaths, by year","Number of extreme heat days","Number of months of drought per year"),format="shortName")
-#' measurestratification(content_area = 25,format="ID")
-#' measurestratification(indicator="Historical Heat Days",content_area ="DR",format="shortName")
-#' measurestratification(indicator="Historical Heat Days",content_area ="DR",geo_type = "County" ,format="shortName")
-#' measurestratification(indicator="Historical Heat Days",content_area ="DR",geo_type_ID = 7,format="shortName")
-#' measurestratification(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,indicator="Historical Extreme Heat Days and Events",content_area ="Drought",format="name")
+#' @examples \dontrun{
+# measurestratification(measure=370,format="ID")
+# measurestratification(measure=c(370,423,707),format="ID")
+# measurestratification(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+#                                 "Number of extreme heat days","Number of months of mild drought or worse per year"),
+#                       format="name")
+# measurestratification(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+#                                 "Number of extreme heat days","Number of months of drought per year"),
+#                       format="shortName")
+# measurestratification(content_area = 25,format="ID")
+# measurestratification(indicator="Historical Heat Days",
+#                       content_area ="DR",format="shortName")
+# measurestratification(indicator="Historical Heat Days",
+#                       content_area ="DR",geo_type = "County",
+#                       format="shortName")
+# measurestratification(indicator="Historical Heat Days",
+#                       content_area ="DR",geo_type_ID = 7,
+#                       format="shortName")
+# measurestratification(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,
+#                       indicator="Historical Extreme Heat Days and Events",
+#                       content_area ="Drought",format="name")
+#' }
 #' @export
 
 # library(httr)

@@ -2,8 +2,9 @@
 #' @title Print Content Areas
 #' @description  Print the content areas available on the CDC Tracking API.
 #' @return The content areas on the CDC Tracking API.
-#' @examples
+#' @examples\dontrun{
 #' content_areas()
+#' }
 #' @export
 
 

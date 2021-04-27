@@ -4,7 +4,7 @@
 #' @param content_area specify the content areas of interest
 #' @param format indicate whether the content_area variable is an ID, name or shortName
 #' @return The indicators in the specified content areas on the CDC Tracking API.
-#' @examples
+#' @examples \dontrun{
 #' indicators(25,"ID")
 #' indicators("Drought","name")
 #' indicators("DR","shortName")
@@ -13,6 +13,7 @@
 #' indicators(c("Climate Change","Drought"),"name")
 #' indicators(c("CC","DR"),"shortName")
 #' all_indicators<-indicators()
+#' }
 #' @export
 
 

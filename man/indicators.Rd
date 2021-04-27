@@ -18,12 +18,14 @@ The indicators in the specified content areas on the CDC Tracking API.
 Find the indicators in specified content areas available on the CDC Tracking API.
 }
 \examples{
-indicators(15,"ID")
-indicators("Climate Change","name")
-indicators("CC","shortName")
+\dontrun{
+indicators(25,"ID")
+indicators("Drought","name")
+indicators("DR","shortName")
 
 indicators(c(15,25),"ID")
 indicators(c("Climate Change","Drought"),"name")
 indicators(c("CC","DR"),"shortName")
 all_indicators<-indicators()
+}
 }

@@ -36,13 +36,6 @@ The geographies for the specified measures on the CDC Tracking API.
 Find geography for specified measures and geographic types available on the CDC Tracking API.
 }
 \examples{
-geo1_id<-geography(measure=370,format="ID")
-geo2_id<-geography(measure=c(370,423,707),format="ID")
-geo2_name<-geography(measure=c("Number of summertime (May-Sep) heat-related deaths, by year","Number of extreme heat days","Number of months of mild drought or worse per year"),format="name")
-geo2_shortName<-geography(measure=c("Number of summertime (May-Sep) heat-related deaths, by year","Number of extreme heat days","Number of months of drought per year"),format="shortName")
-geo3_id<-geography(content_area = 25,format="ID")
-geo4_shortName<-geography(indicator="Historical Heat Days",content_area ="DR",format="shortName")
-geo5_shortName<-geography(indicator="Historical Heat Days",content_area ="DR",geo_type = "County" ,format="shortName")
-geo6_shortName<-geography(indicator="Historical Heat Days",content_area ="DR",geo_type_ID = 7,format="shortName")
-geo7_name<-geography(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,indicator="Historical Extreme Heat Days and Events",content_area ="Drought",format="name")
+\dontrun{
+}
 }
