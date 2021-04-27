@@ -1,4 +1,4 @@
-#' @name geographicLevels
+#' @name geography_types
 #' @title Find geographic levels
 #' @description  Find geographic levels for specified measures available on the CDC Tracking API.
 #' @import dplyr
@@ -8,32 +8,28 @@
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
 #' @return The geographic levels for the specified measures on the CDC Tracking API.
 #' @examples \dontrun{
-#' geographicLevels(measure=370,format="ID")
-#' geographicLevels(measure=c(370,423,707),format="ID")
-#' geographicLevels(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+#' geography_types(measure=370,format="ID")
+#' geography_types(measure=c(370,423,707),format="ID")
+#' geography_types(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
 #'                            "Number of extreme heat days",
 #'                            "Number of months of mild drought or worse per year"),
 #'                  format="name")
-#' geographicLevels(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+#' geography_types(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
 #'                            "Number of extreme heat days","Number of months of drought per year"),
 #'                  format="shortName")
-#' geographicLevels(content_area = 25,format="ID")
-#' geographicLevels(indicator="Historical Heat Days",
+#' geography_types(content_area = 25,format="ID")
+#' geography_types(indicator="Historical Heat Days",
 #'                  content_area ="DR",format="shortName")
-#' geographicLevels(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,
+#' geography_types(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,
 #'                  indicator="Historical Extreme Heat Days and Events",
 #'                  content_area ="Drought",format="name")
 #' }
 #' @export
 
-#library(httr)
-#library(jsonlite)
-#library(plyr)
-
 
 ### Print out Geographic Levels for a Measure ###
 
-geographicLevels<-function(measure=NA,indicator=NA,
+geography_types<-function(measure=NA,indicator=NA,
                            content_area=NA,
                            format=c("ID","name","shortName")){
   format<-match.arg(format)
@@ -56,7 +52,7 @@ geographicLevels<-function(measure=NA,indicator=NA,
   GL_list<-list()
   for(geolev in 1:length(meas_ID)){
     GL<-
-      httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/geographicLevels/",
+      httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/geography_types/",
                  meas_ID[geolev]))
 
     GL_list[[geolev]]<-jsonlite::fromJSON(rawToChar(GL$content))

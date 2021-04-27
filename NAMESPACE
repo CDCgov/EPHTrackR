@@ -2,8 +2,8 @@
 
 export(Measure_Data)
 export(content_areas)
-export(geographicLevels)
 export(geography)
+export(geography_types)
 export(indicators)
 export(measures)
 export(measurestratification)
