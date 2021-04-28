@@ -102,5 +102,5 @@ Measure_Data<-
     MD_list[[gch]]$Geo_Type<-temp_SL_table$Geo_Type[gch]
   }
   MD_df<-purrr::map_dfr(MD_list,as.data.frame)
-  MD_df[-which(is.na(MD_df$id)),]
+  MD_df[which(!is.na(MD_df$id)),]
 }
