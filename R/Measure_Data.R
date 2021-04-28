@@ -13,7 +13,7 @@
 #' @param strat_level specify stratification level by name or abbreviation.
 #' @param strat_level_ID specify stratification level by ID.
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
-#' \item{geo_filter}{default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change.}
+#' @param geo_filter default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change.
 #' @param smoothing default is 0. Specify whether data is geographically smoothed(1) or not (0).
 #' @return The specified data from the CDC Tracking API.
 #' @examples \dontrun{
