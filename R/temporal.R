@@ -10,7 +10,7 @@
 #' @param geo_items specify Geographic items by name or abbreviation.
 #' @param geo_items_ID specify Geographic items by ID.
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
-#' @param geo_filter default is 1. Filter to only retrieve filtered geographic type. Most of the time should equal 1.
+#' @param geo_filter default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change
 #' @return The years for specified measures and geographies on the CDC Tracking API.
 #' @examples \dontrun{
 #' temp2_shortName<-temporal(content_area = "DR",
