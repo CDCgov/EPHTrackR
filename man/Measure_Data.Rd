@@ -16,7 +16,8 @@ Measure_Data(
   strat_level = NA,
   strat_level_ID = NA,
   format = c("name", "shortName", "ID"),
-  smoothing = 0
+  smoothing = 0,
+  geo_filter = 1
 )
 }
 \arguments{
@@ -26,21 +27,22 @@ Measure_Data(
 
 \item{content_area}{specify the content areas of interest}
 
-\item{geo_type}{specify the Geographic type.}
+\item{geo_type}{specify the geography type of the geo_items entry as a quoted string (e.g. "State", "County").}
 
-\item{geo_type_ID}{specify the Geographic type ID.}
+\item{geo_type_ID}{specify the ID of the geography type of the geo_items entry as a numeric value (e.g. 1, 2).}
 
 \item{geo_items}{specify Geographic items by name or abbreviation.}
 
 \item{geo_items_ID}{specify Geographic items by ID.}
 
-\item{temporal}{specify the years of interest.}
+\item{temporal}{specify the temporal period(s) of interest with unquoted string.}
 
 \item{strat_level}{specify stratification level by name or abbreviation.}
 
 \item{strat_level_ID}{specify stratification level by ID.}
 
-\item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
+\item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
+\item{geo_filter}{default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change.}}
 
 \item{smoothing}{default is 0. Specify whether data is geographically smoothed(1) or not (0).}
 }

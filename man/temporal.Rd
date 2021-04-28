@@ -33,7 +33,7 @@ temporal(
 
 \item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
 
-\item{geo_filter}{default is 1. Filter to only retrieve filtered geographic type. Most of the time should equal 1.}
+\item{geo_filter}{default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change}
 }
 \value{
 The years for specified measures and geographies on the CDC Tracking API.

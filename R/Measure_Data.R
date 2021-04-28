@@ -56,6 +56,7 @@ Measure_Data<-
         temp_table$Temporal[tp,][which(temp_table$Temporal[tp,]%in%temporal)]
     }
   }else{
+    temp_list<-list()
     for (tp in 1:nrow(temp_table)){
       temp_list[[tp]]<-temp_table$Temporal[tp,]
     }
