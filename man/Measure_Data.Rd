@@ -20,21 +20,21 @@ Measure_Data(
 )
 }
 \arguments{
-\item{measure}{specify the measures of interest}
+\item{measure}{specify the measures of interest. This argument must be included when running the function and it is recommended that only one measure be queried at a time.}
 
 \item{geo_type}{specify the geography type of the geo_items entry as a quoted string (e.g. "State", "County").}
 
 \item{geo_type_ID}{specify the ID of the geography type of the geo_items entry as a numeric value (e.g. 1, 2).}
 
-\item{geo_items}{specify Geographic items by name or abbreviation.}
+\item{geo_items}{specify Geographic items by name or abbreviation. At this time, this argument only accepts states even for county or sub-county geograhies. If this argument is not submitted, all geographies will be included in the output.}
 
-\item{geo_items_ID}{specify Geographic items by ID.}
+\item{geo_items_ID}{specify Geographic items by ID. At this time, this argument only accepts state FIPS codes (without leading zero) even for county or sub-county geograhies. If this argument is not submitted, all geographies will be included in the output.}
 
-\item{temporal_period}{specify the temporal period(s) of interest with unquoted string.}
+\item{temporal_period}{specify the temporal period(s) of interest with unquoted string. If this argument is not submitted, all temporal periods will be included in the output.}
 
-\item{strat_level}{specify stratification level by name or abbreviation.}
+\item{strat_level}{specify stratification level by name or abbreviation. This argument should be included when running the function and it is recommended that only one stratification level be queried at a time.}
 
-\item{strat_level_ID}{specify stratification level by ID.}
+\item{strat_level_ID}{specify stratification level by ID. This argument should be included when running the function and it is recommended that only one stratification level be queried at a time.}
 
 \item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
 
