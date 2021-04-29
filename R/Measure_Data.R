@@ -3,18 +3,16 @@
 #' @description  Pull data from CDC Tracking API for multiple measures, geographies, stratifications and years.
 #' @import dplyr
 #' @param measure specify the measures of interest
-#' @param indicator specify the indicators of interest
-#' @param content_area specify the content areas of interest
 #' @param geo_type specify the geography type of the geo_items entry as a quoted string (e.g. "State", "County").
 #' @param geo_type_ID specify the ID of the geography type of the geo_items entry as a numeric value (e.g. 1, 2).
 #' @param geo_items specify Geographic items by name or abbreviation.
 #' @param geo_items_ID specify Geographic items by ID.
-#' @param temporal specify the temporal period(s) of interest with unquoted string.
+#' @param temporal_period specify the temporal period(s) of interest with unquoted string.
 #' @param strat_level specify stratification level by name or abbreviation.
 #' @param strat_level_ID specify stratification level by ID.
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
 #' @param geo_filter default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change.
-#' @param smoothing default is 0. Specify whether data is geographically smoothed(1) or not (0).
+#' @param smoothing default is 0. Request geographically smoothed data. If smoothed data is requested, but is not available the function will produce an error.
 #' @return The specified data from the CDC Tracking API.
 #' @examples \dontrun{
 #' dat1_id<-
@@ -37,70 +35,163 @@
 ### Get data for multiple states and years ###
 
 Measure_Data<-
-  function(measure=NA,indicator=NA,content_area=NA,
+  function(measure=NA,
            geo_type=NA,geo_type_ID=NA,geo_items=NA,
-           geo_items_ID=NA,temporal=NA,strat_level=NA,
+           geo_items_ID=NA,temporal_period=NA,strat_level=NA,
            strat_level_ID=NA,
            format=c("name","shortName","ID"),
            smoothing=0, geo_filter=1){
-  format<-match.arg(format)
-
-  temp_table<-temporal(measure,indicator,content_area,
-                       geo_type,geo_type_ID,geo_items,
-                       geo_items_ID,format)
-
-  if(!any(is.na(temporal))){
-    temp_list<-list()
-    for(tp in 1:nrow(temp_table)){
-      temp_list[[tp]]<-
-        temp_table$Temporal[tp,][which(temp_table$Temporal[tp,]%in%temporal)]
+    
+    format<-match.arg(format)
+    
+    
+    SL_list<-
+      stratificationlevel(measure,
+                          geo_type,geo_type_ID,format)
+    
+    MS_list<-measurestratification(measure,
+                                   geo_type,geo_type_ID,format)
+    temp_list<-temporal(measure,
+                        geo_type,geo_type_ID,geo_items,
+                        geo_items_ID,format, simplified_output = FALSE)
+    
+    
+    
+    temp_vec_list<-purrr::map(temp_list, function(x){
+      
+      if(any(!is.na(temporal_period))){
+        
+        df <- x[which(x$parentTemporal %in% temporal_period),]
+        
+      } else{
+        
+        df=x
+      }
+      
+      temp_vec<- rev(
+        sort(
+          as.numeric(
+            paste0(df$parentTemporal,
+                   collapse = ",")
+          )
+        )
+      )
+      
+      return(temp_vec)
+    })
+    
+    
+    
+    
+    
+    #generating advanced options calls for each measure and geography type
+    adv_opt_call_list<-purrr::map(1:length(SL_list), function(y){
+      
+      # if(any(!is.na(strat_level_ID)) | any(!is.na(strat_level))){
+      #   
+      # SL_table<-SL_list[[y]][which(SL_list[[y]]$id %in% strat_level_ID |
+      #                                SL_list[[y]]$name %in% strat_level |
+      #                                SL_list[[y]]$abbreviation %in% strat_level),]
+      #   
+      # } else{
+      #   
+      SL_table<-SL_list[[y]]
+      #   
+      # }
+      
+      
+      adv_opt_call_row <- purrr::map(1:nrow(SL_table),function(i){
+        
+        if(length(unlist(SL_table[i,"stratificationType"]))>0){
+          
+          
+          stratificationType <- as.list(SL_table[[i,"stratificationType"]][,"columnName"])
+          
+          
+          
+          values <- purrr::map(1:length(stratificationType),function(z){
+            
+            advanced_options <-
+              MS_list[[y]][MS_list[[y]]$columnName %in% 
+                             stratificationType[[z]],"stratificationItem"][[1]]$localId
+            
+            return(advanced_options)
+          })
+          
+          
+          adv_opt <- Map(c,stratificationType,values)
+          
+          adv_opt_call <-  purrr::map(adv_opt, function(w){
+            
+            paste0(w[1], "=", paste0(w[2:length(w)], collapse=","))
+            
+          })
+          
+          paste0("?", paste0(adv_opt_call, collapse="&") )
+          
+        } else{
+          
+          adv_opt_call_row <- ""
+        }
+        
+        
+      })
+      
+      return(unlist(adv_opt_call_row))
+    })
+    
+    
+    #adding each element of the advanced options list as a column in each SL table
+    
+    SL_list_complete<-purrr::map(1:length(SL_list), function(q){
+      
+      SL_list[[q]]$Geographic_ID <- rep(temp_list[[q]]$Geographic_ID[1],
+                                        nrow(SL_list[[q]]))
+      
+      SL_list[[q]]$time <- rep(temp_vec_list[[q]],
+                               nrow(SL_list[[q]]) )
+      
+      SL_list[[q]]$adv_opt_call <- adv_opt_call_list[[q]]
+      
+      return(SL_list[[q]])
+      
+    })
+    
+    SL_df_complete <- purrr::map_dfr(SL_list_complete, as.data.frame)
+    
+    
+    if(any(!is.na(strat_level_ID)) | any(!is.na(strat_level))){
+      
+      SL_df_complete <- SL_df_complete[which(SL_df_complete$id%in%strat_level_ID |
+                                               SL_df_complete$name%in%strat_level |
+                                               SL_df_complete$abbreviation%in%strat_level),]
+      
     }
-  }else{
-    temp_list<-list()
-    for (tp in 1:nrow(temp_table)){
-      temp_list[[tp]]<-temp_table$Temporal[tp,]
-    }
+    
+    
+    MD_list<-purrr::map(1:nrow(SL_df_complete), function(gch){
+      
+      MD<-
+        httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/getCoreHolder/",
+                         SL_df_complete[gch,]$Measure_ID,"/",
+                         SL_df_complete[gch,]$id,"/",geo_filter,
+                         "/",SL_df_complete[gch,]$Geographic_ID,"/",
+                         SL_df_complete[gch,]$time,"/",smoothing,"/0",
+                         SL_df_complete[gch,]$adv_opt_call))
+      
+      MD_cont<-jsonlite::fromJSON(rawToChar(MD$content))
+      MD_cont<-MD_cont$tableResult
+      MD_cont$Measure_ID<-SL_df_complete[gch,"Measure_ID"]
+      MD_cont$Measure_Name<-SL_df_complete[gch,"Measure_Name"]
+      MD_cont$Measure_shortName<-SL_df_complete[gch,"Measure_shortName"]
+      MD_cont$Strat_Level_ID<-SL_df_complete[gch,"id"]
+      MD_cont$Geo_Type_ID<-SL_df_complete[gch,"Geo_Type_ID"]
+      MD_cont$Geo_Type<-SL_df_complete[gch,"Geo_Type"]
+      MD_cont<-MD_cont[which(!is.na(MD_cont$id)),]
+      return(MD_cont)
+      
+      
+    })
     
   }
 
-  for(tpf in 1:nrow(temp_table)){
-    temp_table$temp_formatted[tpf]<-
-      paste0(temp_list[[tpf]],collapse = ",")
-  }
-
-  SL_table<-
-    stratificationlevel(measure,indicator,content_area,
-                        geo_type,geo_type_ID,format)
-
-  if(!any(is.na(strat_level_ID)) | !any(is.na(strat_level))){
-    SL_table<-
-      SL_table[which(SL_table$id%in%strat_level_ID |
-                       SL_table$name%in%strat_level |
-                       SL_table$abbreviation%in%strat_level),]
-  }
-
-  suppressMessages(temp_SL_table<-
-                     dplyr::full_join(temp_table,SL_table))
-
-  MD_list<-list()
-
-  for(gch in 1:nrow(temp_SL_table)){
-    MD<-
-      httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/getCoreHolder/",
-                       temp_SL_table$Measure_ID[gch],"/",
-                       temp_SL_table$id[gch],"/",geo_filter,
-                       "/",temp_SL_table$Geographic_ID[gch],"/",
-                       temp_SL_table$temp_formatted[gch],"/",smoothing,"/0"))
-
-    MD_cont<-jsonlite::fromJSON(rawToChar(MD$content))
-    MD_list[[gch]]<-MD_cont$tableResult
-    MD_list[[gch]]$Measure_ID<-temp_SL_table$Measure_ID[gch]
-    MD_list[[gch]]$Measure_Name<-temp_SL_table$Measure_Name[gch]
-    MD_list[[gch]]$Measure_shortName<-temp_SL_table$Measure_shortName[gch]
-    MD_list[[gch]]$Strat_Level_ID<-temp_SL_table$id[gch]
-    MD_list[[gch]]$Geo_Type_ID<-temp_SL_table$Geo_Type_ID[gch]
-    MD_list[[gch]]$Geo_Type<-temp_SL_table$Geo_Type[gch]
-  }
-  MD_df<-purrr::map_dfr(MD_list,as.data.frame)
-  MD_df[which(!is.na(MD_df$id)),]
-}
