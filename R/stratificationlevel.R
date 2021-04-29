@@ -26,42 +26,48 @@
 
 
 ### Return Stratification Levels for a Measure and Geographic Type ###
-
 stratificationlevel<-
   function(measure=NA,
            geo_type=NA,geo_type_ID=NA,
            format=c("name","shortName","ID"),smoothing=0){
-  format<-match.arg(format)
-
-  GL_list<-geography_types(measure,format)
-  
-  GL_table<-purrr::map_dfr(GL_list,as.data.frame)
-  
-  
-  if(!any(is.na(geo_type_ID)) | !any(is.na(geo_type))){
-    GL_table<-GL_table[which(GL_table$geographicTypeId%in%geo_type_ID |
-                               GL_table$geographicType%in%geo_type),]
+    format<-match.arg(format)
+    
+    GL_list<-geography_types(measure,format)
+    
+    GL_table<-purrr::map_dfr(GL_list,as.data.frame)
+    
+    
+    if(!any(is.na(geo_type_ID)) | !any(is.na(geo_type))){
+      GL_table<-GL_table[which(GL_table$geographicTypeId%in%geo_type_ID |
+                                 GL_table$geographicType%in%geo_type),]
+      
+      if(nrow( GL_table)==0){
+        
+        stop("The specified geographic type may not be available for this measure or stratification.")
+        
+      }
+      
+    }
+    
+    meas_ID<-GL_table$Measure_ID
+    geo_type_ID<-GL_table$geographicTypeId
+    
+    SL_list<-purrr::map(1:length(meas_ID), function(strlev){
+      
+      SL<-
+        httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/stratificationlevel/",
+                         meas_ID[strlev],"/",geo_type_ID[strlev],"/",smoothing))
+      SL_cont<-jsonlite::fromJSON(rawToChar(SL$content))
+      SL_cont$Measure_ID<-meas_ID[strlev]
+      SL_cont$Measure_Name<-GL_table$Measure_Name[strlev]
+      SL_cont$Measure_shortName<-GL_table$Measure_shortName[strlev]
+      SL_cont$Geo_Type<-GL_table$geographicType[strlev]
+      SL_cont$Geo_Type_ID<-GL_table$geographicTypeId[strlev]
+      
+      return(SL_cont)
+      
+    })
+    
+    return(SL_list)
   }
-  
-  meas_ID<-GL_table$Measure_ID
-  geo_type_ID<-GL_table$geographicTypeId
-  
-  SL_list<-purrr::map(1:length(meas_ID), function(strlev){
-    
-    SL<-
-      httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/stratificationlevel/",
-                       meas_ID[strlev],"/",geo_type_ID[strlev],"/",smoothing))
-    SL_cont<-jsonlite::fromJSON(rawToChar(SL$content))
-    SL_cont$Measure_ID<-meas_ID[strlev]
-    SL_cont$Measure_Name<-GL_table$Measure_Name[strlev]
-    SL_cont$Measure_shortName<-GL_table$Measure_shortName[strlev]
-    SL_cont$Geo_Type<-GL_table$geographicType[strlev]
-    SL_cont$Geo_Type_ID<-GL_table$geographicTypeId[strlev]
-    
-    return(SL_cont)
-    
-  })
-  
-  return(SL_list)
-}
 

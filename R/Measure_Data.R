@@ -34,7 +34,6 @@
 
 
 ### Get data for multiple states and years ###
-
 Measure_Data<-
   function(measure=NA,
            geo_type=NA,geo_type_ID=NA,geo_items=NA,
@@ -72,10 +71,8 @@ Measure_Data<-
       
       temp_vec<- rev(
         sort(
-          as.numeric(
-            paste0(df$parentTemporal,
-                   collapse = ",")
-          )
+          paste0(unique(gsub("[^0-9.-]", "",paste0(df$parentTemporal,df$childTemporal))),
+                 collapse = ",")
         )
       )
       
@@ -183,7 +180,18 @@ Measure_Data<-
       
       MD_cont<-jsonlite::fromJSON(rawToChar(MD$content))
       
-      MD_cont_tab<-MD_cont$tableResult
+      #removing empty list elements
+      MD_cont <- purrr::compact(MD_cont )
+      
+      MD_cont <- purrr::compact(MD_cont )
+      
+      data_list_element<-names(unlist(purrr::map(MD_cont,nrow)))
+      
+      #selecting the table results element with actual relevant data.
+      #name of element can differ depending on the measure
+      MD_cont_tab<-MD_cont[[data_list_element]]
+      
+      
       
       #adding in stratification names only if lookuplist with the names exists
       if(length(MD_cont$lookupList)>0){
@@ -207,6 +215,8 @@ Measure_Data<-
       }
       
       #filling in the rest of the output table
+      names(MD_cont_tab)[which(names(MD_cont_tab)=="year")]<-"date"
+      
       MD_cont_tab$Measure_ID<-SL_df_complete[gch,"Measure_ID"]
       MD_cont_tab$Measure_Name<-SL_df_complete[gch,"Measure_Name"]
       MD_cont_tab$Measure_shortName<-SL_df_complete[gch,"Measure_shortName"]
