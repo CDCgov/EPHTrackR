@@ -2,14 +2,14 @@
 #' @title Pull data from API
 #' @description  Pull data from CDC Tracking API for multiple measures, geographies, stratifications and years.
 #' @import dplyr
-#' @param measure specify the measures of interest
+#' @param measure specify the measures of interest. This argument must be included when running the function and it is recommended that only one measure be queried at a time.
 #' @param geo_type specify the geography type of the geo_items entry as a quoted string (e.g. "State", "County").
 #' @param geo_type_ID specify the ID of the geography type of the geo_items entry as a numeric value (e.g. 1, 2).
-#' @param geo_items specify Geographic items by name or abbreviation.
-#' @param geo_items_ID specify Geographic items by ID.
-#' @param temporal_period specify the temporal period(s) of interest with unquoted string.
-#' @param strat_level specify stratification level by name or abbreviation.
-#' @param strat_level_ID specify stratification level by ID.
+#' @param geo_items specify Geographic items by name or abbreviation. At this time, this argument only accepts states even for county or sub-county geograhies. If this argument is not submitted, all geographies will be included in the output.
+#' @param geo_items_ID specify Geographic items by ID. At this time, this argument only accepts state FIPS codes (without leading zero) even for county or sub-county geograhies. If this argument is not submitted, all geographies will be included in the output.
+#' @param temporal_period specify the temporal period(s) of interest with unquoted string. If this argument is not submitted, all temporal periods will be included in the output.
+#' @param strat_level specify stratification level by name or abbreviation. This argument should be included when running the function and it is recommended that only one stratification level be queried at a time.
+#' @param strat_level_ID specify stratification level by ID. This argument should be included when running the function and it is recommended that only one stratification level be queried at a time.
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
 #' @param simplified_output logical. Determines whether output table is simplified with only relevant columns (TRUE) or the full raw output from the Tracking Network API (FALSE)
 #' @param geo_filter default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change.
