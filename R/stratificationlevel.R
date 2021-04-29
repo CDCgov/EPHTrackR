@@ -3,8 +3,6 @@
 #' @description  Find stratification levels for specified measures and geographic types available on the CDC Tracking API.
 #' @import dplyr
 #' @param measure specify the measures of interest
-#' @param indicator specify the indicators of interest
-#' @param content_area specify the content areas of interest
 #' @param geo_type specify the Geographic type.
 #' @param geo_type_ID specify the Geographic type ID.
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
@@ -18,23 +16,6 @@
 #' stratificationlevel(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
 #'                                 "Number of extreme heat days","Number of months of drought per year"),
 #'                       format="shortName")
-#'
-#' stratificationlevel(content_area = 25,format="ID")
-#'
-#' stratificationlevel(indicator="Historical Heat Days",
-#'                       content_area ="DR",format="shortName")
-#'
-#' stratificationlevel(indicator="Historical Heat Days",
-#'                       content_area ="DR",geo_type = "County",
-#'                       format="shortName")
-#'
-#' stratificationlevel(indicator="Historical Heat Days",
-#'                       content_area ="DR",geo_type_ID = 7,
-#'                       format="shortName")
-#'
-#' stratificationlevel(measure="Number of summertime (May-Sep) heat-related deaths, by year",
-#'                       indicator="Historical Extreme Heat Days and Events",
-#'                       content_area ="Drought",format="name")
 #' }
 #' @export
 
@@ -47,34 +28,40 @@
 ### Return Stratification Levels for a Measure and Geographic Type ###
 
 stratificationlevel<-
-  function(measure=NA,indicator=NA,content_area=NA,
+  function(measure=NA,
            geo_type=NA,geo_type_ID=NA,
            format=c("name","shortName","ID"),smoothing=0){
   format<-match.arg(format)
 
-  GL_table<-geography_types(measure,indicator,content_area,format)
-
+  GL_list<-geography_types(measure,format)
+  
+  GL_table<-purrr::map_dfr(GL_list,as.data.frame)
+  
+  
   if(!any(is.na(geo_type_ID)) | !any(is.na(geo_type))){
     GL_table<-GL_table[which(GL_table$geographicTypeId%in%geo_type_ID |
                                GL_table$geographicType%in%geo_type),]
   }
-
+  
   meas_ID<-GL_table$Measure_ID
   geo_type_ID<-GL_table$geographicTypeId
-
-  SL_list<-list()
-
-  for(strlev in 1:length(meas_ID)){
+  
+  SL_list<-purrr::map(1:length(meas_ID), function(strlev){
+    
     SL<-
       httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/stratificationlevel/",
                        meas_ID[strlev],"/",geo_type_ID[strlev],"/",smoothing))
-    SL_list[[strlev]]<-jsonlite::fromJSON(rawToChar(SL$content))
-    SL_list[[strlev]]$Measure_ID<-meas_ID[strlev]
-    SL_list[[strlev]]$Measure_Name<-GL_table$Measure_Name[strlev]
-    SL_list[[strlev]]$Measure_shortName<-GL_table$Measure_shortName[strlev]
-    SL_list[[strlev]]$Geo_Type<-GL_table$geographicType[strlev]
-    SL_list[[strlev]]$Geo_Type_ID<-GL_table$geographicTypeId[strlev]
-  }
-  purrr::map_dfr(SL_list,as.data.frame)
+    SL_cont<-jsonlite::fromJSON(rawToChar(SL$content))
+    SL_cont$Measure_ID<-meas_ID[strlev]
+    SL_cont$Measure_Name<-GL_table$Measure_Name[strlev]
+    SL_cont$Measure_shortName<-GL_table$Measure_shortName[strlev]
+    SL_cont$Geo_Type<-GL_table$geographicType[strlev]
+    SL_cont$Geo_Type_ID<-GL_table$geographicTypeId[strlev]
+    
+    return(SL_cont)
+    
+  })
+  
+  return(SL_list)
 }
 
