@@ -6,26 +6,21 @@
 \usage{
 Measure_Data(
   measure = NA,
-  indicator = NA,
-  content_area = NA,
   geo_type = NA,
   geo_type_ID = NA,
   geo_items = NA,
   geo_items_ID = NA,
-  temporal = NA,
+  temporal_period = NA,
   strat_level = NA,
   strat_level_ID = NA,
   format = c("name", "shortName", "ID"),
   smoothing = 0,
-  geo_filter = 1
+  geo_filter = 1,
+  simplified_output = T
 )
 }
 \arguments{
 \item{measure}{specify the measures of interest}
-
-\item{indicator}{specify the indicators of interest}
-
-\item{content_area}{specify the content areas of interest}
 
 \item{geo_type}{specify the geography type of the geo_items entry as a quoted string (e.g. "State", "County").}
 
@@ -35,7 +30,7 @@ Measure_Data(
 
 \item{geo_items_ID}{specify Geographic items by ID.}
 
-\item{temporal}{specify the temporal period(s) of interest with unquoted string.}
+\item{temporal_period}{specify the temporal period(s) of interest with unquoted string.}
 
 \item{strat_level}{specify stratification level by name or abbreviation.}
 
@@ -43,9 +38,11 @@ Measure_Data(
 
 \item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
 
-\item{smoothing}{default is 0. Specify whether data is geographically smoothed(1) or not (0).}
+\item{smoothing}{default is 0. Request geographically smoothed data. If smoothed data is requested, but is not available the function will produce an error.}
 
 \item{geo_filter}{default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change.}
+
+\item{simplified_output}{logical. Determines whether output table is simplified with only relevant columns (TRUE) or the full raw output from the Tracking Network API (FALSE)}
 }
 \value{
 The specified data from the CDC Tracking API.

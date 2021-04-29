@@ -6,8 +6,6 @@
 \usage{
 stratificationlevel(
   measure = NA,
-  indicator = NA,
-  content_area = NA,
   geo_type = NA,
   geo_type_ID = NA,
   format = c("name", "shortName", "ID"),
@@ -16,10 +14,6 @@ stratificationlevel(
 }
 \arguments{
 \item{measure}{specify the measures of interest}
-
-\item{indicator}{specify the indicators of interest}
-
-\item{content_area}{specify the content areas of interest}
 
 \item{geo_type}{specify the Geographic type.}
 
@@ -44,22 +38,5 @@ stratificationlevel(measure=c(370,423,707),format="ID")
 stratificationlevel(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
                                 "Number of extreme heat days","Number of months of drought per year"),
                       format="shortName")
-
-stratificationlevel(content_area = 25,format="ID")
-
-stratificationlevel(indicator="Historical Heat Days",
-                      content_area ="DR",format="shortName")
-
-stratificationlevel(indicator="Historical Heat Days",
-                      content_area ="DR",geo_type = "County",
-                      format="shortName")
-
-stratificationlevel(indicator="Historical Heat Days",
-                      content_area ="DR",geo_type_ID = 7,
-                      format="shortName")
-
-stratificationlevel(measure="Number of summertime (May-Sep) heat-related deaths, by year",
-                      indicator="Historical Extreme Heat Days and Events",
-                      content_area ="Drought",format="name")
 }
 }

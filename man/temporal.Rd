@@ -6,22 +6,17 @@
 \usage{
 temporal(
   measure = NA,
-  indicator = NA,
-  content_area = NA,
   geo_type = NA,
   geo_type_ID = NA,
   geo_items = NA,
   geo_items_ID = NA,
   format = c("name", "shortName", "ID"),
+  simplified_output = TRUE,
   geo_filter = 1
 )
 }
 \arguments{
 \item{measure}{specify the measures of interest}
-
-\item{indicator}{specify the indicators of interest}
-
-\item{content_area}{specify the content areas of interest}
 
 \item{geo_type}{specify the Geographic type.}
 
@@ -33,7 +28,9 @@ temporal(
 
 \item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
 
-\item{geo_filter}{default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change}
+\item{simplified_output}{logical. Determines whether output table is simplified with only relevant columns (TRUE) or the raw output from the Tracking Network API (FALSE)}
+
+\item{geo_filter}{default is 1. Filter query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change}
 }
 \value{
 The years for specified measures and geographies on the CDC Tracking API.

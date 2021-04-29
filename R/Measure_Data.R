@@ -11,6 +11,7 @@
 #' @param strat_level specify stratification level by name or abbreviation.
 #' @param strat_level_ID specify stratification level by ID.
 #' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
+#' @param simplified_output logical. Determines whether output table is simplified with only relevant columns (TRUE) or the full raw output from the Tracking Network API (FALSE)
 #' @param geo_filter default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change.
 #' @param smoothing default is 0. Request geographically smoothed data. If smoothed data is requested, but is not available the function will produce an error.
 #' @return The specified data from the CDC Tracking API.
@@ -40,7 +41,8 @@ Measure_Data<-
            geo_items_ID=NA,temporal_period=NA,strat_level=NA,
            strat_level_ID=NA,
            format=c("name","shortName","ID"),
-           smoothing=0, geo_filter=1){
+           smoothing=0, geo_filter=1, 
+           simplified_output=T){
     
     format<-match.arg(format)
     
@@ -180,18 +182,72 @@ Measure_Data<-
                          SL_df_complete[gch,]$adv_opt_call))
       
       MD_cont<-jsonlite::fromJSON(rawToChar(MD$content))
-      MD_cont<-MD_cont$tableResult
-      MD_cont$Measure_ID<-SL_df_complete[gch,"Measure_ID"]
-      MD_cont$Measure_Name<-SL_df_complete[gch,"Measure_Name"]
-      MD_cont$Measure_shortName<-SL_df_complete[gch,"Measure_shortName"]
-      MD_cont$Strat_Level_ID<-SL_df_complete[gch,"id"]
-      MD_cont$Geo_Type_ID<-SL_df_complete[gch,"Geo_Type_ID"]
-      MD_cont$Geo_Type<-SL_df_complete[gch,"Geo_Type"]
-      MD_cont<-MD_cont[which(!is.na(MD_cont$id)),]
-      return(MD_cont)
+      
+      MD_cont_tab<-MD_cont$tableResult
+      
+      #adding in stratification names only if lookuplist with the names exists
+      if(length(MD_cont$lookupList)>0){
+        MD_cont_lookup <- purrr::map(1:length(MD_cont$lookupList), function(v){
+          
+          df<-data.frame(groupById=v, 
+                         stratification= 
+                           paste(MD_cont$lookupList[[v]]$itemName,collapse=", "),
+                         stringsAsFactors = F)
+          
+          return(df)
+        })
+        
+        
+        MD_cont_lookup_df<-purrr::map_dfr(MD_cont_lookup, 
+                                          as.data.frame)
+        
+        MD_cont_tab$stratification <- 
+          MD_cont_lookup_df$stratification[match( MD_cont_tab$groupById,
+                                                  MD_cont_lookup_df$groupById)]
+      }
+      
+      #filling in the rest of the output table
+      MD_cont_tab$Measure_ID<-SL_df_complete[gch,"Measure_ID"]
+      MD_cont_tab$Measure_Name<-SL_df_complete[gch,"Measure_Name"]
+      MD_cont_tab$Measure_shortName<-SL_df_complete[gch,"Measure_shortName"]
+      MD_cont_tab$Strat_Level_ID<-SL_df_complete[gch,"id"]
+      MD_cont_tab$Geo_Type_ID<-SL_df_complete[gch,"Geo_Type_ID"]
+      MD_cont_tab$Geo_Type<-SL_df_complete[gch,"Geo_Type"]
+      
+      
+      MD_cont_tab<-MD_cont_tab[which(!is.na(MD_cont_tab$id)),]
+      
+      
+      if(simplified_output==FALSE){
+        
+        return(MD_cont_tab)
+        
+      } else{
+        
+        return(dplyr::select(MD_cont_tab,
+                             -any_of(c("id",
+                                       "displayValue",
+                                       "groupById",
+                                       "geographicTypeId",
+                                       "calculationType",
+                                       "noDataId",
+                                       "hatchingId",
+                                       "hatching",
+                                       "noDataBreakGroup",
+                                       "categoryId",
+                                       "category",
+                                       "categoryName",
+                                       "titleconfidenceIntervalLowName",
+                                       "confidenceIntervalHighName",
+                                       "standardErrorDisplay",
+                                       "secondaryValueDisplay",
+                                       "confidenceIntervalDisplay",
+                                       "rollover" ))))
+        
+        
+      }
       
       
     })
     
   }
-

@@ -6,8 +6,6 @@
 \usage{
 measurestratification(
   measure = NA,
-  indicator = NA,
-  content_area = NA,
   geo_type = NA,
   geo_type_ID = NA,
   format = c("name", "shortName", "ID"),
@@ -17,15 +15,11 @@ measurestratification(
 \arguments{
 \item{measure}{specify the measures of interest}
 
-\item{indicator}{specify the indicators of interest}
-
-\item{content_area}{specify the content areas of interest}
-
 \item{geo_type}{specify the Geographic type.}
 
 \item{geo_type_ID}{specify the Geographic type ID.}
 
-\item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
+\item{format}{indicate whether the measure is listed as an ID, name or shortName}
 
 \item{smoothing}{default is 0. Specify whether data is geographically smoothed(1) or not (0).}
 }

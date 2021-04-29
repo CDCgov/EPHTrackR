@@ -6,20 +6,15 @@
 \usage{
 geography(
   measure = NA,
-  indicator = NA,
-  content_area = NA,
   geo_type = NA,
   geo_type_ID = NA,
   format = c("name", "shortName", "ID"),
+  simplified_output = TRUE,
   rollup = 0
 )
 }
 \arguments{
 \item{measure}{specify the measures of interest}
-
-\item{indicator}{specify the indicators of interest}
-
-\item{content_area}{specify the content areas of interest}
 
 \item{geo_type}{specify the Geographic type.}
 
@@ -27,43 +22,22 @@ geography(
 
 \item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
 
-\item{rollup}{default is 0. Specify whether geographic rollup(1) or not (0).}
+\item{simplified_output}{logical. Determines whether output table is simplified with only relevant columns (TRUE) or the raw output from the Tracking Network API (FALSE)}
+
+\item{rollup}{default is 0. Changing this value to 1 results in returning only parent geographies (e.g. states containing all county-level geographies). It makes no difference if the focal geography is already state. It is unlikely you'll need to change this from the default.}
 }
 \value{
 The geographies for the specified measures on the CDC Tracking API.
 }
 \description{
-Find geography for specified measures and geographic types available on the CDC Tracking API.
+Find geographies available for specified measures and geographic types available on the Tracking Network API. If multiple measures or geography types are submitted, the resuls from each one will be returned as a separate list element in the output object.
 }
 \examples{
 \dontrun{
 geo1_id<-geography(measure=370,format="ID")
 
-geo2_id<-geography(measure=c(370,423,707),
-                   format="ID")
 geo2_name<-
-  geography(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
-                      "Number of extreme heat days","Number of months of mild drought or worse per year"),
+  geography(measure=c("Number of summertime (May-Sep) heat-related deaths, by year"),
             format="name")
-geo2_shortName<-
-  geography(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
-                      "Number of extreme heat days","Number of months of drought per year"),
-            format="shortName")
-geo3_id<-geography(content_area = 25,format="ID")
-geo4_shortName<-
-  geography(indicator="Historical Heat Days",
-            content_area ="DR",format="shortName")
-geo5_shortName<-
-  geography(indicator="Historical Heat Days",
-            content_area ="DR",geo_type = "County" ,
-            format="shortName")
-geo6_shortName<-
-  geography(indicator="Historical Heat Days",
-            content_area ="DR",geo_type_ID = 7,
-            format="shortName")
-geo7_name<-
-  geography(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,
-            indicator="Historical Extreme Heat Days and Events",
-            content_area ="Drought",format="name")
 }
 }

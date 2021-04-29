@@ -6,25 +6,22 @@
 \usage{
 geography_types(
   measure = NA,
-  indicator = NA,
-  content_area = NA,
-  format = c("ID", "name", "shortName")
+  format = c("ID", "name", "shortName"),
+  simplified_output = T
 )
 }
 \arguments{
 \item{measure}{specify the measures of interest}
 
-\item{indicator}{specify the indicators of interest}
+\item{format}{indicate whether the listed measure(s) is an ID, name or shortName}
 
-\item{content_area}{specify the content areas of interest}
-
-\item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
+\item{simplified_output}{logical. Determines whether output table is simplified with only relevant columns (TRUE) or the raw output from the Tracking Network API (FALSE)}
 }
 \value{
 The geographic levels for the specified measures on the CDC Tracking API.
 }
 \description{
-Find geographic levels for specified measures available on the CDC Tracking API.
+Find geographic levels for specified measures available on the Tracking Network API. If multiple measures are specified, the results for each are returned as separate list elements.
 }
 \examples{
 \dontrun{
@@ -37,11 +34,7 @@ geography_types(measure=c("Number of summertime (May-Sep) heat-related deaths, b
 geography_types(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
                            "Number of extreme heat days","Number of months of drought per year"),
                  format="shortName")
-geography_types(content_area = 25,format="ID")
-geography_types(indicator="Historical Heat Days",
-                 content_area ="DR",format="shortName")
 geography_types(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,
-                 indicator="Historical Extreme Heat Days and Events",
-                 content_area ="Drought",format="name")
+format="name")
 }
 }
