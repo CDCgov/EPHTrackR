@@ -1,6 +1,6 @@
 #' @name stratificationlevel
 #' @title Find stratification levels
-#' @description  Find stratification levels for specified measures and geographic types available on the CDC Tracking API.
+#' @description  Find stratification levels for specified measures and geographic types available on the  Tracking Network Data API. The output of this function is a list with a separate element for each geography type (e.g. state, county) available for the specified measure. Each row in the data frames contained in the list shows the available stratifications for the measure.
 #' @import dplyr
 #' @param measure specify the measures of interest
 #' @param geo_type specify the Geographic type.

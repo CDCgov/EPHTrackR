@@ -1,6 +1,6 @@
 #' @name Measure_Data
 #' @title Pull data from API
-#' @description  Pull data from CDC Tracking API for multiple measures, geographies, stratifications and years.
+#' @description  Pull data from CDC Tracking API for multiple measures, geographies, stratifications and years. It is recommend that you include only one measure and one stratification level in a data query (many geographies and temporal periods may be provided however). The function will likely still work if vectors of multiple measures or stratifications are submitted, but the resulting object will be a nested list and it may be difficult to distingish which list applies to a particular stratification level. The output of function calls with a single measure and statification level is a list with one element containing the relevant data frame.
 #' @import dplyr
 #' @param measure specify the measures of interest. This argument must be included when running the function and it is recommended that only one measure be queried at a time.
 #' @param geo_type specify the geography type of the geo_items entry as a quoted string (e.g. "State", "County").
