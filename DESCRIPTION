@@ -1,7 +1,7 @@
 Package: EPHTrackR
 Type: Package
 Title: Access the CDC Tracking API
-Version: 0.1.0
+Version: 0.2.0
 Author: William White, Battelle Memorial Institute; Nicholas Skaff, CDC
 Maintainer: Nicholas Skaff <pwc1@cdc.gov>
 Description: R interface to the CDC National Public Health Tracking Network API
