@@ -1,4 +1,4 @@
-#' @name temporal
+#' @name list_temporal_periods
 #' @title Find temporal periods available.
 #' @description  Find temporal periods on CDC Tracking API for multiple measures and geographies.
 #' @import dplyr
@@ -12,14 +12,15 @@
 #' @param geo_filter default is 1. Filter query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change
 #' @return The years for specified measures and geographies on the CDC Tracking API.
 #' @examples \dontrun{
-#' temp2_shortName<-temporal(content_area = "DR",
+#' temp2_shortName<-list_temporal_periods(content_area = "DR",
 #'                           geo_items_ID = c(4,32,35),
 #'                           format="shortName")
+#'                           
 #' }
 #' @export
 
 
-temporal<-function(measure=NA,
+list_temporal_periods<-function(measure=NA,
                    geo_type=NA,geo_type_ID=NA,geo_items=NA,
                    geo_items_ID=NA,format=c("name","shortName","ID"),
                    simplified_output=TRUE,
@@ -29,7 +30,7 @@ temporal<-function(measure=NA,
 
   
   
-  geo_list<-geography(measure,
+  geo_list<-list_geographies(measure,
                       geo_type,geo_type_ID,format, 
                       simplified_output=F)
   

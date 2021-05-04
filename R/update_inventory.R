@@ -79,8 +79,5 @@ update_inventory<-function(){
   save(measures_indicators_CAs,
        file=paste(file.path(system.file(package="EPHTrackR"), 
                             "data/measures_indicators_CAs.RData")))
-       
-  # save(measures_indicators_CAs,
-  #      file="data/measures_indicators_CAs.RData")
 
 }

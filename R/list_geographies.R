@@ -1,6 +1,6 @@
-#' @name geography
-#' @title Find geography
-#' @description  Find geographies available for specified measures and geographic types available on the Tracking Network API. If multiple measures or geography types are submitted, the resuls from each one will be returned as a separate list element in the output object.
+#' @name list_geographies
+#' @title Identify geographies for specified measures
+#' @description  Identify available geographies (e.g., Fulton County, Georgia) for specified measures and geographic types. If multiple measures or geography types are submitted, the results for each one will be returned as a separate list element in the output object.
 #' @import dplyr
 #' @param measure specify the measures of interest
 #' @param geo_type specify the Geographic type.
@@ -10,10 +10,10 @@
 #' @param rollup default is 0. Changing this value to 1 results in returning only parent geographies (e.g. states containing all county-level geographies). It makes no difference if the focal geography is already state. It is unlikely you'll need to change this from the default. 
 #' @return The geographies for the specified measures on the CDC Tracking API.
 #' @examples\dontrun{
-#' geo1_id<-geography(measure=370,format="ID")
+#' geo1_id<-list_geographies(measure=370,format="ID")
 #' 
 #' geo2_name<-
-#'   geography(measure=c("Number of summertime (May-Sep) heat-related deaths, by year"),
+#'   list_geographies(measure=c("Number of summertime (May-Sep) heat-related deaths, by year"),
 #'             format="name")
 #' }
 #' @export
@@ -21,7 +21,7 @@
 
 ### Print out Geographies for a Measure ID, Geographic Type and Geographic Rollup ###
 
-geography<-function(measure=NA,
+list_geographies<-function(measure=NA,
                     geo_type=NA,
                     geo_type_ID=NA,
                     format=c("name","shortName","ID"),
@@ -30,7 +30,7 @@ geography<-function(measure=NA,
   format<-match.arg(format)
   
 
-  GL_list <- geography_types(measure,
+  GL_list <- list_geography_types(measure,
                             format,
                             simplified_output=F)
   

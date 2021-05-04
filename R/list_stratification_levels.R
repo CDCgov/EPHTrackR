@@ -1,4 +1,4 @@
-#' @name stratificationlevel
+#' @name list_stratification_levels
 #' @title Find stratification levels
 #' @description  Find stratification levels for specified measures and geographic types available on the  Tracking Network Data API. The output of this function is a list with a separate element for each geography type (e.g. state, county) available for the specified measure. Each row in the data frames contained in the list shows the available stratifications for the measure.
 #' @import dplyr
@@ -9,30 +9,25 @@
 #' @param smoothing default is 0. Specify whether data is geographically smoothed(1) or not (0).
 #' @return The stratification levels for the specified measures and stratification levels on the CDC Tracking API.
 #' @examples \dontrun{
-#' stratificationlevel(measure=370,format="ID")
+#' list_stratification_levels(measure=370,format="ID")
 #'
-#' stratificationlevel(measure=c(370,423,707),format="ID")
+#' list_stratification_levels(measure=c(370,423,707),format="ID")
 #'
-#' stratificationlevel(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+#' list_stratification_levels(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
 #'                                 "Number of extreme heat days","Number of months of drought per year"),
 #'                       format="shortName")
 #' }
 #' @export
 
-# library(httr)
-# library(jsonlite)
-# library(plyr)
-
-
 
 ### Return Stratification Levels for a Measure and Geographic Type ###
-stratificationlevel<-
+list_stratification_levels<-
   function(measure=NA,
            geo_type=NA,geo_type_ID=NA,
            format=c("name","shortName","ID"),smoothing=0){
     format<-match.arg(format)
     
-    GL_list<-geography_types(measure,format)
+    GL_list<-list_geography_types(measure,format)
     
     GL_table<-purrr::map_dfr(GL_list,as.data.frame)
     

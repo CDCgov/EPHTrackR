@@ -1,16 +1,16 @@
-#' @name content_areas
+#' @name list_content_areas
 #' @title Return dataframe 
 #' @description  Print the content areas available on the CDC Tracking Network Data API.
 #' @return The content areas on the CDC Tracking API.
 #' @examples\dontrun{
-#' content_areas()
+#' list_content_areas()
 #' }
 #' @export
 
 
 ### Print out Content Areas ###
 
-content_areas<-function(){
+list_content_areas<-function(){
   #measures_indicators_CAs<-
   #load("data/measures_indicators_CAs.RData")
   CAs<-unique(EPHTrackR::measures_indicators_CAs[,c("content_area_ID","content_area_name","content_area_shortName")])

@@ -1,4 +1,4 @@
-#' @name measures
+#' @name list_measures
 #' @title Find Measures
 #' @description  Find the measures in specified indicators and/or content areas available on the CDC Tracking API.
 #' @param indicator specify the indicators of interest.
@@ -6,20 +6,20 @@
 #' @param format indicate whether the indicator and/or content_area variables are ID, name or shortName
 #' @return The measures in the specified indicators and/or content areas on the CDC Tracking API.
 #' @examples \dontrun{
-#'measures(indicator=67,format="ID")
+#'list_measures(indicator=67,format="ID")
 #'
-#'measures(indicator=c(67,173),format = "ID")
+#'list_measures(indicator=c(67,173),format = "ID")
 #'
-#'measures(indicator="Heat-Related Mortality",
+#'list_measures(indicator="Heat-Related Mortality",
 #'         format="name")
 #'
-#'measures(content_area = 25,format="ID")
+#'list_measures(content_area = 25,format="ID")
 #'
-#'measures(indicator=67,content_area =25,format="ID")
+#'list_measures(indicator=67,content_area =25,format="ID")
 #'
-#'measures(indicator="Historical Temperature & Heat Index",content_area ="Drought",format="name")
+#'list_measures(indicator="Historical Temperature & Heat Index",content_area ="Drought",format="name")
 #'
-#'all_measures<-measures()
+#'all_measures<-list_measures()
 #' }
 #' @export
 
@@ -30,7 +30,7 @@
 
 ### Print out Measures within an Indicator and/or Content Area ###
 
-measures<-function(indicator=NA,content_area=NA,
+list_measures<-function(indicator=NA,content_area=NA,
                    format=c("ID","name","shortName")){
   format<-match.arg(format)
   ind_formatting<-paste0("indicator_",format)

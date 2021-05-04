@@ -1,4 +1,4 @@
-#' @name Measure_Data
+#' @name get_data
 #' @title Pull data from API
 #' @description  Pull data from CDC Tracking API for multiple measures, geographies, stratifications and years. It is recommend that you include only one measure and one stratification level in a data query (many geographies and temporal periods may be provided however). The function will likely still work if vectors of multiple measures or stratifications are submitted, but the resulting object will be a nested list and it may be difficult to distingish which list applies to a particular stratification level. The output of function calls with a single measure and statification level is a list with one element containing the relevant data frame.
 #' @import dplyr
@@ -17,24 +17,24 @@
 #' @return The specified data from the CDC Tracking API.
 #' @examples \dontrun{
 #' dat1_id<-
-#'   Measure_Data(measure=370,content_area = 25,
+#'   get_data(measure=370,content_area = 25,
 #'                geo_type_ID = c(1,2),geo_items_ID = c(4,32,35),
 #'                temporal = c(2015,2016),strat_level = c("State","ST_CT"),
 #'                format = "ID")
 #' dat2_shortName<-
-#'   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
+#'   get_data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
 #'                indicator="Historical Drought",geo_type_ID = c(1,2),
 #'                geo_items_ID = c(4,32,35),temporal=2015:2016,
 #'                strat_level_ID = 1:2,format="shortName")
 #' dat3_name<-
-#'   Measure_Data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
+#'   get_data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
 #'                content_area = "Drought",geo_items_ID = c(4,32,35),format="name")
 #' }
 #' @export
 
 
 ### Get data for multiple states and years ###
-Measure_Data<-
+get_data<-
   function(measure=NA,
            geo_type=NA,geo_type_ID=NA,geo_items=NA,
            geo_items_ID=NA,temporal_period=NA,strat_level=NA,
@@ -47,12 +47,12 @@ Measure_Data<-
     
     
     SL_list<-
-      stratificationlevel(measure,
+      list_stratification_levels(measure,
                           geo_type,geo_type_ID,format)
     
-    MS_list<-measurestratification(measure,
+    MS_list<-list_stratification_values(measure,
                                    geo_type,geo_type_ID,format)
-    temp_list<-temporal(measure,
+    temp_list<-list_temporal_periods(measure,
                         geo_type,geo_type_ID,geo_items,
                         geo_items_ID,format, simplified_output = FALSE)
     

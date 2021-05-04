@@ -1,24 +1,29 @@
-#' @name indicators
+#' @name list_indicators
 #' @title Find Indicators
 #' @description  Find the indicators in specified content areas available on the CDC Tracking API.
 #' @param content_area specify the content areas of interest
 #' @param format indicate whether the content_area variable is an ID, name or shortName
 #' @return The indicators in the specified content areas on the CDC Tracking API.
 #' @examples \dontrun{
-#' indicators(25,"ID")
-#' indicators("Drought","name")
-#' indicators("DR","shortName")
+#' list_indicators(25,"ID")
+#' 
+#' list_indicators("Drought","name")
+#' 
+#' list_indicators("DR","shortName")
 #'
-#' indicators(c(15,25),"ID")
-#' indicators(c("Climate Change","Drought"),"name")
-#' indicators(c("CC","DR"),"shortName")
-#' all_indicators<-indicators()
+#' list_indicators(c(15,25),"ID")
+#' 
+#' list_indicators(c("Climate Change","Drought"),"name")
+#' 
+#' list_indicators(c("CC","DR"),"shortName")
+#' 
+#' all_indicators<-list_indicators()
 #' }
 #' @export
 
 
 ### Print out Indicators within a Content Area ###
-indicators<-function(content_area=NA,
+list_indicators<-function(content_area=NA,
                      format=c("ID","name","shortName")){
   format<-match.arg(format)
   formatting<-paste0("content_area_",format)
