@@ -48,7 +48,7 @@ Measure_Data(
 The specified data from the CDC Tracking API.
 }
 \description{
-Pull data from CDC Tracking API for multiple measures, geographies, stratifications and years.
+Pull data from CDC Tracking API for multiple measures, geographies, stratifications and years. It is recommend that you include only one measure and one stratification level in a data query (many geographies and temporal periods may be provided however). The function will likely still work if vectors of multiple measures or stratifications are submitted, but the resulting object will be a nested list and it may be difficult to distingish which list applies to a particular stratification level. The output of function calls with a single measure and statification level is a list with one element containing the relevant data frame.
 }
 \examples{
 \dontrun{

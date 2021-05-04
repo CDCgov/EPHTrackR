@@ -2,15 +2,15 @@
 % Please edit documentation in R/update_inventory.R
 \name{update_inventory}
 \alias{update_inventory}
-\title{Update Measures List}
+\title{Update inventory of content areas, indicators, and measures}
 \usage{
 update_inventory()
 }
 \value{
-A dataset with the latest updates from CDC Tracking API.
+An updated data frame stored in the package's data/ folder and accessible via `data(measures_indicators_CAs)`.
 }
 \description{
-Update the stored list of content areas, indicators, and measures using the CDC Tracking API.
+Update the locally stored data frame of content areas, indicators, and measures using the CDC Tracking Newtork Data API.
 }
 \examples{
 \dontrun{

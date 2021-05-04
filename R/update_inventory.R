@@ -1,7 +1,7 @@
 #' @name update_inventory
-#' @title Update Measures List
-#' @description  Update the stored list of content areas, indicators, and measures using the CDC Tracking API.
-#' @return A dataset with the latest updates from CDC Tracking API.
+#' @title Update inventory of content areas, indicators, and measures
+#' @description  Update the locally stored data frame of content areas, indicators, and measures using the CDC Tracking Newtork Data API.
+#' @return An updated data frame stored in the package's data/ folder and accessible via `data(measures_indicators_CAs)`.
 #' @examples \dontrun{
 #' update_inventory()
 #' }
