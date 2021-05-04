@@ -2,7 +2,7 @@
 % Please edit documentation in R/content_areas.R
 \name{content_areas}
 \alias{content_areas}
-\title{Print Content Areas}
+\title{Return dataframe}
 \usage{
 content_areas()
 }
@@ -10,7 +10,7 @@ content_areas()
 The content areas on the CDC Tracking API.
 }
 \description{
-Print the content areas available on the CDC Tracking API.
+Print the content areas available on the CDC Tracking Network Data API.
 }
 \examples{
 \dontrun{

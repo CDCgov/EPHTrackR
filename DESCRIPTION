@@ -1,17 +1,17 @@
 Package: EPHTrackR
 Type: Package
-Title: Access the CDC Tracking API
+Title: R interface to the CDC National Public Health Tracking Network API
 Version: 0.2.0
 Author: William White, Battelle Memorial Institute; Nicholas Skaff, CDC
 Maintainer: Nicholas Skaff <pwc1@cdc.gov>
-Description: R interface to the CDC National Public Health Tracking Network API
+Description: Provides programmatic access to the CDC National Public Health Tracking Network API, with functions to identify and access available datasets.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.5.0)
 Imports: 
   httr (>= 1.4.0), 
   dplyr (>= 0.8.0.1),
   purrr (>= 0.3.0),
   jsonlite (>= 1.5)
-Depends: R (>= 3.5.0)
 RoxygenNote: 7.1.1
