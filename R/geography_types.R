@@ -34,11 +34,11 @@ geography_types<-function(measure=NA,
 
   #load("data/measures_indicators_CAs.RData")
   if(any(is.na(measure))){
-    meas_ID<-unique(measures_indicators_CAs$measure_ID)
+    meas_ID<-unique(EPHTrackR::measures_indicators_CAs$measure_ID)
   }else{
     meas_ID<-
-      unique(measures_indicators_CAs$measure_ID
-             [which(measures_indicators_CAs[,meas_formatting]%in%measure )])
+      unique(EPHTrackR::measures_indicators_CAs$measure_ID
+             [which(EPHTrackR::measures_indicators_CAs[,meas_formatting]%in%measure )])
   }
 
   GL_list<-purrr::map( 1:length(meas_ID), function(geolev){
@@ -49,12 +49,12 @@ geography_types<-function(measure=NA,
     GL_cont<-jsonlite::fromJSON(rawToChar(GL$content))
     GL_cont$Measure_ID<-meas_ID[geolev]
     GL_cont$Measure_Name<-
-      unique(measures_indicators_CAs$measure_name
-             [which(measures_indicators_CAs$measure_ID==meas_ID[geolev])])
+      unique(EPHTrackR::measures_indicators_CAs$measure_name
+             [which(EPHTrackR::measures_indicators_CAs$measure_ID==meas_ID[geolev])])
 
     GL_cont$Measure_shortName<-
-      unique(measures_indicators_CAs$measure_shortName
-             [which(measures_indicators_CAs$measure_ID==meas_ID[geolev])])
+      unique(EPHTrackR::measures_indicators_CAs$measure_shortName
+             [which(EPHTrackR::measures_indicators_CAs$measure_ID==meas_ID[geolev])])
     
     if(simplified_output == F){
       

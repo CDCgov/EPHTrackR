@@ -38,16 +38,16 @@ measures<-function(indicator=NA,content_area=NA,
   #load("data/measures_indicators_CAs.RData")
   if(any(is.na(indicator)) & any(is.na(content_area))){
     measures<-
-      unique(measures_indicators_CAs[,c("measure_ID","measure_name",
+      unique(EPHTrackR::measures_indicators_CAs[,c("measure_ID","measure_name",
                                         "measure_shortName","indicator_ID",
                                         "indicator_name","indicator_shortName",
                                         "content_area_ID","content_area_name",
                                         "content_area_shortName")])
   }else{
     measures<-
-      unique(measures_indicators_CAs
-             [which(measures_indicators_CAs[,ind_formatting]%in%indicator |
-                      measures_indicators_CAs[,CA_formatting]%in%content_area),
+      unique(EPHTrackR::measures_indicators_CAs
+             [which(EPHTrackR::measures_indicators_CAs[,ind_formatting]%in%indicator |
+                      EPHTrackR::measures_indicators_CAs[,CA_formatting]%in%content_area),
                c("measure_ID","measure_name","measure_shortName","indicator_ID",
                  "indicator_name","indicator_shortName","content_area_ID",
                  "content_area_name","content_area_shortName")])

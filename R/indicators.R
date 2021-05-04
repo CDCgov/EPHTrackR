@@ -25,14 +25,14 @@ indicators<-function(content_area=NA,
   #load("data/measures_indicators_CAs.RData")
   if(any(is.na(content_area))){
     indicators<-
-      unique(measures_indicators_CAs
+      unique(EPHTrackR::measures_indicators_CAs
              [,c("indicator_ID","indicator_name",
                  "indicator_shortName","content_area_ID",
                  "content_area_name","content_area_shortName")])
   }else{
     indicators<-
-      unique(measures_indicators_CAs
-             [which(measures_indicators_CAs[,formatting]%in%content_area),
+      unique(EPHTrackR::measures_indicators_CAs
+             [which(EPHTrackR::measures_indicators_CAs[,formatting]%in%content_area),
                c("indicator_ID","indicator_name","indicator_shortName",
                  "content_area_ID","content_area_name","content_area_shortName")])
   }
