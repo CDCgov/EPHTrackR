@@ -1,21 +1,24 @@
 #' @name list_geography_types
-#' @title Find geographic levels
-#' @description  Find geographic levels for specified measures available on the Tracking Network API. If multiple measures are specified, the results for each are returned as separate list elements.
-#' @import dplyr
-#' @param measure specify the measures of interest
-#' @param format indicate whether the listed measure(s) is an ID, name or shortName
-#' @param simplified_output logical. Determines whether output table is simplified with only relevant columns (TRUE) or the raw output from the Tracking Network API (FALSE)
-#' @return The geographic levels for the specified measures on the CDC Tracking API.
+#' @title List the available geography types for specified measure/s.
+#' @description  List geography types (e.g., state, county) for specified measure/s. If multiple measures are specified, the results for each are returned as separate list elements.
+#' @param measure  Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.
+#' @param format Indicate whether the measure argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID".
+#' @param simplified_output If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.
+#' @return This function returns a list with each element containing a data frame corresponding with a specified measure.
 #' @examples \dontrun{
 #' list_geography_types(measure=370,format="ID")
+#' 
 #' list_geography_types(measure=c(370,423,707),format="ID")
+#' 
 #' list_geography_types(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
 #'                            "Number of extreme heat days",
 #'                            "Number of months of mild drought or worse per year"),
 #'                  format="name")
+#'                  
 #' list_geography_types(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
 #'                            "Number of extreme heat days","Number of months of drought per year"),
 #'                  format="shortName")
+#'                  
 #' list_geography_types(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,
 #' format="name")
 #' }
@@ -25,9 +28,11 @@
 ### Print out Geographic Levels for a Measure ###
 
 list_geography_types<-function(measure=NA,
-                           format=c("ID","name","shortName"),
+                           format="ID",
                           simplified_output=T){
-  format<-match.arg(format)
+  format<-match.arg(format, 
+                    choices = c("ID","name","shortName"))
+  
   meas_formatting<-paste0("measure_",format)
   ind_formatting<-paste0("indicator_",format)
   CA_formatting<-paste0("content_area_",format)

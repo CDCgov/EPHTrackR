@@ -1,21 +1,15 @@
 #' @name list_indicators
-#' @title Find Indicators
-#' @description  Find the indicators in specified content areas available on the CDC Tracking API.
-#' @param content_area specify the content areas of interest
-#' @param format indicate whether the content_area variable is an ID, name or shortName
-#' @return The indicators in the specified content areas on the CDC Tracking API.
+#' @title List indicators
+#' @description  List the indicators contained within the specified content area/s. Indicators are groups of highly related measures.
+#' @param content_area Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().
+#' @param format Indicate whether the content_area argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID". The entry should be a quoted string.
+#' @return This function returns a data frame containing all indicator names, shortNames and IDs contained in the specified content area/s.
 #' @examples \dontrun{
 #' list_indicators(25,"ID")
 #' 
 #' list_indicators("Drought","name")
 #' 
 #' list_indicators("DR","shortName")
-#'
-#' list_indicators(c(15,25),"ID")
-#' 
-#' list_indicators(c("Climate Change","Drought"),"name")
-#' 
-#' list_indicators(c("CC","DR"),"shortName")
 #' 
 #' all_indicators<-list_indicators()
 #' }
@@ -24,8 +18,10 @@
 
 ### Print out Indicators within a Content Area ###
 list_indicators<-function(content_area=NA,
-                     format=c("ID","name","shortName")){
-  format<-match.arg(format)
+                     format="ID"){
+  
+  format<-match.arg(format, choices = c("ID","name","shortName"))
+  
   formatting<-paste0("content_area_",format)
   #load("data/measures_indicators_CAs.RData")
   if(any(is.na(content_area))){

@@ -2,15 +2,15 @@
 % Please edit documentation in R/list_content_areas.R
 \name{list_content_areas}
 \alias{list_content_areas}
-\title{Return dataframe}
+\title{List all content areas}
 \usage{
 list_content_areas()
 }
 \value{
-The content areas on the CDC Tracking API.
+This function returns a data frame containing all content area names, shortNames and IDs.
 }
 \description{
-Print the content areas available on the CDC Tracking Network Data API.
+List the content areas available on the CDC Tracking Network. Content areas are the highest level of categorization on the CDC Tracking Network.
 }
 \examples{
 \dontrun{

@@ -63,7 +63,7 @@ If there’s any question on whether information may be sensitive (such as detai
 
 ## Enforcement
 
-Users looking to use GitHub  that are unable to follow these rules of behavior will not have authorization to do so. Any users that violate these rules of behavior or CDC security policies may be subject to action, up to and including revoking access to GitHub. Technical and security stewards have the right to enforce these rules of behavior based on violations at any time.
+Users looking to use GitHub that are unable to follow these rules of behavior will not have authorization to do so. Any users that violate these rules of behavior or CDC security policies may be subject to action, up to and including revoking access to GitHub. Technical and security stewards have the right to enforce these rules of behavior based on violations at any time.
 
 ## References
 

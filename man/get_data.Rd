@@ -2,68 +2,67 @@
 % Please edit documentation in R/get_data.R
 \name{get_data}
 \alias{get_data}
-\title{Pull data from API}
+\title{Retrieve measure data}
 \usage{
 get_data(
   measure = NA,
-  geo_type = NA,
-  geo_type_ID = NA,
-  geo_items = NA,
-  geo_items_ID = NA,
-  temporal_period = NA,
   strat_level = NA,
   strat_level_ID = NA,
-  format = c("name", "shortName", "ID"),
+  geo = NA,
+  geo_ID = NA,
+  temporal_period = NA,
+  geo_type = NA,
+  geo_type_ID = NA,
+  format = "ID",
   smoothing = 0,
   geo_filter = 1,
   simplified_output = T
 )
 }
 \arguments{
-\item{measure}{specify the measures of interest. This argument must be included when running the function and it is recommended that only one measure be queried at a time.}
+\item{measure}{Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
 
-\item{geo_type}{specify the geography type of the geo_items entry as a quoted string (e.g. "State", "County").}
+\item{strat_level}{Specify a stratification level by name or abbreviation. Stratification level specifications always include the geography type and may also include additional stratification levels called "Advanced Options" that allow stratification by additional variables (e.g., age, gender). It is recommended that this argument always be included in function calls and that only one stratification level be included per call. Including this argument renders the geo_type and geo_type_ID arguments redundant. Available stratification levels can be found in the the "name" or "abbreviation" columns in the list_stratification_levels() output.}
 
-\item{geo_type_ID}{specify the ID of the geography type of the geo_items entry as a numeric value (e.g. 1, 2).}
+\item{strat_level_ID}{Specify a stratification level by ID. Stratification level specifications always include the geography type and may also include additional stratification levels called "Advanced Options" that allow stratification by additional variables (e.g., age, gender). It is recommended that this argument always be included in function calls and that only one stratification level be included per call. Including this argument renders the geo_type and geo_type_ID arguments redundant. Available stratification levels can be found in the the "id" column in the list_stratification_levels() output.}
 
-\item{geo_items}{specify Geographic items by name or abbreviation. At this time, this argument only accepts states even for county or sub-county geograhies. If this argument is not submitted, all geographies will be included in the output.}
+\item{geo}{An optional argument in which you can specify geographies of interest as a quoted string (e.g., "Alabama", "Colorado"). At this time, this argument only accepts states even for county or sub-county geography specifications in the geo_type, geo_type_ID, and strat_level arguments. When a state-level geo argument is submitted with a sub-state geography specification, all sub-state geographies within the state will be returned. Available geo's can be found in the "parentName" column in the list_geography() output. If this argument is NULL, all geographies will be included in the output.}
 
-\item{geo_items_ID}{specify Geographic items by ID. At this time, this argument only accepts state FIPS codes (without leading zero) even for county or sub-county geograhies. If this argument is not submitted, all geographies will be included in the output.}
+\item{geo_ID}{An optional argument in which you can specify the FIPS codes of particular geographies of interest as unquoted numeric values without leading zeros (e.g., 1, 8). At this time, this argument only accepts states even for county or sub-county geography specifications in the geo_type, geo_type_ID, and strat_level arguments. When a state-level geo argument is submitted with a sub-state geography specification, all sub-state geographies within the state will be returned. Available geo_ID's can be found in the "parentGeographicId" column in the list_geography() output. If this argument is NULL, all geographies will be included in the output.}
 
-\item{temporal_period}{specify the temporal period(s) of interest with unquoted string. If this argument is not submitted, all temporal periods will be included in the output.}
+\item{temporal_period}{An optional argument in which you can specify the temporal period(s) of interest with unquoted numeric values (e.g., 2011, 2019). If this argument is NULL, all temporal periods will be included in the output. Available temporal periods can be found in the "parentTemporal" column in the list_temporal() output.}
 
-\item{strat_level}{specify stratification level by name or abbreviation. This argument should be included when running the function and it is recommended that only one stratification level be queried at a time.}
+\item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). A list of geo_type's associated with each measure can be found in the "geographicType" column in the list_geography_types() output.}
 
-\item{strat_level_ID}{specify stratification level by ID. This argument should be included when running the function and it is recommended that only one stratification level be queried at a time.}
+\item{geo_type_ID}{An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). A list of geo_type_ID's associated with each measure can be found in the "geographicTypeId" column in the list_geography_types() output.}
 
-\item{format}{indicate whether the measure, indicator and/or content_area variables are ID, name or shortName}
+\item{format}{Indicate whether the measure argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID".}
 
-\item{smoothing}{default is 0. Request geographically smoothed data. If smoothed data is requested, but is not available the function will produce an error.}
+\item{smoothing}{Specify whether to return geographically smoothed measure data (1) or not (0). The default value is 0 since smoothing is not available for most measures. Requesting smoothed data when it is not available will produce an error.}
 
-\item{geo_filter}{default is 1. Filter to query based on parent geographic type. This is a crude fix for a problem with the API query and for now don't change.}
+\item{geo_filter}{A 1 indicates that the geo/geo_ID arguments contain the parent geography type (e.g., states containing counties of interest). When 0, the child geographies should be specified in the geo/geo_ID arguments. At this time the default value is 1 and this should not be changed, because the child geography types cannot yet be used in the geo/geo_ID arguments.}
 
-\item{simplified_output}{logical. Determines whether output table is simplified with only relevant columns (TRUE) or the full raw output from the Tracking Network API (FALSE)}
+\item{simplified_output}{If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.}
 }
 \value{
-The specified data from the CDC Tracking API.
+This function returns a list with each element containing a data frame corresponding with each combination of the specified measures and geographic types/stratification levels. Note that certain data values may be suppressed in accordance with CDC guidelines intended to protect individual privacy.
 }
 \description{
-Pull data from CDC Tracking API for multiple measures, geographies, stratifications and years. It is recommend that you include only one measure and one stratification level in a data query (many geographies and temporal periods may be provided however). The function will likely still work if vectors of multiple measures or stratifications are submitted, but the resulting object will be a nested list and it may be difficult to distingish which list applies to a particular stratification level. The output of function calls with a single measure and statification level is a list with one element containing the relevant data frame.
+Retrieves data from the Tracking Network Data API for specified measures, geographies, stratifications and years. It is recommend that you submit only one measure and one stratification level (many geographies and temporal periods may be provided, however). The function will work if multiple measures or stratifications are submitted, but the resulting object will be a list in which it may be difficult to distingish which list element applies to a particular stratification level. The output of function calls with a single measure and statification level is a list with one element containing the relevant data frame.
 }
 \examples{
 \dontrun{
-dat1_id<-
-  get_data(measure=370,content_area = 25,
-               geo_type_ID = c(1,2),geo_items_ID = c(4,32,35),
-               temporal = c(2015,2016),strat_level = c("State","ST_CT"),
-               format = "ID")
-dat2_shortName<-
-  get_data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
-               indicator="Historical Drought",geo_type_ID = c(1,2),
-               geo_items_ID = c(4,32,35),temporal=2015:2016,
-               strat_level_ID = 1:2,format="shortName")
-dat3_name<-
-  get_data(measure="Number of summertime (May-Sep) heat-related deaths, by year",
-               content_area = "Drought",geo_items_ID = c(4,32,35),format="name")
+data_st<-get_data(measure=99, 
+strat_level = "ST")
+
+data_ad<-get_data(measure=99, 
+format="ID",  
+strat_level = "ST_AG_GN")
+
+data_mo.geo<-get_data(measure=988, 
+format="ID",  
+strat_level = "ST_PT",
+geo_ID = c(4,8,9,12))
+
 }
 }

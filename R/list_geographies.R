@@ -1,14 +1,14 @@
 #' @name list_geographies
-#' @title Identify geographies for specified measures
-#' @description  Identify available geographies (e.g., Fulton County, Georgia) for specified measures and geographic types. If multiple measures or geography types are submitted, the results for each one will be returned as a separate list element in the output object.
+#' @title List available geographies for specified measures
+#' @description  List available geographies (e.g., Fulton County, Georgia) for specified measures and geographic types. If multiple measures or geography types are submitted, the results for each combination of these two inputs will be returned as a separate list element in the output.
 #' @import dplyr
-#' @param measure specify the measures of interest
-#' @param geo_type specify the Geographic type.
-#' @param geo_type_ID specify the Geographic type ID.
-#' @param format indicate whether the measure, indicator and/or content_area variables are ID, name or shortName
-#' @param simplified_output logical. Determines whether output table is simplified with only relevant columns (TRUE) or the raw output from the Tracking Network API (FALSE)
-#' @param rollup default is 0. Changing this value to 1 results in returning only parent geographies (e.g. states containing all county-level geographies). It makes no difference if the focal geography is already state. It is unlikely you'll need to change this from the default. 
-#' @return The geographies for the specified measures on the CDC Tracking API.
+#' @param measure Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.
+#' @param geo_type An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). A list of geo_type's associated with each measure can be found in the "geographicType" column in the list_geography_types() output.
+#' @param geo_type_ID An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). A list of geo_type_ID's associated with each measure can be found in the "geographicTypeId" column in the list_geography_types() output.
+#' @param format Indicate whether the measure argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID".
+#' @param simplified_output If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.
+#' @param rollup It is unlikely you'll need to change this from the default value of 0. Submitting a value of 1 results in returning only parent geographies (e.g. states instead of all county-level geographies). This argument does nothing if the focal geography type is already a state. 
+#' @return This function returns a list with each element containing a data frame corresponding with each combination of the specified measures and geographic types.
 #' @examples\dontrun{
 #' geo1_id<-list_geographies(measure=370,format="ID")
 #' 
@@ -24,10 +24,12 @@
 list_geographies<-function(measure=NA,
                     geo_type=NA,
                     geo_type_ID=NA,
-                    format=c("name","shortName","ID"),
+                    format="ID",
                     simplified_output = TRUE,
                     rollup=0){
-  format<-match.arg(format)
+  
+  format<-match.arg(format, 
+                    choices = c("ID","name","shortName"))
   
 
   GL_list <- list_geography_types(measure,

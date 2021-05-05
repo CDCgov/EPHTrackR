@@ -2,26 +2,22 @@
 % Please edit documentation in R/list_measures.R
 \name{list_measures}
 \alias{list_measures}
-\title{Find Measures}
+\title{List measures}
 \usage{
-list_measures(
-  indicator = NA,
-  content_area = NA,
-  format = c("ID", "name", "shortName")
-)
+list_measures(indicator = NA, content_area = NA, format = "ID")
 }
 \arguments{
-\item{indicator}{specify the indicators of interest.}
+\item{indicator}{Optional argument used to specify the indicator/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available indicators can be identified using list_indicators().}
 
-\item{content_area}{specify the content areas of interest}
+\item{content_area}{Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
 
-\item{format}{indicate whether the indicator and/or content_area variables are ID, name or shortName}
+\item{format}{Indicate whether the indicator and content_area argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID". The entry should be a quoted string.}
 }
 \value{
 The measures in the specified indicators and/or content areas on the CDC Tracking API.
 }
 \description{
-Find the measures in specified indicators and/or content areas available on the CDC Tracking API.
+List the measures contained within specified indicator/s and/or content area/s. Measures are the core data product of the Tracking Network.
 }
 \examples{
 \dontrun{

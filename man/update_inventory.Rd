@@ -10,7 +10,7 @@ update_inventory()
 An updated data frame stored in the package's data/ folder and accessible via `data(measures_indicators_CAs)`.
 }
 \description{
-Update the locally stored data frame of content areas, indicators, and measures using the CDC Tracking Newtork Data API.
+This function retrieves the latest inventory of content areas, indicators, and measures from the Tracking Network Data API. This information is used internally by the package to send appropriate API data requests. It is recommended that you run this function prior to each session to ensure that the inventory is up-to-date.
 }
 \examples{
 \dontrun{

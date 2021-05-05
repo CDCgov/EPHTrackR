@@ -2,20 +2,20 @@
 % Please edit documentation in R/list_indicators.R
 \name{list_indicators}
 \alias{list_indicators}
-\title{Find Indicators}
+\title{List indicators}
 \usage{
-list_indicators(content_area = NA, format = c("ID", "name", "shortName"))
+list_indicators(content_area = NA, format = "ID")
 }
 \arguments{
-\item{content_area}{specify the content areas of interest}
+\item{content_area}{Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
 
-\item{format}{indicate whether the content_area variable is an ID, name or shortName}
+\item{format}{Indicate whether the content_area argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID". The entry should be a quoted string.}
 }
 \value{
-The indicators in the specified content areas on the CDC Tracking API.
+This function returns a data frame containing all indicator names, shortNames and IDs contained in the specified content area/s.
 }
 \description{
-Find the indicators in specified content areas available on the CDC Tracking API.
+List the indicators contained within the specified content area/s. Indicators are groups of highly related measures.
 }
 \examples{
 \dontrun{
@@ -24,12 +24,6 @@ list_indicators(25,"ID")
 list_indicators("Drought","name")
 
 list_indicators("DR","shortName")
-
-list_indicators(c(15,25),"ID")
-
-list_indicators(c("Climate Change","Drought"),"name")
-
-list_indicators(c("CC","DR"),"shortName")
 
 all_indicators<-list_indicators()
 }

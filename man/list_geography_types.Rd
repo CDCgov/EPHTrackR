@@ -2,38 +2,38 @@
 % Please edit documentation in R/list_geography_types.R
 \name{list_geography_types}
 \alias{list_geography_types}
-\title{Find geographic levels}
+\title{List the available geography types for specified measure/s.}
 \usage{
-list_geography_types(
-  measure = NA,
-  format = c("ID", "name", "shortName"),
-  simplified_output = T
-)
+list_geography_types(measure = NA, format = "ID", simplified_output = T)
 }
 \arguments{
-\item{measure}{specify the measures of interest}
+\item{measure}{Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
 
-\item{format}{indicate whether the listed measure(s) is an ID, name or shortName}
+\item{format}{Indicate whether the measure argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID".}
 
-\item{simplified_output}{logical. Determines whether output table is simplified with only relevant columns (TRUE) or the raw output from the Tracking Network API (FALSE)}
+\item{simplified_output}{If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.}
 }
 \value{
-The geographic levels for the specified measures on the CDC Tracking API.
+This function returns a list with each element containing a data frame corresponding with a specified measure.
 }
 \description{
-Find geographic levels for specified measures available on the Tracking Network API. If multiple measures are specified, the results for each are returned as separate list elements.
+List geography types (e.g., state, county) for specified measure/s. If multiple measures are specified, the results for each are returned as separate list elements.
 }
 \examples{
 \dontrun{
 list_geography_types(measure=370,format="ID")
+
 list_geography_types(measure=c(370,423,707),format="ID")
+
 list_geography_types(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
                            "Number of extreme heat days",
                            "Number of months of mild drought or worse per year"),
                  format="name")
+                 
 list_geography_types(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
                            "Number of extreme heat days","Number of months of drought per year"),
                  format="shortName")
+                 
 list_geography_types(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,
 format="name")
 }

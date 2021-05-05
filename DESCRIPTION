@@ -5,7 +5,7 @@ Version: 0.2.0
 Author: William White, Battelle Memorial Institute; Nicholas Skaff, CDC
 Maintainer: Nicholas Skaff <pwc1@cdc.gov>
 Description: Provides programmatic access to the CDC National Public Health Tracking Network API, with functions to identify and access available datasets.
-License: GPL-3
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)

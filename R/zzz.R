@@ -1,5 +1,5 @@
 ############################################################
-##  Update the content area, indicator and measure data   ##
+##  Suggesting to update inventory   ##
 ############################################################
 
 .onAttach <- function(libname, pkgname) {

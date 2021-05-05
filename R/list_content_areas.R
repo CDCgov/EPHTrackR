@@ -1,7 +1,7 @@
 #' @name list_content_areas
-#' @title Return dataframe 
-#' @description  Print the content areas available on the CDC Tracking Network Data API.
-#' @return The content areas on the CDC Tracking API.
+#' @title List all content areas 
+#' @description  List the content areas available on the CDC Tracking Network. Content areas are the highest level of categorization on the CDC Tracking Network.
+#' @return This function returns a data frame containing all content area names, shortNames and IDs.
 #' @examples\dontrun{
 #' list_content_areas()
 #' }

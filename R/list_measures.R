@@ -1,9 +1,9 @@
 #' @name list_measures
-#' @title Find Measures
-#' @description  Find the measures in specified indicators and/or content areas available on the CDC Tracking API.
-#' @param indicator specify the indicators of interest.
-#' @param content_area specify the content areas of interest
-#' @param format indicate whether the indicator and/or content_area variables are ID, name or shortName
+#' @title List measures
+#' @description  List the measures contained within specified indicator/s and/or content area/s. Measures are the core data product of the Tracking Network.
+#' @param indicator Optional argument used to specify the indicator/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available indicators can be identified using list_indicators().
+#' @param content_area Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().
+#' @param format Indicate whether the indicator and content_area argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID". The entry should be a quoted string.
 #' @return The measures in the specified indicators and/or content areas on the CDC Tracking API.
 #' @examples \dontrun{
 #'list_measures(indicator=67,format="ID")
@@ -31,8 +31,10 @@
 ### Print out Measures within an Indicator and/or Content Area ###
 
 list_measures<-function(indicator=NA,content_area=NA,
-                   format=c("ID","name","shortName")){
-  format<-match.arg(format)
+                   format="ID"){
+  
+  format<-match.arg(format, choices = c("ID","name","shortName"))
+  
   ind_formatting<-paste0("indicator_",format)
   CA_formatting<-paste0("content_area_",format)
   #load("data/measures_indicators_CAs.RData")

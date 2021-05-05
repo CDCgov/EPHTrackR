@@ -18,8 +18,7 @@ submitting a pull request you are agreeing to comply with this waiver of
 copyright interest.
 
 ## Requesting Changes
-Our pull request/merging process is designed to give the CDC Environmental Public Health Tracking Program
-and others in our space an opportunity to consider and discuss any suggested
+Our pull request/merging process is designed to give the CDC Environmental Public Health Tracking Program an opportunity to consider and discuss any suggested
 changes. This policy affects all CDC spaces, both on-line and off, and all users
 are expected to abide by it.
 
