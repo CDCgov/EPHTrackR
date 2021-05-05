@@ -1,7 +1,6 @@
 #' @name get_data
 #' @title Retrieve measure data
 #' @description Retrieves data from the Tracking Network Data API for specified measures, geographies, stratifications and years. It is recommend that you submit only one measure and one stratification level (many geographies and temporal periods may be provided, however). The function will work if multiple measures or stratifications are submitted, but the resulting object will be a list in which it may be difficult to distingish which list element applies to a particular stratification level. The output of function calls with a single measure and statification level is a list with one element containing the relevant data frame.
-#' @import dplyr
 #' @param measure Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.
 #' @param strat_level Specify a stratification level by name or abbreviation. Stratification level specifications always include the geography type and may also include additional stratification levels called "Advanced Options" that allow stratification by additional variables (e.g., age, gender). It is recommended that this argument always be included in function calls and that only one stratification level be included per call. Including this argument renders the geo_type and geo_type_ID arguments redundant. Available stratification levels can be found in the the "name" or "abbreviation" columns in the list_stratification_levels() output.
 #' @param strat_level_ID Specify a stratification level by ID. Stratification level specifications always include the geography type and may also include additional stratification levels called "Advanced Options" that allow stratification by additional variables (e.g., age, gender). It is recommended that this argument always be included in function calls and that only one stratification level be included per call. Including this argument renders the geo_type and geo_type_ID arguments redundant. Available stratification levels can be found in the the "id" column in the list_stratification_levels() output.
@@ -261,5 +260,7 @@ get_data<-
     })
     
     message("Done")
+    
+    return(MD_list)
     
   }
