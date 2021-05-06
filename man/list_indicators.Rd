@@ -9,7 +9,7 @@ list_indicators(content_area = NA, format = "ID")
 \arguments{
 \item{content_area}{Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
 
-\item{format}{Indicate whether the content_area argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID". The entry should be a quoted string.}
+\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 }
 \value{
 This function returns a data frame containing all indicator names, shortNames and IDs contained in the specified content area/s.
@@ -19,6 +19,8 @@ List the indicators contained within the specified content area/s. Indicators ar
 }
 \examples{
 \dontrun{
+
+
 list_indicators(25,"ID")
 
 list_indicators("Drought","name")
@@ -26,5 +28,7 @@ list_indicators("Drought","name")
 list_indicators("DR","shortName")
 
 all_indicators<-list_indicators()
+
+
 }
 }

@@ -1,9 +1,13 @@
 #' @name update_inventory
 #' @title Update inventory of content areas, indicators, and measures
 #' @description  This function retrieves the latest inventory of content areas, indicators, and measures from the Tracking Network Data API. This information is used internally by the package to send appropriate API data requests. It is recommended that you run this function prior to each session to ensure that the inventory is up-to-date.
-#' @return An updated data frame stored in the package's data/ folder and accessible via `data(measures_indicators_CAs)`.
+#' @return An updated data frame stored in the package's data/ folder and accessible by running data(measures_indicators_CAs).
 #' @examples \dontrun{
+#' 
+#' 
 #' update_inventory()
+#' 
+#' 
 #' }
 #' @export
 

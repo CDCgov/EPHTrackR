@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_stratification_levels.R
 \name{list_stratification_levels}
 \alias{list_stratification_levels}
-\title{Find stratification levels}
+\title{List stratification levels}
 \usage{
 list_stratification_levels(
   measure = NA,
@@ -19,20 +19,22 @@ list_stratification_levels(
 
 \item{geo_type_ID}{An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). A list of geo_type_ID's associated with each measure can be found in the "geographicTypeId" column in the list_geography_types() output.}
 
-\item{format}{Indicate whether the measure argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID".}
+\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 
 \item{smoothing}{Specify whether to return stratification levels for geographically smoothed versions of a measure (1) or not (0). The default value is 0 since smoothing is not available for most measures. Requesting smoothed data when it is not available will produce an error.}
 }
 \value{
-The output of this function is a list with a separate element for each geography type available  for the specifie measure (e.g., state, county). Each row in the data frames contained as elements in the list shows the a stratification available for the measure.
+The output of this function is a list with a separate element for each geography type available for the specified measure (e.g., state, county). Each row in the data frames contained as elements in the list shows the a stratification available for the measure.
 }
 \description{
-Some measures on the Tracking Network have a set of "Advanced Options" that allow the user to access data stratified by variables other than geography or temporal period. For instance, data on asthma hospitalizations can be broken down by age and/or gender rather than for the whole population. This function allows the user to list available "Advanced Options" stratification *levels* for specified measures and geographic types. For instance, in the case of the asthma hospitalization data, it would be possible to view the full range of stratifications available, including gender, age, and both gender and age combined.
+Some measures on the Tracking Network have a set of "Advanced Options" that allow the user to access data stratified by variables other than geography or temporal period. For instance, data on asthma hospitalizations can be broken down further by age and/or gender. This function allows the user to list available "Advanced Options" stratification levels for specified measures and geographic types. For instance, in the case of the asthma hospitalization data, it would be possible to view the full range of stratifications available, including gender, age, and both gender and age combined.
 
-Because "Advanced Options" may only be available at a particular geographic scale (e.g., age-breakdown of asthma hospitalizations is only available at the state-level), results showing available stratification levels always include the geography type. Therefore, this function is can be used to specify geography types as well as stratifiation levels of interest when using the get_data() function to download data from the Tracking Network Data API.
+
+Because "Advanced Options" may only be available at a particular geographic scale (e.g., age-breakdown of asthma hospitalizations is only available at the state-level), results showing available stratification levels always include the geography type. Therefore, this function can be used to identify geography types as well as stratification levels of interest.
 }
 \examples{
 \dontrun{
+
 list_stratification_levels(measure=370,format="ID")
 
 list_stratification_levels(measure=c(370,423,707),format="ID")
@@ -40,5 +42,7 @@ list_stratification_levels(measure=c(370,423,707),format="ID")
 list_stratification_levels(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
                                 "Number of extreme heat days","Number of months of drought per year"),
                       format="shortName")
+                      
+                      
 }
 }

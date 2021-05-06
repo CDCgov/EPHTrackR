@@ -24,9 +24,9 @@ list_temporal(
 
 \item{geo}{An optional argument in which you can specify geographies of interest as a quoted string (e.g., "Alabama", "Colorado"). At this time, this argument only accepts states even for county or sub-county geography specifications in the geo_type, geo_type_ID, and strat_level arguments. When a state-level geo argument is submitted with a sub-state geography specification, all sub-state geographies within the state will be returned. Available geo's can be found in the "parentName" column in the list_geography() output. If this argument is NULL, all geographies will be included in the output.}
 
-\item{geo_ID}{An optional argument in which you can specify the FIPS codes of particular geographies of interest as unquoted numeric values without leading zeros (e.g., 1, 8). At this time, this argument only accepts states even for county or sub-county geography specifications in the geo_type, geo_type_ID, and strat_level arguments. When a state-level geo argument is submitted with a sub-state geography specification, all sub-state geographies within the state will be returned. Available geo_ID's can be found in the "parentGeographicId" column in the list_geography() output. If this argument is NULL, all geographies will be included in the output.}
+\item{geo_ID}{An optional argument in which you can specify the FIPS codes of geographies of interest as unquoted numeric values without leading zeros (e.g., 1, 8). At this time, this argument only accepts states even for county or sub-county geography specifications in the geo_type, geo_type_ID, and strat_level arguments. When a state-level geo argument is submitted with a sub-state geography specification, all sub-state geographies within the state will be returned. Available geo_ID's can be found in the "parentGeographicId" column in the list_geography() output. If this argument is NULL, all geographies will be included in the output.}
 
-\item{format}{Indicate whether the measure argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID".}
+\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 
 \item{simplified_output}{If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.}
 
@@ -36,12 +36,16 @@ list_temporal(
 This function returns a list with each element containing a data frame corresponding with each combination of the specified measures and geographic types.
 }
 \description{
-Find temporal periods available for specified measures, geography types, and geographies.
+List the temporal periods available for specified measures, geography types, and geographies.
 }
 \examples{
 \dontrun{
+
+
 temp <- list_temporal(measure = 99,
                           format="ID")
+                          
+                          
                           
 }
 }

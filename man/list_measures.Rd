@@ -11,16 +11,18 @@ list_measures(indicator = NA, content_area = NA, format = "ID")
 
 \item{content_area}{Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
 
-\item{format}{Indicate whether the indicator and content_area argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID". The entry should be a quoted string.}
+\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 }
 \value{
-The measures in the specified indicators and/or content areas on the CDC Tracking API.
+This function returns a data frame containing the measures within the specified indicator/s and/or content area/s.
 }
 \description{
 List the measures contained within specified indicator/s and/or content area/s. Measures are the core data product of the Tracking Network.
 }
 \examples{
 \dontrun{
+
+
 list_measures(indicator=67,format="ID")
 
 list_measures(indicator=c(67,173),format = "ID")
@@ -35,5 +37,7 @@ list_measures(indicator=67,content_area =25,format="ID")
 list_measures(indicator="Historical Temperature & Heat Index",content_area ="Drought",format="name")
 
 all_measures<-list_measures()
+
+
 }
 }

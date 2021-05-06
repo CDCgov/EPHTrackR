@@ -2,9 +2,11 @@
 #' @title List indicators
 #' @description  List the indicators contained within the specified content area/s. Indicators are groups of highly related measures.
 #' @param content_area Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().
-#' @param format Indicate whether the content_area argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID". The entry should be a quoted string.
+#' @param format Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.
 #' @return This function returns a data frame containing all indicator names, shortNames and IDs contained in the specified content area/s.
 #' @examples \dontrun{
+#' 
+#' 
 #' list_indicators(25,"ID")
 #' 
 #' list_indicators("Drought","name")
@@ -12,6 +14,8 @@
 #' list_indicators("DR","shortName")
 #' 
 #' all_indicators<-list_indicators()
+#' 
+#' 
 #' }
 #' @export
 

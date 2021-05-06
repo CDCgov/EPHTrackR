@@ -3,19 +3,19 @@
 \docType{data}
 \name{measures_indicators_CAs}
 \alias{measures_indicators_CAs}
-\title{List of EPHT measures}
+\title{Data frame containing all content areas, indicators, and measures}
 \format{
 A data frame with 674 rows and 9 variables:
 \describe{
-  \item{measure_ID}{measure unique identifier}
-  \item{measure_name}{full measure name}
-  \item{measure_shortName}{short measure name}
-  \item{indicator_ID}{indicator unique identifier}
-  \item{indicator_name}{full indicator name}
-  \item{indicator_shortName}{short indicator name}
-  \item{content_area_ID}{content area unique identifier}
-  \item{content_area_name}{full content area name}
-  \item{content_area_shortName}{short content area name}
+  \item{measure_ID}{Measure unique identifier}
+  \item{measure_name}{Full measure name}
+  \item{measure_shortName}{Short measure name}
+  \item{indicator_ID}{Indicator unique identifier}
+  \item{indicator_name}{Full indicator name}
+  \item{indicator_shortName}{Short indicator name}
+  \item{content_area_ID}{Content area unique identifier}
+  \item{content_area_name}{Full content area name}
+  \item{content_area_shortName}{Short content area name}
   ...
 }
 }
@@ -26,7 +26,6 @@ A data frame with 674 rows and 9 variables:
 measures_indicators_CAs
 }
 \description{
-List of content areas, indicators, and measures and their associated IDs
-from the CDC Tracking API.
+Data frame containing all Tracking Network content areas, indicators, and measures and their associated IDs
 }
 \keyword{datasets}

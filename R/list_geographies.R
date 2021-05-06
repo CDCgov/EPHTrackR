@@ -5,7 +5,7 @@
 #' @param measure Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.
 #' @param geo_type An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). A list of geo_type's associated with each measure can be found in the "geographicType" column in the list_geography_types() output.
 #' @param geo_type_ID An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). A list of geo_type_ID's associated with each measure can be found in the "geographicTypeId" column in the list_geography_types() output.
-#' @param format Indicate whether the measure argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID".
+#' @param format Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.
 #' @param simplified_output If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.
 #' @param rollup It is unlikely you'll need to change this from the default value of 0. Submitting a value of 1 results in returning only parent geographies (e.g. states instead of all county-level geographies). This argument does nothing if the focal geography type is already a state. 
 #' @return This function returns a list with each element containing a data frame corresponding with each combination of the specified measures and geographic types.

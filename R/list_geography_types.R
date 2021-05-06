@@ -2,7 +2,7 @@
 #' @title List the available geography types for specified measure/s.
 #' @description  List geography types (e.g., state, county) for specified measure/s. If multiple measures are specified, the results for each are returned as separate list elements.
 #' @param measure  Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.
-#' @param format Indicate whether the measure argument contains entries formatted as an "ID", "name" or "shortName". The default is "ID".
+#' @param format Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.
 #' @param simplified_output If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.
 #' @return This function returns a list with each element containing a data frame corresponding with a specified measure.
 #' @examples \dontrun{
