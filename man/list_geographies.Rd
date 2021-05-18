@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_geographies.R
 \name{list_geographies}
 \alias{list_geographies}
-\title{List available geographies for specified measures}
+\title{List available geographies}
 \usage{
 list_geographies(
   measure = NA,
@@ -14,23 +14,23 @@ list_geographies(
 )
 }
 \arguments{
-\item{measure}{Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
+\item{measure}{Specifies the measure(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
 
-\item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). A list of geo_type's associated with each measure can be found in the "geographicType" column in the list_geography_types() output.}
+\item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). A list of geo_types associated with each measure can be found in the "geographicType" column in the list_geography_types() output.}
 
-\item{geo_type_ID}{An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). A list of geo_type_ID's associated with each measure can be found in the "geographicTypeId" column in the list_geography_types() output.}
+\item{geo_type_ID}{An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). A list of geo_type_IDs associated with each measure can be found in the "geographicTypeId" column in the list_geography_types() output.}
 
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
+\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 
 \item{simplified_output}{If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.}
 
-\item{rollup}{It is unlikely you'll need to change this from the default value of 0. Submitting a value of 1 results in returning only parent geographies (e.g. states instead of all county-level geographies). This argument does nothing if the focal geography type is already a state.}
+\item{rollup}{It is unlikely you'll need to change this from the default value of 0. Submitting a value of 1 returns only parent geographies (e.g., states instead of all county-level geographies). This argument does nothing if the focal geography type is already a state.}
 }
 \value{
-This function returns a list with each element containing a data frame corresponding with each combination of the specified measures and geographic types.
+This function returns a list with each element containing a data frame corresponding to each combination of the specified measures and geographic types.
 }
 \description{
-List available geographies (e.g., Fulton County, Georgia) for specified measures and geographic types. If multiple measures or geography types are submitted, the results for each combination of these two inputs will be returned as a separate list element in the output.
+Lists available geographies (e.g., Fulton County, Georgia) for specified measures and geographic types. If multiple measures or geography types are submitted, the results for each combination of these two inputs will be returned as a separate list element in the output.
 }
 \examples{
 \dontrun{

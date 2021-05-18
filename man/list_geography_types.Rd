@@ -2,22 +2,22 @@
 % Please edit documentation in R/list_geography_types.R
 \name{list_geography_types}
 \alias{list_geography_types}
-\title{List the available geography types for specified measure/s.}
+\title{List available geography types}
 \usage{
 list_geography_types(measure = NA, format = "ID", simplified_output = T)
 }
 \arguments{
-\item{measure}{Specify the measure/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
+\item{measure}{Specifies the measure(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
 
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
+\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 
 \item{simplified_output}{If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.}
 }
 \value{
-This function returns a list with each element containing a data frame corresponding with a specified measure.
+This function returns a list with each element containing a data frame corresponding to a specified measure.
 }
 \description{
-List geography types (e.g., state, county) for specified measure/s. If multiple measures are specified, the results for each are returned as separate list elements.
+Lists geography types (e.g., state, county) for specified measure(s). If multiple measures are specified, the results for each are returned as separate list elements.
 }
 \examples{
 \dontrun{

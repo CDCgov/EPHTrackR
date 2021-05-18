@@ -7,15 +7,15 @@
 list_indicators(content_area = NA, format = "ID")
 }
 \arguments{
-\item{content_area}{Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
+\item{content_area}{Optional argument used to specify the content area(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
 
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
+\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 }
 \value{
-This function returns a data frame containing all indicator names, shortNames and IDs contained in the specified content area/s.
+This function returns a data frame containing all indicator names, shortNames, and IDs contained in the specified content area(s).
 }
 \description{
-List the indicators contained within the specified content area/s. Indicators are groups of highly related measures.
+Lists the indicators contained within the specified content area(s). Indicators are groups of highly related measures.
 }
 \examples{
 \dontrun{

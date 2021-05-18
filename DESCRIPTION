@@ -3,7 +3,7 @@ Type: Package
 Title: R interface to the CDC National Public Health Tracking Network
 Version: 0.2.0
 Author: William White, Battelle Memorial Institute; Nicholas Skaff, CDC
-Maintainer: Nicholas Skaff <pwc1@cdc.gov>
+Maintainer: Nicholas Skaff <nephtrackingsupport@cdc.gov>
 Description: Provides programmatic access to data hosted on the CDC National Public Health Tracking Network (Tracking Network) via the Tracking Network Data API.
 License: file LICENSE
 Encoding: UTF-8

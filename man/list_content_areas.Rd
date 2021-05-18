@@ -7,10 +7,10 @@
 list_content_areas()
 }
 \value{
-This function returns a data frame containing all content area names, shortNames and IDs.
+This function returns a data frame containing all content area names, shortNames, and IDs.
 }
 \description{
-List the content areas available on the CDC Tracking Network. Content areas are the highest level of categorization on the CDC Tracking Network.
+Lists the content areas available on the CDC Tracking Network. Content areas are the highest level of categorization on the CDC Tracking Network.
 }
 \examples{
 \dontrun{

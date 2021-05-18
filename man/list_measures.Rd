@@ -2,22 +2,22 @@
 % Please edit documentation in R/list_measures.R
 \name{list_measures}
 \alias{list_measures}
-\title{List measures}
+\title{List available measures}
 \usage{
 list_measures(indicator = NA, content_area = NA, format = "ID")
 }
 \arguments{
-\item{indicator}{Optional argument used to specify the indicator/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available indicators can be identified using list_indicators().}
+\item{indicator}{Optional argument used to specify the indicator(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available indicators can be identified using list_indicators().}
 
-\item{content_area}{Optional argument used to specify the content area/s of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
+\item{content_area}{Optional argument used to specify the content area(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
 
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
+\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 }
 \value{
-This function returns a data frame containing the measures within the specified indicator/s and/or content area/s.
+This function returns a data frame containing the measures within the specified indicator(s) and/or content area(s).
 }
 \description{
-List the measures contained within specified indicator/s and/or content area/s. Measures are the core data product of the Tracking Network.
+Lists the measures contained within specified indicator(s) and/or content area(s). Measures are the core data product of the Tracking Network.
 }
 \examples{
 \dontrun{

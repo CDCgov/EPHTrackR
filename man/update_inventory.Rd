@@ -7,7 +7,7 @@
 update_inventory()
 }
 \value{
-An updated data frame stored in the package's data/ folder and accessible by running data(measures_indicators_CAs).
+An updated data frame stored in the package's "data/" folder and accessible by running data(measures_indicators_CAs).
 }
 \description{
 This function retrieves the latest inventory of content areas, indicators, and measures from the Tracking Network Data API. This information is used internally by the package to send appropriate API data requests. It is recommended that you run this function prior to each session to ensure that the inventory is up-to-date.
