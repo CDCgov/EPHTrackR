@@ -1,8 +1,8 @@
 #' @name list_measures
 #' @title List available measures
 #' @description  Lists the measures contained within specified indicator(s) and/or content area(s). Measures are the core data product of the Tracking Network.
-#' @param indicator Optional argument used to specify the indicator(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available indicators can be identified using list_indicators().
-#' @param content_area Optional argument used to specify the content area(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().
+#' @param indicator Optional argument used to specify the indicator(s) of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings. Use list_indicators() to identify available indicators.
+#' @param content_area Optional argument used to specify the content area(s) of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings. Use list_content_areas() to identify available content areas.
 #' @param format Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.
 #' @return This function returns a data frame containing the measures within the specified indicator(s) and/or content area(s).
 #' @examples \dontrun{

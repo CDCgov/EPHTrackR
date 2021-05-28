@@ -1,0 +1,251 @@
+---
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+<!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+```
+
+<!-- badges: start -->
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) 
+[![R build status](https://github.com/CDCgov/EPHTrackR/workflows/R-CMD-check/badge.svg)](https://github.com/CDCgov/EPHTrackR/actions?workflow=R-CMD-check)
+[![CRAN status](https://www.r-pkg.org/badges/version/sword)](https://CRAN.R-project.org/package=sword)
+[![Lifecycle: expirimental](https://img.shields.io/badge/lifecycle-expirimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#expirimental)
+<!-- badges: end -->
+
+
+<!-- [![Travis-CI Build Status](https://travis-ci.org/cont-limno/LAGOSNE.svg?branch=master)](https://travis-ci.org/cont-limno/LAGOSNE) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE)
+[![Codecov test coverage](https://codecov.io/gh/tidyverse/dplyr/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/dplyr?branch=master)-->
+
+
+# EPHTrackR <img src="man/figures/CDC_Tracking_Combined.jpg" align="right" height=140/>
+
+The `EPHTrackR` package provides an R interface to access and download publicly available data stored on the [CDC National Environmental Public Health Tracking Network](https://www.cdc.gov/nceh/tracking/about.htm) (Tracking Network) via a connection with the [Tracking Network Data API](https://ephtracking.cdc.gov/apihelp). Associated metadata can be found on the Tracking Network [Indicators and Data](https://ephtracking.cdc.gov/searchMetadata) page. Users might find it easier to view the online [Data Explorer](https://ephtracking.cdc.gov/DataExplorer/) to get a sense of the available datasets before or while using this package.
+
+The purpose of the Tracking Network is to deliver information and data to protect the nation from health issues arising from or directly related to environmental factors. At the local, state, and national levels, the Tracking Network relies on a variety of people and information systems to deliver a core set of health, exposure, and hazards data; information summaries; and tools to enable analysis, visualization, and reporting of insights drawn from data.
+
+**Measures** are the core data product of the Tracking Network. Measures are organized into **indicators**, groups of highly related measures, and **content areas**, the highest level of categorization containing all the indicators related to a broad topic of interest. Using Tracking Network data, users can create customized maps, tables, and graphs of local, state, and national data. The Tracking Network contains data covering several focal areas: <br>
+    — Health effects of exposures, such as asthma <br>
+    — Hazards in the environment, such as air pollution <br>
+    — Climate, such as extreme heat events <br>
+    — Community design, such as access to parks <br>
+    — Lifestyle risk factors, such as smoking <br>
+    — Population characteristics, such as age and income <br>
+
+
+## Installation
+
+```{r install,eval=FALSE, echo=T}
+#install development version from Github
+#install devtools first if you haven't previously - install.packages("devtools")
+devtools::install_github("CDCgov/EPHTrackR", 
+                         dependencies = TRUE)
+```
+ 
+
+## Load package
+
+```{r load_library, eval=T} 
+library(EPHTrackR)
+```
+
+## Update data inventory
+
+The `update_inventory` function retrieves the latest inventory of content areas, indicators, and measures from the Tracking Network Data API. This information is used internally by the package to send appropriate API data requests. We recommend that you run this function before each session to ensure that the inventory is up-to-date.
+
+```{r load_data, eval=FALSE, echo=t}
+update_inventory()
+```
+
+You can access a data frame containing the full inventory of content areas, indicators, and measures in the R environment after the package is loaded using the command below.
+
+```{r load_data_cached, eval=TRUE}
+data(measures_indicators_CAs)
+```
+
+## Viewing content area, indicator, and measure names
+Each content area, indicator, and measure has a full name, a shortened name, and a unique identifier. You can use this information to determine what data are available on the Tracking Network and make appropriate calls to download the data (see below).
+
+#### List content areas available
+```{r content areas, eval=T}
+ca_df <- list_content_areas()
+
+head(ca_df)
+```
+
+#### List indicators in specified content area(s)
+
+```{r indicators, eval=T}
+ind_df <- list_indicators(content_area = "Heat & Heat-related Illness",
+                     format="name")
+
+head(ind_df)
+```
+
+#### List measures in specified indicator(s) and/or content area(s)
+
+```{r measures, eval=T}
+meas_df <- list_measures(content_area =c(36),
+                    format="ID")
+
+head(meas_df)
+```
+
+
+## Viewing available geography types and temporal periods for specified measures
+Measures on the Tracking Network vary in their geographic resolution (e.g., state, county), and their temporal resolution (e.g., year, month) and extent (e.g., 2000-2010, 2010-2020). By becoming familiar with the locations and temporal periods for which data are available using this function, you can make more targeted data downloads.
+
+#### List geography types available for specified measures
+
+Measures are typically available at the state, county, or census tract level.
+
+```{r geography types, eval = T}
+geog_type_df <- list_geography_types(measure= "Number of extreme heat days",
+                             format="name")
+
+head(geog_type_df)
+```
+
+#### List temporal periods available for specified measures
+
+Measures are typically available at an annual scale, but also can be daily, monthly, or weekly.
+
+```{r temporal periods, eval = T}
+temp_df <- list_temporal(measure= "Number of extreme heat days",
+                             format="name")
+
+head(temp_df[[1]])
+```
+
+## Viewing available Advanced Options for data stratification
+
+In addition to geographic and temporal specifications, some measures on the Tracking Network have a set of **Advanced Options** that allow users to access data stratified by other variables. For instance, data on asthma hospitalizations can be broken down by age and/or gender.
+
+Users are not yet able to directly select a specific stratification level with this package. Rather, users select whether they'd like the data stratified to receive results for all levels. Specific stratification levels can then be selected using filtering functions in the local environment.
+
+#### List available stratification levels for a measure
+
+**Advanced Options** might only be available at a particular geographic scale (e.g., age-breakdown of asthma hospitalizations is only available at the state level). Therefore, results showing available stratification levels always include the geography type. The output of this function is a list with a separate element for each geography type available (e.g., state, county) for the specified measure. Each row in the data frame elements of the list shows a stratification available for the measure.
+
+```{r statification levels, eval = T}
+strat_df <- list_stratification_levels(measure=99, format="ID")
+
+head(strat_df)
+```
+
+
+## Accessing Tracking Network data
+
+You can use the information from the functions listed above to request specific data from the Tracking Network Data API. Be careful when making queries. If you request data that include many years and/or data at a fine geographic scale, the dataset could be very large and take a long time to download (if it doesn't crash your session).
+
+We recommend that you include only one measure and one stratification level in a data query. However, many geographies and temporal periods may be submitted. The function will likely still work if vectors of multiple measures or stratifications are submitted, but the resulting object will be a multi-element list and distinguishing the element that applies to a particular measure or stratification level might be difficult. The output of calls with a single measure and stratification level is a list with one element containing the relevant data frame.
+
+#### Downloading state-level measure data
+
+```{r data download simple, eval = T}
+
+data_st<-get_data(measure=99, 
+                      format="ID",  
+                      strat_level = "ST")
+
+head(data_st[[1]])
+```
+
+#### Downloading measure data with advanced options
+
+The advanced stratification options are submitted via the `strat_level` argument and do not need to be included elsewhere.
+
+```{r data download advanced, eval = T}
+
+data_ad<-get_data(measure=99, 
+                      format="ID",  
+                      strat_level = "ST_AG_GN")
+
+head(data_ad[[1]])
+```
+
+#### Downloading measure data with advanced options and specific geographies
+
+You can submit state-level FIPS codes with the geo_ID argument. This will return data for either the specified states or all the sub-county geographies within the state, depending on the requested stratification level. County-level FIPS codes cannot yet be submitted, but this feature is in development.
+
+```{r data download monthly, eval = T}
+
+data_mo.geo<-get_data(measure=988, 
+                      format="ID",  
+                      strat_level = "ST_PT",
+                      geo_ID = c(4,8,9,12))
+
+head(data_mo.geo[[1]])
+```
+
+#### Downloading measure data with specific geographies and temporal periods selected
+
+```{r data download the works, eval = T}
+
+data_tpm.geo<-get_data(measure=99, format="ID",  
+                      strat_level = "ST",
+                      geo = c("CO", "ME", "FL"),
+                      temporal_period = c(2014:2018)
+                      )
+
+head(data_tpm.geo[[1]])
+```
+
+
+## Public Domain Standard Notice
+This repository constitutes a work of the United States Government and is not
+subject to domestic copyright protection under 17 USC § 105. This repository is in
+the public domain within the United States, and copyright and related rights in
+the work worldwide are waived through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+All contributions to this repository will be released under the CC0 dedication. By
+submitting a pull request you are agreeing to comply with this waiver of
+copyright interest.
+
+## License Standard Notice
+The repository utilizes code licensed under the terms of the Apache Software
+License and therefore is licensed under ASL v2 or later.
+
+This source code in this repository is free: you can redistribute it and/or modify it under
+the terms of the Apache Software License version 2, or (at your option) any
+later version.
+
+This source code in this repository is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the Apache Software License for more details.
+
+You should have received a copy of the Apache Software License along with this
+program. If not, see http://www.apache.org/licenses/LICENSE-2.0.html
+
+The source code forked from other open source projects will inherit its license.
+
+## Privacy Standard Notice
+This repository contains only non-sensitive, publicly available data and
+information. All material and community participation is covered by the
+[Disclaimer](https://github.com/CDCgov/EPHTrackR/blob/master/DISCLAIMER.md)
+and [Code of Conduct](https://github.com/CDCgov/EPHTrackR/blob/master/code-of-conduct.md).
+For more information about CDC's privacy policy, please visit [http://www.cdc.gov/other/privacy.html](https://www.cdc.gov/other/privacy.html).
+
+## Contributing Standard Notice
+Anyone is encouraged to contribute to the repository by [forking](https://help.github.com/articles/fork-a-repo)
+and submitting a pull request. (If you are new to GitHub, you might start with a
+[basic tutorial](https://help.github.com/articles/set-up-git).) By contributing
+to this project, you grant a world-wide, royalty-free, perpetual, irrevocable,
+non-exclusive, transferable license to all users under the terms of the
+[Apache Software License v2](http://www.apache.org/licenses/LICENSE-2.0.html) or
+later.
+
+All comments, messages, pull requests, and other submissions received through
+CDC including this GitHub page may be subject to applicable federal law, including but not limited to the Federal Records Act, and may be archived. Learn more at [http://www.cdc.gov/other/privacy.html](http://www.cdc.gov/other/privacy.html).
+
+## Records Management Standard Notice
+This repository is not a source of government records, but is a copy to increase
+collaboration and collaborative potential. All government records will be
+published through the [CDC web site](http://www.cdc.gov).

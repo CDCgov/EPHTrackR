@@ -7,9 +7,9 @@
 list_measures(indicator = NA, content_area = NA, format = "ID")
 }
 \arguments{
-\item{indicator}{Optional argument used to specify the indicator(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available indicators can be identified using list_indicators().}
+\item{indicator}{Optional argument used to specify the indicator(s) of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings. Use list_indicators() to identify available indicators.}
 
-\item{content_area}{Optional argument used to specify the content area(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings. Available content areas can be identified using list_content_areas().}
+\item{content_area}{Optional argument used to specify the content area(s) of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings. Use list_content_areas() to identify available content areas.}
 
 \item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 }

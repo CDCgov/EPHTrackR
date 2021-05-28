@@ -7,7 +7,7 @@
 list_geography_types(measure = NA, format = "ID", simplified_output = T)
 }
 \arguments{
-\item{measure}{Specifies the measure(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
+\item{measure}{Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.}
 
 \item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 

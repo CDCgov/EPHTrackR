@@ -13,15 +13,15 @@ list_stratification_values(
 )
 }
 \arguments{
-\item{measure}{Specifies the measure(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
+\item{measure}{Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.}
 
-\item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). A list of geo_types associated with each measure can be found in the "geographicType" column in the list_geography_types() output.}
+\item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). The "geographicType" column in the list_geography_types() output contains a list of geo_types associated with each measure.}
 
-\item{geo_type_ID}{An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). A list of geo_type_IDs associated with each measure can be found in the "geographicTypeId" column in the list_geography_types() output.}
+\item{geo_type_ID}{An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). The "geographicTypeId" column in the list_geography_types() output contains a list of geo_types associated with each measure.}
 
 \item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 
-\item{smoothing}{Specifies whether to return stratification values for geographically smoothed versions of a measure (1) or not (0). The default value is 0 since smoothing is not available for most measures.}
+\item{smoothing}{Specifies whether to return stratification values for geographically smoothed versions of a measure (1) or not (0). The default value is 0 because smoothing is not available for most measures.}
 }
 \value{
 This function returns a list with each element containing a data frame corresponding to all combinations of specified measures and geographic types. Within each row of the data frame is a nested data frame containing the stratification values. If the specified measure and associated geography type do not have any "Advanced Options" stratifications, the returned list element will be empty.

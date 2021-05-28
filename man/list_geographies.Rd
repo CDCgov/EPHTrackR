@@ -14,17 +14,17 @@ list_geographies(
 )
 }
 \arguments{
-\item{measure}{Specifies the measure(s) of interest as an ID, name, or shortName. IDs should be unquoted, while name and shortName entries should be quoted strings.}
+\item{measure}{Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.}
 
-\item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). A list of geo_types associated with each measure can be found in the "geographicType" column in the list_geography_types() output.}
+\item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). The "geographicType" column in the list_geography_types() output contains a list of geo_types associated with each measure.}
 
-\item{geo_type_ID}{An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). A list of geo_type_IDs associated with each measure can be found in the "geographicTypeId" column in the list_geography_types() output.}
+\item{geo_type_ID}{An optional argument in which you can specify a geographic type ID as an unquoted numeric value (e.g., 1, 2). The "geographicTypeId" column in the list_geography_types() output contains a list of geo_types associated with each measure.}
 
 \item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 
 \item{simplified_output}{If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.}
 
-\item{rollup}{It is unlikely you'll need to change this from the default value of 0. Submitting a value of 1 returns only parent geographies (e.g., states instead of all county-level geographies). This argument does nothing if the focal geography type is already a state.}
+\item{rollup}{You probably won't need to change this from the default value of 0. Submitting a value of 1 returns only parent geographies (e.g., states instead of all county-level geographies). This argument does nothing if the focal geography type is already a state.}
 }
 \value{
 This function returns a list with each element containing a data frame corresponding to each combination of the specified measures and geographic types.
