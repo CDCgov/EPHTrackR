@@ -187,10 +187,11 @@ get_data<-
       
       MD_cont <- purrr::compact(MD_cont )
       
-      data_list_element<-names(unlist(purrr::map(MD_cont,nrow)))
+      data_list_element<-names(unlist(purrr::map(MD_cont,nrow))[which(unlist(purrr::map(MD_cont,nrow))>1)])
       
       #selecting the table results element with actual relevant data.
       #name of element can differ depending on the measure
+      ###not totally sure that the third element is always the datas
       MD_cont_tab<-MD_cont[[data_list_element]]
       
       
