@@ -11,7 +11,7 @@ status](https://github.com/CDCgov/EPHTrackR/workflows/R-CMD-check/badge.svg)](ht
 [![CRAN
 status](https://www.r-pkg.org/badges/version/sword)](https://CRAN.R-project.org/package=sword)
 [![Lifecycle:
-expirimental](https://img.shields.io/badge/lifecycle-expirimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#expirimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 <!-- [![Travis-CI Build Status](https://travis-ci.org/cont-limno/LAGOSNE.svg?branch=master)](https://travis-ci.org/cont-limno/LAGOSNE) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE)
