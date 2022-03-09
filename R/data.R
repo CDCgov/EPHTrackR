@@ -16,5 +16,4 @@
 #'   ...
 #' }
 #' @source \url{https://ephtracking.cdc.gov/}
-#' @export
 "measures_indicators_CAs"
