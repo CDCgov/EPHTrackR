@@ -7,7 +7,7 @@ Maintainer: Nicholas Skaff <nephtrackingsupport@cdc.gov>
 Description: Provides programmatic access to data hosted on the CDC National Public Health Tracking Network (Tracking Network) via the Tracking Network Data API.
 License: file LICENSE
 Encoding: UTF-8
-LazyData: false
+LazyData: true
 Depends: R (>= 3.5.0)
 Imports: 
   httr (>= 1.4.0), 
