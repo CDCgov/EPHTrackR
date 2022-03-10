@@ -11,7 +11,7 @@ status](https://github.com/CDCgov/EPHTrackR/workflows/R-CMD-check/badge.svg)](ht
 [![CRAN
 status](https://www.r-pkg.org/badges/version/sword)](https://CRAN.R-project.org/package=sword)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+expirimental](https://img.shields.io/badge/lifecycle-expirimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#expirimental)
 <!-- badges: end -->
 
 <!-- [![Travis-CI Build Status](https://travis-ci.org/cont-limno/LAGOSNE.svg?branch=master)](https://travis-ci.org/cont-limno/LAGOSNE) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE)
@@ -80,10 +80,10 @@ update_inventory()
 
 You can access a data frame containing the full inventory of content
 areas, indicators, and measures in the R environment after the package
-is loaded using the command below.
+is loaded.
 
 ``` r
-data(measures_indicators_CAs)
+View(measures_indicators_CAs)
 ```
 
 ## Viewing content area, indicator, and measure names
@@ -328,34 +328,62 @@ data_st<-get_data(measure=99,
 #> Done
 
 head(data_st[[1]])
-#>   dataValue date suppressionFlag confidenceIntervalLow confidenceIntervalHigh
-#> 1      7115 2005               0                    NA                     NA
-#> 2      6712 2006               0                    NA                     NA
-#> 3      6735 2007               0                    NA                     NA
-#> 4      7511 2008               0                    NA                     NA
-#> 5      8265 2009               0                    NA                     NA
-#> 6      8050 2010               0                    NA                     NA
-#>   confidenceIntervalName standardError standardErrorName secondaryValue
-#> 1                     NA            NA                NA             NA
-#> 2                     NA            NA                NA             NA
-#> 3                     NA            NA                NA             NA
-#> 4                     NA            NA                NA             NA
-#> 5                     NA            NA                NA             NA
-#> 6                     NA            NA                NA             NA
-#>   secondaryValueName   title confidenceIntervalLowName     geo parentGeo geoId
-#> 1                 NA Arizona                           Arizona        NA    04
-#> 2                 NA Arizona                           Arizona        NA    04
-#> 3                 NA Arizona                           Arizona        NA    04
-#> 4                 NA Arizona                           Arizona        NA    04
-#> 5                 NA Arizona                           Arizona        NA    04
-#> 6                 NA Arizona                           Arizona        NA    04
-#>   parentGeoId geoAbbreviation parentGeoAbbreviation Measure_ID
-#> 1          NA              AZ                    NA         99
-#> 2          NA              AZ                    NA         99
-#> 3          NA              AZ                    NA         99
-#> 4          NA              AZ                    NA         99
-#> 5          NA              AZ                    NA         99
-#> 6          NA              AZ                    NA         99
+#>       geo geoId   geoAbbreviation parentGeographicTypeId parentGeo parentGeoId
+#> 1 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 2 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 3 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 4 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 5 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 6 Arizona    04 StateAbbreviation                     NA        NA          NA
+#>   parentGeoAbbreviation temporalTypeId temporal temporalDescription
+#> 1                    NA              1     2005         Single Year
+#> 2                    NA              1     2006         Single Year
+#> 3                    NA              1     2007         Single Year
+#> 4                    NA              1     2008         Single Year
+#> 5                    NA              1     2009         Single Year
+#> 6                    NA              1     2010         Single Year
+#>   temporalColumnName temporalRollingColumnName temporalId minimumTemporal
+#> 1         ReportYear          RollingYearCount       2005              NA
+#> 2         ReportYear          RollingYearCount       2006              NA
+#> 3         ReportYear          RollingYearCount       2007              NA
+#> 4         ReportYear          RollingYearCount       2008              NA
+#> 5         ReportYear          RollingYearCount       2009              NA
+#> 6         ReportYear          RollingYearCount       2010              NA
+#>   minimumTemporalId parentTemporalTypeId parentTemporalType parentTemporal
+#> 1                NA                   NA                 NA             NA
+#> 2                NA                   NA                 NA             NA
+#> 3                NA                   NA                 NA             NA
+#> 4                NA                   NA                 NA             NA
+#> 5                NA                   NA                 NA             NA
+#> 6                NA                   NA                 NA             NA
+#>   parentTemporalId date dataValue suppressionFlag confidenceIntervalLow
+#> 1               NA 2005      7115               0                    NA
+#> 2               NA 2006      6712               0                    NA
+#> 3               NA 2007      6735               0                    NA
+#> 4               NA 2008      7511               0                    NA
+#> 5               NA 2009      8265               0                    NA
+#> 6               NA 2010      8050               0                    NA
+#>   confidenceIntervalHigh confidenceIntervalName standardError standardErrorName
+#> 1                     NA                     NA            NA                NA
+#> 2                     NA                     NA            NA                NA
+#> 3                     NA                     NA            NA                NA
+#> 4                     NA                     NA            NA                NA
+#> 5                     NA                     NA            NA                NA
+#> 6                     NA                     NA            NA                NA
+#>   secondaryValue secondaryValueName   title confidenceIntervalLowName
+#> 1             NA                 NA Arizona                          
+#> 2             NA                 NA Arizona                          
+#> 3             NA                 NA Arizona                          
+#> 4             NA                 NA Arizona                          
+#> 5             NA                 NA Arizona                          
+#> 6             NA                 NA Arizona                          
+#>   parentMinimumTemporal parentMinimumTemporalId Measure_ID
+#> 1                    NA                      NA         99
+#> 2                    NA                      NA         99
+#> 3                    NA                      NA         99
+#> 4                    NA                      NA         99
+#> 5                    NA                      NA         99
+#> 6                    NA                      NA         99
 #>                            Measure_Name                      Measure_shortName
 #> 1 Number of hospitalizations for asthma Number of hospitalizations for asthma 
 #> 2 Number of hospitalizations for asthma Number of hospitalizations for asthma 
@@ -386,34 +414,62 @@ data_ad<-get_data(measure=99,
 #> Done
 
 head(data_ad[[1]])
-#>   dataValue date suppressionFlag confidenceIntervalLow confidenceIntervalHigh
-#> 1       879 2005               0                    NA                     NA
-#> 2       422 2005               0                    NA                     NA
-#> 3       739 2005               0                    NA                     NA
-#> 4       436 2005               0                    NA                     NA
-#> 5       304 2005               0                    NA                     NA
-#> 6       541 2005               0                    NA                     NA
-#>   confidenceIntervalName standardError standardErrorName secondaryValue
-#> 1                     NA            NA                NA             NA
-#> 2                     NA            NA                NA             NA
-#> 3                     NA            NA                NA             NA
-#> 4                     NA            NA                NA             NA
-#> 5                     NA            NA                NA             NA
-#> 6                     NA            NA                NA             NA
-#>   secondaryValueName   title confidenceIntervalLowName     geo parentGeo geoId
-#> 1                 NA Arizona                           Arizona        NA    04
-#> 2                 NA Arizona                           Arizona        NA    04
-#> 3                 NA Arizona                           Arizona        NA    04
-#> 4                 NA Arizona                           Arizona        NA    04
-#> 5                 NA Arizona                           Arizona        NA    04
-#> 6                 NA Arizona                           Arizona        NA    04
-#>   parentGeoId geoAbbreviation parentGeoAbbreviation   stratification Measure_ID
-#> 1          NA              AZ                    NA     0 TO 4, Male         99
-#> 2          NA              AZ                    NA   0 TO 4, Female         99
-#> 3          NA              AZ                    NA    5 TO 14, Male         99
-#> 4          NA              AZ                    NA  5 TO 14, Female         99
-#> 5          NA              AZ                    NA   15 TO 34, Male         99
-#> 6          NA              AZ                    NA 15 TO 34, Female         99
+#>       geo geoId   geoAbbreviation parentGeographicTypeId parentGeo parentGeoId
+#> 1 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 2 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 3 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 4 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 5 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 6 Arizona    04 StateAbbreviation                     NA        NA          NA
+#>   parentGeoAbbreviation temporalTypeId temporal temporalDescription
+#> 1                    NA              1     2005         Single Year
+#> 2                    NA              1     2005         Single Year
+#> 3                    NA              1     2005         Single Year
+#> 4                    NA              1     2005         Single Year
+#> 5                    NA              1     2005         Single Year
+#> 6                    NA              1     2005         Single Year
+#>   temporalColumnName temporalRollingColumnName temporalId minimumTemporal
+#> 1         ReportYear          RollingYearCount       2005              NA
+#> 2         ReportYear          RollingYearCount       2005              NA
+#> 3         ReportYear          RollingYearCount       2005              NA
+#> 4         ReportYear          RollingYearCount       2005              NA
+#> 5         ReportYear          RollingYearCount       2005              NA
+#> 6         ReportYear          RollingYearCount       2005              NA
+#>   minimumTemporalId parentTemporalTypeId parentTemporalType parentTemporal
+#> 1                NA                   NA                 NA             NA
+#> 2                NA                   NA                 NA             NA
+#> 3                NA                   NA                 NA             NA
+#> 4                NA                   NA                 NA             NA
+#> 5                NA                   NA                 NA             NA
+#> 6                NA                   NA                 NA             NA
+#>   parentTemporalId date dataValue suppressionFlag confidenceIntervalLow
+#> 1               NA 2005       879               0                    NA
+#> 2               NA 2005       422               0                    NA
+#> 3               NA 2005       739               0                    NA
+#> 4               NA 2005       436               0                    NA
+#> 5               NA 2005       304               0                    NA
+#> 6               NA 2005       541               0                    NA
+#>   confidenceIntervalHigh confidenceIntervalName standardError standardErrorName
+#> 1                     NA                     NA            NA                NA
+#> 2                     NA                     NA            NA                NA
+#> 3                     NA                     NA            NA                NA
+#> 4                     NA                     NA            NA                NA
+#> 5                     NA                     NA            NA                NA
+#> 6                     NA                     NA            NA                NA
+#>   secondaryValue secondaryValueName   title confidenceIntervalLowName
+#> 1             NA                 NA Arizona                          
+#> 2             NA                 NA Arizona                          
+#> 3             NA                 NA Arizona                          
+#> 4             NA                 NA Arizona                          
+#> 5             NA                 NA Arizona                          
+#> 6             NA                 NA Arizona                          
+#>   parentMinimumTemporal parentMinimumTemporalId   stratification Measure_ID
+#> 1                    NA                      NA     0 TO 4, Male         99
+#> 2                    NA                      NA   0 TO 4, Female         99
+#> 3                    NA                      NA    5 TO 14, Male         99
+#> 4                    NA                      NA  5 TO 14, Female         99
+#> 5                    NA                      NA   15 TO 34, Male         99
+#> 6                    NA                      NA 15 TO 34, Female         99
 #>                            Measure_Name                      Measure_shortName
 #> 1 Number of hospitalizations for asthma Number of hospitalizations for asthma 
 #> 2 Number of hospitalizations for asthma Number of hospitalizations for asthma 
@@ -448,48 +504,76 @@ data_mo.geo<-get_data(measure=988,
 #> Done
 
 head(data_mo.geo[[1]])
-#>   dataValue   date suppressionFlag confidenceIntervalLow confidenceIntervalHigh
-#> 1         5 200001               0                    NA                     NA
-#> 2         5 200001               0                    NA                     NA
-#> 3         5 200001               0                    NA                     NA
-#> 4         5 200001               0                    NA                     NA
-#> 5         5 200002               0                    NA                     NA
-#> 6         5 200002               0                    NA                     NA
-#>   confidenceIntervalName standardError standardErrorName secondaryValue
-#> 1                     NA            NA                NA             NA
-#> 2                     NA            NA                NA             NA
-#> 3                     NA            NA                NA             NA
-#> 4                     NA            NA                NA             NA
-#> 5                     NA            NA                NA             NA
-#> 6                     NA            NA                NA             NA
-#>   secondaryValueName reportMonth   title confidenceIntervalLowName     geo
-#> 1                 NA      200001 Arizona                           Arizona
-#> 2                 NA      200001 Arizona                           Arizona
-#> 3                 NA      200001 Arizona                           Arizona
-#> 4                 NA      200001 Arizona                           Arizona
-#> 5                 NA      200002 Arizona                           Arizona
-#> 6                 NA      200002 Arizona                           Arizona
-#>   parentGeo geoId parentGeoId geoAbbreviation parentGeoAbbreviation
-#> 1        NA    04          NA              AZ                    NA
-#> 2        NA    04          NA              AZ                    NA
-#> 3        NA    04          NA              AZ                    NA
-#> 4        NA    04          NA              AZ                    NA
-#> 5        NA    04          NA              AZ                    NA
-#> 6        NA    04          NA              AZ                    NA
-#>   stratification Measure_ID                       Measure_Name
-#> 1            All        988 State Agency Rule-making Authority
-#> 2    Legislation        988 State Agency Rule-making Authority
-#> 3     Regulation        988 State Agency Rule-making Authority
-#> 4          Other        988 State Agency Rule-making Authority
-#> 5            All        988 State Agency Rule-making Authority
-#> 6    Legislation        988 State Agency Rule-making Authority
-#>                    Measure_shortName Strat_Level_ID Geo_Type_ID Geo_Type
-#> 1 State Agency Rule-making Authority           2239           1    State
-#> 2 State Agency Rule-making Authority           2239           1    State
-#> 3 State Agency Rule-making Authority           2239           1    State
-#> 4 State Agency Rule-making Authority           2239           1    State
-#> 5 State Agency Rule-making Authority           2239           1    State
-#> 6 State Agency Rule-making Authority           2239           1    State
+#>       geo geoId   geoAbbreviation parentGeographicTypeId parentGeo parentGeoId
+#> 1 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 2 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 3 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 4 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 5 Arizona    04 StateAbbreviation                     NA        NA          NA
+#> 6 Arizona    04 StateAbbreviation                     NA        NA          NA
+#>   parentGeoAbbreviation temporalTypeId temporal temporalDescription
+#> 1                    NA              4   200001        Single Month
+#> 2                    NA              4   200002        Single Month
+#> 3                    NA              4   200003        Single Month
+#> 4                    NA              4   200004        Single Month
+#> 5                    NA              4   200005        Single Month
+#> 6                    NA              4   200006        Single Month
+#>   temporalColumnName temporalRollingColumnName temporalId minimumTemporal
+#> 1        ReportMonth              RollingCount     200001              NA
+#> 2        ReportMonth              RollingCount     200002              NA
+#> 3        ReportMonth              RollingCount     200003              NA
+#> 4        ReportMonth              RollingCount     200004              NA
+#> 5        ReportMonth              RollingCount     200005              NA
+#> 6        ReportMonth              RollingCount     200006              NA
+#>   minimumTemporalId parentTemporalTypeId parentTemporalType parentTemporal
+#> 1                NA                    1               Year           2000
+#> 2                NA                    1               Year           2000
+#> 3                NA                    1               Year           2000
+#> 4                NA                    1               Year           2000
+#> 5                NA                    1               Year           2000
+#> 6                NA                    1               Year           2000
+#>   parentTemporalId   date dataValue suppressionFlag confidenceIntervalLow
+#> 1             2000 200001         4               0                    NA
+#> 2             2000 200002         4               0                    NA
+#> 3             2000 200003         4               0                    NA
+#> 4             2000 200004         4               0                    NA
+#> 5             2000 200005         4               0                    NA
+#> 6             2000 200006         4               0                    NA
+#>   confidenceIntervalHigh confidenceIntervalName standardError standardErrorName
+#> 1                     NA                     NA            NA                NA
+#> 2                     NA                     NA            NA                NA
+#> 3                     NA                     NA            NA                NA
+#> 4                     NA                     NA            NA                NA
+#> 5                     NA                     NA            NA                NA
+#> 6                     NA                     NA            NA                NA
+#>   secondaryValue secondaryValueName   title confidenceIntervalLowName
+#> 1             NA                 NA Arizona                          
+#> 2             NA                 NA Arizona                          
+#> 3             NA                 NA Arizona                          
+#> 4             NA                 NA Arizona                          
+#> 5             NA                 NA Arizona                          
+#> 6             NA                 NA Arizona                          
+#>   parentMinimumTemporal parentMinimumTemporalId  stratification Measure_ID
+#> 1                    NA                      NA Any policy type        988
+#> 2                    NA                      NA Any policy type        988
+#> 3                    NA                      NA Any policy type        988
+#> 4                    NA                      NA Any policy type        988
+#> 5                    NA                      NA Any policy type        988
+#> 6                    NA                      NA Any policy type        988
+#>                         Measure_Name                  Measure_shortName
+#> 1 State Agency Rule-making Authority State Agency Rule-making Authority
+#> 2 State Agency Rule-making Authority State Agency Rule-making Authority
+#> 3 State Agency Rule-making Authority State Agency Rule-making Authority
+#> 4 State Agency Rule-making Authority State Agency Rule-making Authority
+#> 5 State Agency Rule-making Authority State Agency Rule-making Authority
+#> 6 State Agency Rule-making Authority State Agency Rule-making Authority
+#>   Strat_Level_ID Geo_Type_ID Geo_Type
+#> 1           2239           1    State
+#> 2           2239           1    State
+#> 3           2239           1    State
+#> 4           2239           1    State
+#> 5           2239           1    State
+#> 6           2239           1    State
 ```
 
 #### Downloading measure data with specific geographies and temporal periods selected
@@ -505,34 +589,62 @@ data_tpm.geo<-get_data(measure=99, format="ID",
 #> Done
 
 head(data_tpm.geo[[1]])
-#>   dataValue date suppressionFlag confidenceIntervalLow confidenceIntervalHigh
-#> 1      3979 2014               0                    NA                     NA
-#> 2      3170 2015               0                    NA                     NA
-#> 3      2484 2016               0                    NA                     NA
-#> 4      2367 2017               0                    NA                     NA
-#> 5      2236 2018               0                    NA                     NA
-#> 6     28014 2014               0                    NA                     NA
-#>   confidenceIntervalName standardError standardErrorName secondaryValue
-#> 1                     NA            NA                NA             NA
-#> 2                     NA            NA                NA             NA
-#> 3                     NA            NA                NA             NA
-#> 4                     NA            NA                NA             NA
-#> 5                     NA            NA                NA             NA
-#> 6                     NA            NA                NA             NA
-#>   secondaryValueName    title confidenceIntervalLowName      geo parentGeo
-#> 1                 NA Colorado                           Colorado        NA
-#> 2                 NA Colorado                           Colorado        NA
-#> 3                 NA Colorado                           Colorado        NA
-#> 4                 NA Colorado                           Colorado        NA
-#> 5                 NA Colorado                           Colorado        NA
-#> 6                 NA  Florida                            Florida        NA
-#>   geoId parentGeoId geoAbbreviation parentGeoAbbreviation Measure_ID
-#> 1    08          NA              CO                    NA         99
-#> 2    08          NA              CO                    NA         99
-#> 3    08          NA              CO                    NA         99
-#> 4    08          NA              CO                    NA         99
-#> 5    08          NA              CO                    NA         99
-#> 6    12          NA              FL                    NA         99
+#>        geo geoId   geoAbbreviation parentGeographicTypeId parentGeo parentGeoId
+#> 1 Colorado    08 StateAbbreviation                     NA        NA          NA
+#> 2 Colorado    08 StateAbbreviation                     NA        NA          NA
+#> 3 Colorado    08 StateAbbreviation                     NA        NA          NA
+#> 4 Colorado    08 StateAbbreviation                     NA        NA          NA
+#> 5 Colorado    08 StateAbbreviation                     NA        NA          NA
+#> 6  Florida    12 StateAbbreviation                     NA        NA          NA
+#>   parentGeoAbbreviation temporalTypeId temporal temporalDescription
+#> 1                    NA              1     2014         Single Year
+#> 2                    NA              1     2015         Single Year
+#> 3                    NA              1     2016         Single Year
+#> 4                    NA              1     2017         Single Year
+#> 5                    NA              1     2018         Single Year
+#> 6                    NA              1     2014         Single Year
+#>   temporalColumnName temporalRollingColumnName temporalId minimumTemporal
+#> 1         ReportYear          RollingYearCount       2014              NA
+#> 2         ReportYear          RollingYearCount       2015              NA
+#> 3         ReportYear          RollingYearCount       2016              NA
+#> 4         ReportYear          RollingYearCount       2017              NA
+#> 5         ReportYear          RollingYearCount       2018              NA
+#> 6         ReportYear          RollingYearCount       2014              NA
+#>   minimumTemporalId parentTemporalTypeId parentTemporalType parentTemporal
+#> 1                NA                   NA                 NA             NA
+#> 2                NA                   NA                 NA             NA
+#> 3                NA                   NA                 NA             NA
+#> 4                NA                   NA                 NA             NA
+#> 5                NA                   NA                 NA             NA
+#> 6                NA                   NA                 NA             NA
+#>   parentTemporalId date dataValue suppressionFlag confidenceIntervalLow
+#> 1               NA 2014      3979               0                    NA
+#> 2               NA 2015      3170               0                    NA
+#> 3               NA 2016      2484               0                    NA
+#> 4               NA 2017      2367               0                    NA
+#> 5               NA 2018      2236               0                    NA
+#> 6               NA 2014     28014               0                    NA
+#>   confidenceIntervalHigh confidenceIntervalName standardError standardErrorName
+#> 1                     NA                     NA            NA                NA
+#> 2                     NA                     NA            NA                NA
+#> 3                     NA                     NA            NA                NA
+#> 4                     NA                     NA            NA                NA
+#> 5                     NA                     NA            NA                NA
+#> 6                     NA                     NA            NA                NA
+#>   secondaryValue secondaryValueName    title confidenceIntervalLowName
+#> 1             NA                 NA Colorado                          
+#> 2             NA                 NA Colorado                          
+#> 3             NA                 NA Colorado                          
+#> 4             NA                 NA Colorado                          
+#> 5             NA                 NA Colorado                          
+#> 6             NA                 NA  Florida                          
+#>   parentMinimumTemporal parentMinimumTemporalId Measure_ID
+#> 1                    NA                      NA         99
+#> 2                    NA                      NA         99
+#> 3                    NA                      NA         99
+#> 4                    NA                      NA         99
+#> 5                    NA                      NA         99
+#> 6                    NA                      NA         99
 #>                            Measure_Name                      Measure_shortName
 #> 1 Number of hospitalizations for asthma Number of hospitalizations for asthma 
 #> 2 Number of hospitalizations for asthma Number of hospitalizations for asthma 

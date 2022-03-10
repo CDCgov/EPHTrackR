@@ -65,9 +65,9 @@ The `update_inventory` function retrieves the latest inventory of content areas,
 update_inventory()
 ```
 
-You can access a data frame containing the full inventory of content areas, indicators, and measures in the R environment after the package is loaded using the command below.
+You can access a data frame containing the full inventory of content areas, indicators, and measures in the R environment after the package is loaded.
 
-```{r load_data_cached, eval=TRUE}
+```{r load_data_cached, eval=T}
 View(measures_indicators_CAs)
 ```
 
