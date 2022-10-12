@@ -84,7 +84,7 @@ head(ca_df)
 #### List indicators in specified content area(s)
 
 ```{r indicators, eval=T}
-ind_df <- list_indicators(content_area = "Heat & Heat-related Illness",
+ind_df <- list_indicators(content_area = "Heat & Heat-related Illness (HRI)",
                      format="name")
 
 head(ind_df)
