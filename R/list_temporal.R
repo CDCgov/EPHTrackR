@@ -82,6 +82,8 @@ list_temporal <- function(measure=NA,
       return(dplyr::select(temp_cont,
                            parentTemporal,
                            parentTemporalType,
+                           childTemporal,
+                           childTemporalType,
                            Geo_Type,
                            Measure_ID,
                            Measure))
