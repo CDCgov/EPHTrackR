@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_geography_types.R
 \name{list_geography_types}
 \alias{list_geography_types}
-\title{List available geography types}
+\title{DEPRECATED - List available geography types}
 \usage{
 list_geography_types(measure = NA, format = "ID", simplified_output = T)
 }

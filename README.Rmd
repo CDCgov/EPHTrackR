@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) 
 [![R build status](https://github.com/CDCgov/EPHTrackR/workflows/R-CMD-check/badge.svg)](https://github.com/CDCgov/EPHTrackR/actions?workflow=R-CMD-check)
 [![CRAN status](https://www.r-pkg.org/badges/version/sword)](https://CRAN.R-project.org/package=sword)
-[![Lifecycle: expirimental](https://img.shields.io/badge/lifecycle-expirimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#expirimental)
+[![Lifecycle: stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 # EPHTrackR <img src="man/figures/CDC_Tracking_Combined.jpg" align="right" height=140/>
 
-The `EPHTrackR` package provides an R interface to access and download publicly available data stored on the [CDC National Environmental Public Health Tracking Network](https://www.cdc.gov/nceh/tracking/about.htm) (Tracking Network) via a connection with the [Tracking Network Data API](https://ephtracking.cdc.gov/apihelp). Associated metadata can be found on the Tracking Network [Indicators and Data](https://ephtracking.cdc.gov/searchMetadata) page. Users might find it easier to view the online [Data Explorer](https://ephtracking.cdc.gov/DataExplorer/) to get a sense of the available datasets before or while using this package.
+The `EPHTrackR` package provides an R interface to access and download publicly available data stored on the [CDC National Environmental Public Health Tracking Network](https://www.cdc.gov/nceh/tracking/about.htm) (Tracking Network) via a connection with the [Tracking Network Data API](https://ephtracking.cdc.gov/apihelp). A detailed user guide describing available API calls and associated outputs can be found at that link. Associated metadata for downloaded measure data can be found on the Tracking Network [Indicators and Data](https://ephtracking.cdc.gov/searchMetadata) page. Users might find it easier to view the online [Data Explorer](https://ephtracking.cdc.gov/DataExplorer/) to get a sense of the available datasets before or while using this package.
 
 The purpose of the Tracking Network is to deliver information and data to protect the nation from health issues arising from or directly related to environmental factors. At the local, state, and national levels, the Tracking Network relies on a variety of people and information systems to deliver a core set of health, exposure, and hazards data; information summaries; and tools to enable analysis, visualization, and reporting of insights drawn from data.
 
@@ -57,22 +57,39 @@ devtools::install_github("CDCgov/EPHTrackR",
 library(EPHTrackR)
 ```
 
-## Update data inventory
 
-The `update_inventory` function retrieves the latest inventory of content areas, indicators, and measures from the Tracking Network Data API. This information is used internally by the package to send appropriate API data requests. We recommend that you run this function before each session to ensure that the inventory is up-to-date.
+## Saving a Tracking API token
 
-```{r load_data, eval=FALSE, echo=t}
-update_inventory()
+The `tracking_api_token()` function adds a Tracking API token to your .Renviron file so it can be called securely without being stored in your code. After you have run this function, the token will be called automatically by all the other functions in this package. Leaving the default argument `install=T`, ensures that the token will be saved in future R sessions. A token can be acquired by emailing, trackingsupport(AT)cdc.gov. Further information is available at https://ephtracking.cdc.gov/apihelp. 
+
+```{r save_token, eval=FALSE, echo=t}
+
+tracking_api_token("XXXXXXXXXXXXXXXXX", 
+                   install=T)
+
+#After you run this function, reload your environment so you can use the token without restarting R.
+readRenviron("~/.Renviron")
+
+
+#Token can be viewed by running:
+Sys.getenv("TRACKING_API_TOKEN")
+
 ```
 
-You can access a data frame containing the full inventory of content areas, indicators, and measures in the R environment after the package is loaded.
+## Full measure inventory
 
-```{r load_data_cached, eval=T}
-View(measures_indicators_CAs)
+Running the `list_measures()` function without any additional inputs retrieves the latest inventory of content areas, indicators, and measures from the Tracking Network Data API.
+
+```{r full_data, eval=FALSE, echo=t}
+measures_inventory <- list_measures()
+
+View(measures_inventory)
+
 ```
+
 
 ## Viewing content area, indicator, and measure names
-Each content area, indicator, and measure has a full name, a shortened name, and a unique identifier. You can use this information to determine what data are available on the Tracking Network and make appropriate calls to download the data (see below).
+Each content area, indicator, and measure has a full name and a unique identifier. You can use this information to determine what data are available on the Tracking Network and make appropriate calls to download the data (see below).
 
 #### List content areas available
 ```{r content areas, eval=T}
@@ -84,8 +101,7 @@ head(ca_df)
 #### List indicators in specified content area(s)
 
 ```{r indicators, eval=T}
-ind_df <- list_indicators(content_area = "Heat & Heat-related Illness (HRI)",
-                     format="name")
+ind_df <- list_indicators(content_area = "Heat & Heat-related Illness (HRI)")
 
 head(ind_df)
 ```
@@ -93,34 +109,44 @@ head(ind_df)
 #### List measures in specified indicator(s) and/or content area(s)
 
 ```{r measures, eval=T}
-meas_df <- list_measures(content_area =c(36),
-                    format="ID")
+meas_df <- list_measures(content_area = 36)
 
 head(meas_df)
 ```
 
 
-## Viewing available geography types and temporal periods for specified measures
-Measures on the Tracking Network vary in their geographic resolution (e.g., state, county), and their temporal resolution (e.g., year, month) and extent (e.g., 2000-2010, 2010-2020). By becoming familiar with the locations and temporal periods for which data are available using this function, you can make more targeted data downloads.
+## Viewing available geographic and temporal types and items for specified measures
 
-#### List geography types available for specified measures
+Measures on the Tracking Network vary in their geographic resolution (e.g., state, county), geographic extent (e.g., Massachusetts, Michigan, Pennsylvania, California, Georgia), temporal resolution (e.g., year, month) and temporal extent (e.g., 2000-2010, 2010-2020). By becoming familiar with the geographies and temporal periods for which data are available using this function, you can make more targeted data downloads.
+
+#### List geographic types available for specified measures
 
 Measures are typically available at the state, county, or census tract level.
 
-```{r geography types, eval = T}
-geog_type_df <- list_geography_types(measure= "Number of extreme heat days",
-                             format="name")
+```{r geographic types, eval = T}
+geog_type_df <- list_GeographicTypes(measure= "Number of Square Miles within FEMA Designated Flood Hazard Area")
 
-head(geog_type_df)
+head(geog_type_df[[1]])
 ```
 
-#### List temporal periods available for specified measures
+#### List geographic items available for specified measures
 
-Measures are typically available at an annual scale, but also can be daily, monthly, or weekly.
+This function identifies the particular geographic items (e.g., Alabama) that are available for a specified measure. It will reveal both the lowest level geographic items available (e.g., a county or census tract) and an overarching items, like states (i.e., parent geographic item) that contains the lowest level geographic items you would like returned in the data.
 
-```{r temporal periods, eval = T}
-temp_df <- list_temporal(measure= "Number of extreme heat days",
-                             format="name")
+```{r geographic types, eval = T}
+geog_item_df <- list_GeographicItems(measure= "Annual Number of Extreme Heat Days from May to September",
+                                     geo_type="County")
+
+head(geog_item_df[[1]])
+```
+
+
+#### List temporal items available for specified measures
+
+Measures are typically available at an annual scale, but also can be daily, monthly, or weekly. This function identifies the particular years, months, days etc. that are available for the specified measure (e.g., 2001, Aug 2020, etc.)
+
+```{r temporal items, eval = T}
+temp_df <- list_TemporalItems(measure= "Annual Number of Extreme Heat Days from May to September")
 
 head(temp_df[[1]])
 ```
@@ -129,74 +155,95 @@ head(temp_df[[1]])
 
 In addition to geographic and temporal specifications, some measures on the Tracking Network have a set of **Advanced Options** that allow users to access data stratified by other variables. For instance, data on asthma hospitalizations can be broken down by age and/or gender.
 
-Users are not yet able to directly select a specific stratification level with this package. Rather, users select whether they'd like the data stratified to receive results for all levels. Specific stratification levels can then be selected using filtering functions in the local environment.
-
 #### List available stratification levels for a measure
 
 **Advanced Options** might only be available at a particular geographic scale (e.g., age-breakdown of asthma hospitalizations is only available at the state level). Therefore, results showing available stratification levels always include the geography type. The output of this function is a list with a separate element for each geography type available (e.g., state, county) for the specified measure. Each row in the data frame elements of the list shows a stratification available for the measure.
 
 ```{r statification levels, eval = T}
-strat_df <- list_stratification_levels(measure=99, format="ID")
+strat_df <- list_StratificationLevels(measure=99)
 
-head(strat_df)
+head(strat_df[[1]])
+```
+
+#### List available stratification types for a measure
+
+If you'd like to query Tracking data by a specific stratification level (e.g., you'd like data for just males), then you need to run the `list_StratificationTypes()` function to identify the internal name for the stratification and the appropriate code for the stratification level of interest (e.g., 1 for male, 2 for female). The internal name can be found in the in the ColumnName column of the function output and codes can be found in the nested list found in the stratificationItem column of the function output. Refer back to these when constructing queries with with the `get_data()` function.
+
+```{r statification types, eval = T}
+strat_df <- list_StratificationTypes(measure=99,
+                                     geo_type="State")
+
+strat_df[[1]]
+
+#viewing the nested list in the stratificationItem column of the function output to identify stratification level codes
+strat_df[[1]]$stratificationItem
+
 ```
 
 
 ## Accessing Tracking Network data
 
-You can use the information from the functions listed above to request specific data from the Tracking Network Data API. Be careful when making queries. If you request data that include many years and/or data at a fine geographic scale, the dataset could be very large and take a long time to download (if it doesn't crash your session).
+You can use the information from the functions listed above to request specific data from the Tracking Network Data API. Be careful when making queries. If you request data that include many years and/or data at a fine geographic scale, the dataset could be very large and take a long time to download (if it doesn't crash your session and bog down the entire  API).
 
-We recommend that you include only one measure and one stratification level in a data query. However, many geographies and temporal periods may be submitted. The function will likely still work if vectors of multiple measures or stratifications are submitted, but the resulting object will be a multi-element list and distinguishing the element that applies to a particular measure or stratification level might be difficult. The output of calls with a single measure and stratification level is a list with one element containing the relevant data frame.
+We recommend that you include only one measure and one stratification level in a data query. Many geographies and temporal periods may be submitted. The function will likely still work if vectors of multiple measures or stratification levels are submitted, but the resulting object will be a multi-element list and distinguishing the element that applies to a particular measure or stratification might be difficult. The output of function calls with a single measure and stratification level is a list with one element containing the relevant data frame.
 
 #### Downloading state-level measure data
 
 ```{r data download simple, eval = T}
 
-data_st<-get_data(measure=99, 
-                      format="ID",  
-                      strat_level = "ST")
+data_st<-get_data(measure=99,
+                  strat_level = "ST")
 
 head(data_st[[1]])
 ```
 
 #### Downloading measure data with advanced options
 
-The advanced stratification options are submitted via the `strat_level` argument and do not need to be included elsewhere.
+The advanced stratification options are submitted via the `strat_level` argument and the subset of stratification levels derived from the `list_StratificationTypes()` function can be submitted with the `stratItems` argument.
 
 ```{r data download advanced, eval = T}
 
-data_ad<-get_data(measure=99, 
-                      format="ID",  
-                      strat_level = "ST_AG_GN")
 
-head(data_ad[[1]])
+
+
+data_strat.item <- get_data(measure=99,
+                  strat_level =  "ST_AG_GN",
+                  temporalItems = c(2005),
+                  geoItems = "Arizona",
+                  stratItems = c("GenderId=1","AgeBandId=3"))
+
+head(data_strat.item[[1]])
+
+
 ```
 
 #### Downloading measure data with advanced options and specific geographies
 
-You can submit state-level FIPS codes with the geo_ID argument. This will return data for either the specified states or all the sub-county geographies within the state, depending on the requested stratification level. County-level FIPS codes cannot yet be submitted, but this feature is in development.
+You can submit state names, abbreviations, or state FIPS codes with the `geoItems` argument. This will return data for either the specified state(s) or all the sub-state geographies within the state, depending on the geography type of the data (e.g., state, county). Individual sub-state geographies can also be submitted by FIPS code or name with this argument. For measures with sub-state geographies, a mix of state and sub-state entries can be submitted.
 
 ```{r data download monthly, eval = T}
 
-data_mo.geo<-get_data(measure=988, 
-                      format="ID",  
-                      strat_level = "ST_PT",
-                      geo_ID = c(4,8,9,12))
+data_mo.geo<-get_data(measure=99,  
+                      strat_level = "State x County", #this can be written by name or ID (i.e., "ST_CT)
+                      geoItems = c("Massachusetts",
+                                   "Alameda, CA", #county name should not include word 'county' and must have state
+                                   1001))
 
 head(data_mo.geo[[1]])
+
 ```
 
 #### Downloading measure data with specific geographies and temporal periods selected
 
 ```{r data download the works, eval = T}
 
-data_tpm.geo<-get_data(measure=99, format="ID",  
+data_tpm.geo <- get_data(measure=99, 
                       strat_level = "ST",
-                      geo = c("CO", "ME", "FL"),
-                      temporal_period = c(2014:2018)
-                      )
+                      geoItems = c("CO", "ME", "FL"),
+                      temporalItems = c(2014:2018))
 
 head(data_tpm.geo[[1]])
+
 ```
 
 

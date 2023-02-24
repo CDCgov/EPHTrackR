@@ -1,0 +1,17 @@
+Several functions were deprecated because of call deprecations within the Tracking API. The functionality is the same unless otherwise noted. The names were changed to match the updated API call names.
+- list_geographies() function deprecated and replaced by list_GeographicItems()
+- list_geography_types() function deprecated and replaced by list_GeographicTypes()
+- deprecated update_inventory()
+- list_temporal() function deprecated and replaced by list_TemporalItems(). Note that "child temporal items" no longer exist in the output. "Temporal items" represent the lowest level temporal period reported for a measure. Some measures may still have "parent temporal items" if the lowest-level "temporal item" is sub-annual.
+- list_stratification_levels() deprecated and replaced by list_StratificationLevels()
+- list_stratification_values() deprecated and replaced by list_StratificationTypes()
+- get_data() function now uses a POST request to contact the API instead of a GET request to allow for long API calls (e.g., situations where many years are called)
+-removing geotypeID argument in favor of just specifying either geography names or IDs in the geo_type argument
+-removing strat_levelID argument in favor of just specifying either stratification names, abbreviations or IDs in the strat_level argument
+-allowing statification names to be specified in the strat_level argument
+-advanced options can now be requested for particular levels using the stratItems argument
+-separate column for each stratification level in requests with multiple advanced options
+-added support for Tracking api tokens by adding the tracking_api_token() function to save the token and incporporating token strings in all exisitng API call functions
+-Intelligible error messages are now produced if the API returns a 404 status code
+-measures data that was prevoiusly packaged with thgeh package has been removed in favor or direct calls to the Tracking API to acquire data
+-removed requirment to enter the format of measure entries (e.g., ID, name etc.)

@@ -4,12 +4,14 @@
 \alias{list_indicators}
 \title{List indicators}
 \usage{
-list_indicators(content_area = NA, format = "ID")
+list_indicators(content_area = NA, format = "ID", token = NULL)
 }
 \arguments{
 \item{content_area}{Optional argument used to specify the content area(s) of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings. Use list_content_areas() to identify available content areas.}
 
 \item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
+
+\item{token}{An optional argument to submit a Tracking API token acquired from trackingsupport(AT)cdc.gov as a quoted string. It is recommended that you save your token using the tracking_api_token() function so that you don't need to enter your token when you run this function. It will be automatically pulled from you .Renviron file.}
 }
 \value{
 This function returns a data frame containing all indicator names, shortNames, and IDs contained in the specified content area(s).

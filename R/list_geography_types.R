@@ -1,6 +1,11 @@
 #' @name list_geography_types
-#' @title List available geography types
-#' @description  Lists geography types (e.g., state, county) for specified measure(s). If multiple measures are specified, the results for each are returned as separate list elements.
+#' @title DEPRECATED - List available geography types
+#' @description  
+#' `r lifecycle::badge("deprecated")`
+#' 
+#' 
+#' Replaced by new more power function, list_GeographicTypes().
+#' @keywords internal
 #' @param measure Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.
 #' @param format Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.
 #' @param simplified_output If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.
@@ -30,6 +35,11 @@
 list_geography_types<-function(measure=NA,
                            format="ID",
                           simplified_output=T){
+  
+  lifecycle::deprecate_warn(when = "1.0.0",
+                            what = "list_geography_types()",
+                            with = "list_GeographicTypes()" )
+  
   format<-match.arg(format, 
                     choices = c("ID","name","shortName"))
   

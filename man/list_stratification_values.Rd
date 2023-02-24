@@ -29,7 +29,6 @@ This function returns a list with each element containing a data frame correspon
 \description{
 Some measures on the Tracking Network have a set of "Advanced Options" that allow the user to access data stratified by variables other than geography or temporal period. For instance, data on asthma hospitalizations can be broken down further by age and/or gender. This function allows the user to list available "Advanced Options" stratification values for specified measures and geographic types. For instance, in the case of the asthma hospitalization data, it would be possible to view the potential gender (e.g., Male, Female), and age (e.g., 0–4 years, >=65 years) values that are available.
 
-
 The user should not need this function to retrieve data from the Tracking Network Data API because the get_data() function calls it internally. It can, however, be used as a reference to view available stratification values.
 }
 \examples{

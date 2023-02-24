@@ -29,7 +29,6 @@ The output of this function is a list with a separate element for each geography
 \description{
 Some measures on the Tracking Network have a set of "Advanced Options" that allow the user to access data stratified by variables other than geography or temporal period. For instance, data on asthma hospitalizations can be broken down further by age and/or gender. This function allows the user to list available "Advanced Options" stratification levels for specified measures and geographic types. For instance, in the case of the asthma hospitalization data, it would be possible to view the full range of stratifications available, including gender, age, and both gender and age combined.
 
-
 Because "Advanced Options" may only be available at a particular geographic scale (e.g., an age-breakdown of asthma hospitalizations is only available at the state level), results showing available stratification levels always include the geography type. Therefore, this function can be used to identify geography types and stratification levels of interest.
 }
 \examples{

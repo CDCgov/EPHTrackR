@@ -1,6 +1,11 @@
 #' @name list_temporal
-#' @title List temporal periods
-#' @description  List the temporal periods available for specified measures, geography types, and geographies.
+#' @title DEPRECATED - List temporal periods
+#' @description 
+#' `r lifecycle::badge("deprecated")`
+#' 
+#' 
+#' Replaced by new more power function, list_TemporalItems().
+#' @keywords internal
 #' @import dplyr
 #' @param measure Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.
 #' @param geo_type An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). The "geographicType" column in the list_geography_types() output contains a list of geo_types associated with each measure.
@@ -28,6 +33,10 @@ list_temporal <- function(measure=NA,
                    geo_ID=NA,format="ID",
                    simplified_output=TRUE,
                    geo_filter=1){
+  
+  lifecycle::deprecate_warn(when = "1.0.0",
+                            what = "list_temporal()",
+                            with = "list_TemporalItems()" )
   
   format<-match.arg(format, choices = c("ID","name","shortName"))
   

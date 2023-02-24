@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_geographies.R
 \name{list_geographies}
 \alias{list_geographies}
-\title{List available geographies}
+\title{DEPRECATED List available geographies}
 \usage{
 list_geographies(
   measure = NA,
@@ -30,7 +30,7 @@ list_geographies(
 This function returns a list with each element containing a data frame corresponding to each combination of the specified measures and geographic types.
 }
 \description{
-Lists available geographies (e.g., Fulton County, Georgia) for specified measures and geographic types. If multiple measures or geography types are submitted, the results for each combination of these two inputs will be returned as a separate list element in the output.
+Lists available geographies (e.g., Fulton County, Georgia) for specified measures and geographic types. If multiple measures or geography types are submitted, the results for each combination of these two inputs will be returned as a separate list element in the output. This function may stop working as dependent API calls are deprecated.
 }
 \examples{
 \dontrun{
