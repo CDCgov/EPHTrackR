@@ -7,10 +7,24 @@
 tracking_api_token(key, overwrite = TRUE, install = TRUE)
 }
 \arguments{
-\item{token}{Specifies the API token that was provided to you by the Tracking Program as a quoted string (e.g., "C6016D98-CGCA-495D-BF0B-EAAE20BADD98"). A key can be acquired by emailing, trackingsupport(AT)cdc.gov. Further information available at https://ephtracking.cdc.gov/apihelp.}
+\item{overwrite}{Allows you to overwrite an existing TRACKING_API_TOKEN stored in your .Renviron file. Defaults to TRUE.}
+
+\item{install}{Allows you to store the token in your .Renviron file for use in future sessions. Defaults to TRUE.}
+
+\item{token}{Specifies the API token that was provided to you by the Tracking Program as a quoted string (e.g., "C6016D98-CGCA-495D-BF0B-EAAE20BADD98"). A token can be acquired by emailing, trackingsupport(AT)cdc.gov. Further information available at https://ephtracking.cdc.gov/apihelp.}
 }
 \description{
-This function adds a Tracking API token to your .Renviron file so it can be called securely without being stored in your code. After you have run this token, the token can be called by running Sys.getenv("TRACKING_API_TOKEN").
+This function adds a Tracking API token to your .Renviron file so it can be called securely without being stored in your code. After you have run this function, the token can be called by running Sys.getenv("TRACKING_API_TOKEN").
+}
+\examples{
+\dontrun{
+
+tracking_api_token("XXXXXXXXXXXXXXXXX")
+
+#After you run this function, reload your environment so you can use the token without restarting R.
+readRenviron("~/.Renviron")
+}
+
 }
 \references{
 This function and accompanying documentation were adapted from the tidycensus package with very little modification.

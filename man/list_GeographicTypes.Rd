@@ -4,17 +4,10 @@
 \alias{list_GeographicTypes}
 \title{List available geographic types}
 \usage{
-list_GeographicTypes(
-  measure = NA,
-  format = "ID",
-  simplified_output = T,
-  token = NULL
-)
+list_GeographicTypes(measure, simplified_output = T, token = NULL)
 }
 \arguments{
-\item{measure}{Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.}
-
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
+\item{measure}{Specifies the measure of interest as an ID or name. IDs should be unquoted; name entries should be quoted strings. It is highly recommended that you entered IDs rather than names to avoid issues with string matching with special characters, spaces, and capitalization etc.}
 
 \item{simplified_output}{If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.}
 
@@ -28,20 +21,15 @@ Lists geographic types (e.g., state, county) for specified measure(s). If multip
 }
 \examples{
 \dontrun{
-list_GeographicTypes(measure=370,format="ID")
+list_GeographicTypes(measure=370)
 
-list_GeographicTypes(measure=c(370,423,707),format="ID")
+list_GeographicTypes(measure=c(370,423,707))
 
 list_GeographicTypes(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
                            "Number of extreme heat days",
-                           "Number of months of mild drought or worse per year"),
-                 format="name")
+                           "Number of months of mild drought or worse per year"))
                  
-list_GeographicTypes(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
-                           "Number of extreme heat days","Number of months of drought per year"),
-                 format="shortName")
                  
-list_GeographicTypes(measure="Number of summertime (May-Sep) heat-related deaths, by year" ,
-format="name")
+list_GeographicTypes(measure="Number of summertime (May-Sep) heat-related deaths, by year")
 }
 }

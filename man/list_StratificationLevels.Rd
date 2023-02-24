@@ -4,20 +4,12 @@
 \alias{list_StratificationLevels}
 \title{List stratification levels}
 \usage{
-list_StratificationLevels(
-  measure,
-  geo_type = NA,
-  format = "ID",
-  smoothing = 0,
-  token = NULL
-)
+list_StratificationLevels(measure, geo_type = NA, smoothing = 0, token = NULL)
 }
 \arguments{
-\item{measure}{Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.}
+\item{measure}{Specifies the measure of interest as an ID or name. IDs should be unquoted; name entries should be quoted strings.}
 
 \item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County") or a geographic type ID as an unquoted numeric value (e.g., 1, 2). The "geographicType" and "geographicTypeId" columns in the list_geography_types() output contain a list of potential geo_type entries associated with each measure.}
-
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
 
 \item{smoothing}{Specifies whether to return stratification levels for geographically smoothed versions of a measure (1) or not (0). The default value is 0 because smoothing is not available for most measures. Requesting smoothed data when it is not available will produce an error.}
 
@@ -34,13 +26,12 @@ Because "Advanced Options" may only be available at a particular geographic type
 \examples{
 \dontrun{
 
-list_StratificationLevels(measure=370,format="ID")
+list_StratificationLevels(measure=370)
 
-list_StratificationLevels(measure=c(370,423,707),format="ID")
+list_StratificationLevels(measure=c(370,423,707))
 
 list_StratificationLevels(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
-                                "Number of extreme heat days","Number of months of drought per year"),
-                      format="shortName")
+                                "Number of extreme heat days","Number of months of drought per year"))
                       
                       
 }

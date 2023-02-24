@@ -17,7 +17,9 @@ list_geography_types(measure = NA, format = "ID", simplified_output = T)
 This function returns a list with each element containing a data frame corresponding to a specified measure.
 }
 \description{
-Lists geography types (e.g., state, county) for specified measure(s). If multiple measures are specified, the results for each are returned as separate list elements.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+Replaced by new more power function, list_GeographicTypes().
 }
 \examples{
 \dontrun{
@@ -38,3 +40,4 @@ list_geography_types(measure="Number of summertime (May-Sep) heat-related deaths
 format="name")
 }
 }
+\keyword{internal}

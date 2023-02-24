@@ -4,14 +4,12 @@
 \alias{list_measures}
 \title{List available measures}
 \usage{
-list_measures(indicator = NA, content_area = NA, format = "ID", token = NULL)
+list_measures(indicator = NA, content_area = NA, token = NULL)
 }
 \arguments{
-\item{indicator}{Optional argument used to specify the indicator(s) of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings. Use list_indicators() to identify available indicators.}
+\item{indicator}{Optional argument used to specify the indicator(s) of interest as an ID or name. IDs should be unquoted; name entries should be quoted strings. Use list_indicators() to identify available indicators.}
 
-\item{content_area}{Optional argument used to specify the content area(s) of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings. Use list_content_areas() to identify available content areas.}
-
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.}
+\item{content_area}{Optional argument used to specify the content area(s) of interest as an ID or name. IDs should be unquoted; name entries should be quoted strings. Use list_content_areas() to identify available content areas.}
 
 \item{token}{Optional argument to submit a Tracking API token acquired from trackingsupport(AT)cdc.gov as a quoted string. It is recommended that you save your token using the tracking_api_token() function so that you don't need to enter your token when you run this function. It will be automatically pulled from you .Renviron file.}
 }
@@ -24,21 +22,21 @@ Lists the measures contained within specified indicator(s) and/or content area(s
 \examples{
 \dontrun{
 
+#create a comprehensive inventory of all measures and their associated indicators and content areas
+full_inventory <- list_measures()
 
-list_measures(indicator=67,format="ID")
+list_measures(indicator=67)
 
-list_measures(indicator=c(67,173),format = "ID")
+list_measures(indicator=c(67,173))
 
-list_measures(indicator="Heat-Related Mortality",
-        format="name")
+list_measures(indicator="Heat-Related Mortality")
 
-list_measures(content_area = 25,format="ID")
+list_measures(content_area = 25)
 
-list_measures(indicator=67,content_area =25,format="ID")
+list_measures(indicator=67,content_area =25)
 
-list_measures(indicator="Historical Temperature & Heat Index",content_area ="Drought",format="name")
+list_measures(indicator="Historical Temperature & Heat Index",content_area ="Drought")
 
-all_measures<-list_measures()
 
 
 }

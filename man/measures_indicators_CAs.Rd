@@ -26,6 +26,9 @@ A data frame with 674 rows and 9 variables:
 measures_indicators_CAs
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
 Data frame containing all Tracking Network content areas, indicators, and measures and their associated IDs
 }
-\keyword{datasets}
+\keyword{internal}

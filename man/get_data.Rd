@@ -11,14 +11,13 @@ get_data(
   geoItems = NA,
   temporalItems = NA,
   stratItems = NA,
-  format = "ID",
   smoothing = 0,
   token = NULL,
   simplified_output = T
 )
 }
 \arguments{
-\item{measure}{Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.}
+\item{measure}{Specifies the measure of interest as an ID or name. IDs should be unquoted; name entries should be quoted strings.}
 
 \item{strat_level}{An optional argument that specifies a stratification level by abbreviation as a quoted string (e.g., "ST_CT"), name as an quoted string (e.g., "State x County") or ID and an unquoted numeric value (e.g., 2). Stratification level specifications always include the geography type. They also may include "Advanced Options" that allow stratification by additional variables (e.g., age, gender). We recommend that this argument always be included in your get_data() calls and that only one stratification level be included per call. Including this argument renders the geo_type argument redundant. You can find available stratification levels in the "stratificationLevelAbbreviation", "stratificationLevelName", and "stratificationLevelId" columns in the list_StratificationLevels() output.}
 
@@ -28,8 +27,6 @@ get_data(
 
 \item{temporalItems}{An optional argument to specify the temporal items(s) of interest as a vector of unquoted numeric values (e.g., 2011, 2019). If this argument is not entered, all available temporal items for the supplied measure and geographic constraints will be included in the output. You can find available temporal items in the "temporal" and "parentTemporal" columns in the list_TemporalItems() output.
 #' @param stratItems An optional argument to specify specific stratification(s) of interest as vector of a quoted strings (e.g., c("RaceEthnicityId=1,2","GenderId=1")). This function allows you to return data from a subset of strata (e.g., return data for only males). This argument only applies to measure/geography combinations that have advanced stratification options, which can be determined by whether values are returned in the  stratificationItem column in the output of the list_StratificationTypes() function. Appropriate stratification(s) can be identified using the list_StratificationTypes() function output and combining the "type" of stratification derived from the columnName column (e.g., "GenderId") and the the ID for the stata/stratum of interest.  The IDs of the stata/stratum can be found in the list(s) contained within the stratificationItem column of the list_StratificationTypes() function output. The localId column within this nested list contains IDs that can be submitte}
-
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (i.e., "ID", "name", "shortName"). The default is ID.}
 
 \item{smoothing}{Specifies whether to return geographically smoothed measure data (1) or not (0). The default value is 0 because smoothing is not available for most measures. Requesting smoothed data when it is not available will produce an error.}
 
@@ -50,12 +47,13 @@ Retrieves data from the Tracking Network Data API for specified measures, geogra
 data_st <- get_data(measure=99, 
 strat_level = "ST")
 
-data_ad <- get_data(measure=99, 
-format="ID",  
-strat_level = "ST_AG_GN")
+#return a subset of gender and age stratification items
+data_ad <- get_data(measure=99,   
+strat_level = "ST_AG_GN",
+temporalItems = 2005,
+stratItems = c("GenderId=1","AgeBandId=3"))
 
-data_mo.geo <- get_data(measure=988, 
-format="ID",  
+data_mo.geo <- get_data(measure=988,  
 strat_level = "ST_PT",
 geoItems = c(4,8,9,12))
 

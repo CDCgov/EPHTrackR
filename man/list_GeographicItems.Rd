@@ -7,18 +7,15 @@
 list_GeographicItems(
   measure = NA,
   geo_type = NA,
-  format = "ID",
   simplified_output = TRUE,
   rollup = 0,
   token = NULL
 )
 }
 \arguments{
-\item{measure}{Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.}
+\item{measure}{Specifies the measure of interest as an ID or name. IDs should be unquoted; name entries should be quoted strings.}
 
 \item{geo_type}{An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County") or a geographic type ID as an unquoted numeric value (e.g., 1, 2). The "geographicType" and "geographicTypeId" columns in the list_geography_types() output contain a list of potential geo_type entries associated with each measure.}
-
-\item{format}{Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is "ID".}
 
 \item{simplified_output}{If TRUE, a simplified output table is returned. If FALSE, the raw output from the Tracking Network Data API is returned. The default is TRUE.}
 
@@ -34,10 +31,10 @@ Lists available geographies (e.g., Fulton County, Georgia) for specified measure
 }
 \examples{
 \dontrun{
-geo1_id<-list_GeographicItems(measure=370,format="ID")
+
+geo1_id<-list_GeographicItems(measure=370)
 
 geo2_name<-
-  list_GeographicItems(measure=c("Number of summertime (May-Sep) heat-related deaths, by year"),
-            format="name")
+  list_GeographicItems(measure=c("Number of summertime (May-Sep) heat-related deaths, by year"))
 }
 }

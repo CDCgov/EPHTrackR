@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_stratification_levels.R
 \name{list_stratification_levels}
 \alias{list_stratification_levels}
-\title{List stratification levels}
+\title{DEPRECATED -List stratification levels}
 \usage{
 list_stratification_levels(
   measure = NA,
@@ -27,9 +27,9 @@ list_stratification_levels(
 The output of this function is a list with a separate element for each geography type available for the specified measure (e.g., state, county). Each row in the data frames contained as elements in the list shows a stratification available for the measure.
 }
 \description{
-Some measures on the Tracking Network have a set of "Advanced Options" that allow the user to access data stratified by variables other than geography or temporal period. For instance, data on asthma hospitalizations can be broken down further by age and/or gender. This function allows the user to list available "Advanced Options" stratification levels for specified measures and geographic types. For instance, in the case of the asthma hospitalization data, it would be possible to view the full range of stratifications available, including gender, age, and both gender and age combined.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-Because "Advanced Options" may only be available at a particular geographic scale (e.g., an age-breakdown of asthma hospitalizations is only available at the state level), results showing available stratification levels always include the geography type. Therefore, this function can be used to identify geography types and stratification levels of interest.
+Replaced by new more power function, list_StratificationLevels().
 }
 \examples{
 \dontrun{
@@ -45,3 +45,4 @@ list_stratification_levels(measure=c("Number of summertime (May-Sep) heat-relate
                       
 }
 }
+\keyword{internal}

@@ -17,6 +17,8 @@ Lists the content areas available on the CDC Tracking Network. Content areas are
 }
 \examples{
 \dontrun{
+
+#return a comprehensive inventory of all content areas
 list_content_areas()
 }
 }
