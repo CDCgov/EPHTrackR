@@ -133,7 +133,7 @@ head(geog_type_df[[1]])
 
 This function identifies the particular geographic items (e.g., Alabama) that are available for a specified measure. It will reveal both the lowest level geographic items available (e.g., a county or census tract) and an overarching items, like states (i.e., parent geographic item) that contains the lowest level geographic items you would like returned in the data.
 
-```{r geographic types, eval = T}
+```{r geographic items, eval = T}
 geog_item_df <- list_GeographicItems(measure= "Annual Number of Extreme Heat Days from May to September",
                                      geo_type="County")
 

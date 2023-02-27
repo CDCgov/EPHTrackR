@@ -21,7 +21,7 @@
 #this code was adapted within very little change from the tidycensus package, https://walker-data.com/tidycensus/reference/TRACKING_API_TOKEN.html
 # Walker K, Herman M (2023). tidycensus: Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames. R package version 1.3.2, https://walker-data.com/tidycensus/.
 
-tracking_api_token <- function (key, overwrite = TRUE, install = TRUE) 
+tracking_api_token <- function (token, overwrite = TRUE, install = TRUE) 
 {
   if (install) {
     home <- Sys.getenv("HOME")
@@ -49,13 +49,13 @@ tracking_api_token <- function (key, overwrite = TRUE, install = TRUE)
         }
       }
     }
-    keyconcat <- paste0("TRACKING_API_TOKEN='", key, "'")
+    keyconcat <- paste0("TRACKING_API_TOKEN='", token, "'")
     write(keyconcat, renv, sep = "\n", append = TRUE)
-    message("Your API key has been stored in your .Renviron and can be accessed by Sys.getenv(\"TRACKING_API_TOKEN\"). \nTo use now, restart R or run `readRenviron(\"~/.Renviron\")`")
-    return(key)
+    message("Your API token has been stored in your .Renviron and can be accessed by Sys.getenv(\"TRACKING_API_TOKEN\"). \nTo use now, restart R or run `readRenviron(\"~/.Renviron\")`")
+    return(token)
   }
   else {
-    message("To install your API key for use in future sessions, run this function with `install = TRUE`.")
-    Sys.setenv(TRACKING_API_TOKEN = key)
+    message("To install your API token for use in future sessions, run this function with `install = TRUE`.")
+    Sys.setenv(TRACKING_API_TOKEN = token)
   }
 }

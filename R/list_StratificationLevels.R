@@ -70,6 +70,12 @@ list_StratificationLevels <-
         }
       }
       
+      #checking to see if smoothing was requested and if it was, eliminating geo types without smoothing
+      if(smoothing == 1){
+        
+        GL_list_sub <- GL_list_sub[GL_list_sub$smoothingLevel =="Smoothing Available",]
+      }
+      
 
       
       #using this to return a list or nested list of strats for each geography type

@@ -51,8 +51,8 @@ list_indicators <- function(content_area=NA,
                        "indicatorName")]
   }else{
     
-    inds_sub <- inds[which(meas_cont$contentAreaId %in% content_area |
-                             tolower(meas_cont$contentAreaName) %in% 
+    inds_sub <- inds[which(inds$contentAreaId %in% content_area |
+                             tolower(inds$contentAreaName) %in% 
                              tolower(content_area)),]
     
     inds_sub <- inds_sub[c("contentAreaId" ,

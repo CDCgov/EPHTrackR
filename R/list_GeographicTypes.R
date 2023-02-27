@@ -41,21 +41,17 @@ list_GeographicTypes <- function(measure,
   }
   
 
-
- 
-  if (all(is.na(meas_ID))){
-    
-    stop("At least one measure must be specified.")
-  }
+  
+  meas_df <- list_measures()
+  
+  meas_ID <- unique(meas_df$measureId[
+    c(match(measure,meas_df$measureId ),
+      match(tolower(measure),tolower(meas_df$measureName)))[
+        !is.na(c(match(measure,meas_df$measureId ),
+                 match(tolower(measure),tolower(meas_df$measureName))))]])
   
 
-    meas_df <- list_measures()
-    
-    meas_ID <- unique(meas_df$measureId[
-      c(match(measure,meas_df$measureId ),
-        match(tolower(measure),tolower(meas_df$measureName)))[
-          !is.na(c(match(measure,meas_df$measureId ),
-                   match(tolower(measure),tolower(meas_df$measureName))))]])
+
     
     if(length(meas_ID)==0){
       

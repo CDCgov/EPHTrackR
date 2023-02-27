@@ -1,6 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
-
 <!-- badges: start -->
 
 [![Project Status: Active - The project has reached a stable, usable
@@ -11,7 +10,7 @@ status](https://github.com/CDCgov/EPHTrackR/workflows/R-CMD-check/badge.svg)](ht
 [![CRAN
 status](https://www.r-pkg.org/badges/version/sword)](https://CRAN.R-project.org/package=sword)
 [![Lifecycle:
-expirimental](https://img.shields.io/badge/lifecycle-expirimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#expirimental)
+stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 <!-- [![Travis-CI Build Status](https://travis-ci.org/cont-limno/LAGOSNE.svg?branch=master)](https://travis-ci.org/cont-limno/LAGOSNE) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE)
@@ -23,8 +22,10 @@ The `EPHTrackR` package provides an R interface to access and download
 publicly available data stored on the [CDC National Environmental Public
 Health Tracking Network](https://www.cdc.gov/nceh/tracking/about.htm)
 (Tracking Network) via a connection with the [Tracking Network Data
-API](https://ephtracking.cdc.gov/apihelp). Associated metadata can be
-found on the Tracking Network [Indicators and
+API](https://ephtracking.cdc.gov/apihelp). A detailed user guide
+describing available API calls and associated outputs can be found at
+that link. Associated metadata for downloaded measure data can be found
+on the Tracking Network [Indicators and
 Data](https://ephtracking.cdc.gov/searchMetadata) page. Users might find
 it easier to view the online [Data
 Explorer](https://ephtracking.cdc.gov/DataExplorer/) to get a sense of
@@ -46,8 +47,8 @@ Network data, users can create customized maps, tables, and graphs of
 local, state, and national data. The Tracking Network contains data
 covering several focal areas: <br> — Health effects of exposures, such
 as asthma <br> — Hazards in the environment, such as air pollution <br>
-— Climate, such as extreme heat events <br> — Community design, such
-as access to parks <br> — Lifestyle risk factors, such as smoking <br> —
+— Climate, such as extreme heat events <br> — Community design, such as
+access to parks <br> — Lifestyle risk factors, such as smoking <br> —
 Population characteristics, such as age and income <br>
 
 ## Installation
@@ -63,35 +64,50 @@ devtools::install_github("CDCgov/EPHTrackR",
 
 ``` r
 library(EPHTrackR)
-#> Run `update_inventory()` to update the stored list of content areas, indicators, and measures.
+#> Welcome to the CDC Environmental Public Health Tracking Network! This package provides an R interface to the Tracking Network Data API. To easily visualize our data products, please visit https://ephtracking.cdc.gov/DataExplorer/.
 ```
 
-## Update data inventory
+## Saving a Tracking API token
 
-The `update_inventory` function retrieves the latest inventory of
-content areas, indicators, and measures from the Tracking Network Data
-API. This information is used internally by the package to send
-appropriate API data requests. We recommend that you run this function
-before each session to ensure that the inventory is up-to-date.
+The `tracking_api_token()` function adds a Tracking API token to your
+.Renviron file so it can be called securely without being stored in your
+code. After you have run this function, the token will be called
+automatically by all the other functions in this package. Leaving the
+default argument `install=T`, ensures that the token will be saved in
+future R sessions. A token can be acquired by emailing,
+trackingsupport(AT)cdc.gov. Further information is available at
+<https://ephtracking.cdc.gov/apihelp>.
 
 ``` r
-update_inventory()
+tracking_api_token("XXXXXXXXXXXXXXXXX", 
+                   install=T)
+
+#After you run this function, reload your environment so you can use the token without restarting R.
+readRenviron("~/.Renviron")
+
+
+#Token can be viewed by running:
+Sys.getenv("TRACKING_API_TOKEN")
 ```
 
-You can access a data frame containing the full inventory of content
-areas, indicators, and measures in the R environment after the package
-is loaded.
+## Full measure inventory
+
+Running the `list_measures()` function without any additional inputs
+retrieves the latest inventory of content areas, indicators, and
+measures from the Tracking Network Data API.
 
 ``` r
-View(measures_indicators_CAs)
+measures_inventory <- list_measures()
+
+View(measures_inventory)
 ```
 
 ## Viewing content area, indicator, and measure names
 
-Each content area, indicator, and measure has a full name, a shortened
-name, and a unique identifier. You can use this information to determine
-what data are available on the Tracking Network and make appropriate
-calls to download the data (see below).
+Each content area, indicator, and measure has a full name and a unique
+identifier. You can use this information to determine what data are
+available on the Tracking Network and make appropriate calls to download
+the data (see below).
 
 #### List content areas available
 
@@ -99,147 +115,190 @@ calls to download the data (see below).
 ca_df <- list_content_areas()
 
 head(ca_df)
-#>   content_area_ID         content_area_name content_area_shortName
-#> 1               1            Drinking Water                    DWQ
-#> 2               2 Carbon Monoxide Poisoning                     CO
-#> 3               3                    Asthma                     AS
-#> 4               4  Heart Disease and Stroke                     MI
-#> 5               5             Birth Defects                     BD
-#> 6               6  Childhood Lead Poisoning                    CLP
+#>   contentAreaId                              contentAreaName
+#> 1             1                               Drinking Water
+#> 2             2 Unintentional Carbon Monoxide (CO) Poisoning
+#> 3             3                                       Asthma
+#> 4             4                       Heart Disease & Stroke
+#> 5             5                                Birth Defects
+#> 6             6                     Childhood Lead Poisoning
 ```
 
 #### List indicators in specified content area(s)
 
 ``` r
-ind_df <- list_indicators(content_area = "Heat & Heat-related Illness",
-                     format="name")
+ind_df <- list_indicators(content_area = "Heat & Heat-related Illness (HRI)")
 
 head(ind_df)
-#>   indicator_ID                           indicator_name
-#> 1           67                   Heat-Related Mortality
-#> 2           88            Heat-related Hospitalizations
-#> 3           89 Heat-related Emergency Department Visits
-#> 4           97           Temperature & Heat Projections
-#> 5          172       Vulnerability & Preparedness: Heat
-#> 6          173      Historical Temperature & Heat Index
-#>                        indicator_shortName content_area_ID
-#> 1                   Heat-Related Mortality              35
-#> 2            Heat-related Hospitalizations              35
-#> 3 Heat-related Emergency Department Visits              35
-#> 4           Temperature & Heat Projections              35
-#> 5       Vulnerability & Preparedness: Heat              35
-#> 6      Historical Temperature & Heat Index              35
-#>             content_area_name content_area_shortName
-#> 1 Heat & Heat-related Illness                    HHI
-#> 2 Heat & Heat-related Illness                    HHI
-#> 3 Heat & Heat-related Illness                    HHI
-#> 4 Heat & Heat-related Illness                    HHI
-#> 5 Heat & Heat-related Illness                    HHI
-#> 6 Heat & Heat-related Illness                    HHI
+#>   contentAreaId                   contentAreaName indicatorId
+#> 1            35 Heat & Heat-related Illness (HRI)          67
+#> 2            35 Heat & Heat-related Illness (HRI)          88
+#> 3            35 Heat & Heat-related Illness (HRI)          89
+#> 4            35 Heat & Heat-related Illness (HRI)          97
+#> 5            35 Heat & Heat-related Illness (HRI)         172
+#> 6            35 Heat & Heat-related Illness (HRI)         173
+#>                         indicatorName
+#> 1                  Mortality from HRI
+#> 2            Hospitalizations for HRI
+#> 3 Emergency Department Visits for HRI
+#> 4        Projected Temperature & Heat
+#> 5  Vulnerability & Preparedness: Heat
+#> 6 Historical Temperature & Heat Index
 ```
 
 #### List measures in specified indicator(s) and/or content area(s)
 
 ``` r
-meas_df <- list_measures(content_area =c(36),
-                    format="ID")
+meas_df <- list_measures(content_area = 36)
 
 head(meas_df)
-#>   measure_ID
-#> 1        576
-#> 2        577
-#> 3        578
-#> 4        579
-#> 5        580
-#> 6        581
-#>                                                               measure_name
-#> 1                                     Number of extreme precipitation days
-#> 2                                       Monthly estimates of precipitation
-#> 3                    Projected number of future extreme precipitation days
-#> 4                                 Projected annual precipitation intensity
-#> 5 Projected ratio of precipitation falling as rain to that falling as snow
-#> 6          Number of square miles within FEMA designated flood hazard area
-#>                                       measure_shortName indicator_ID
-#> 1                  Number of extreme precipitation days          108
-#> 2                    Monthly estimates of precipitation          108
-#> 3 Projected number of future extreme precipitation days          107
-#> 4              Projected annual precipitation intensity          107
-#> 5                       Projected ratio of rain to snow          107
-#> 6             Total area (square miles) FEMA floodplain          106
-#>                                           indicator_name
-#> 1                               Historical Precipitation
-#> 2                               Historical Precipitation
-#> 3                   Precipitation & Flooding Projections
-#> 4                   Precipitation & Flooding Projections
-#> 5                   Precipitation & Flooding Projections
-#> 6 Vulnerability & Preparedness: Precipitation & Flooding
-#>                                      indicator_shortName content_area_ID
-#> 1                               Historical Precipitation              36
-#> 2                               Historical Precipitation              36
-#> 3                   Precipitation & Flooding Projections              36
-#> 4                   Precipitation & Flooding Projections              36
-#> 5                   Precipitation & Flooding Projections              36
-#> 6 Vulnerability & Preparedness: Precipitation & Flooding              36
-#>          content_area_name content_area_shortName
-#> 1 Precipitation & Flooding                     PF
-#> 2 Precipitation & Flooding                     PF
-#> 3 Precipitation & Flooding                     PF
-#> 4 Precipitation & Flooding                     PF
-#> 5 Precipitation & Flooding                     PF
-#> 6 Precipitation & Flooding                     PF
+#>   contentAreaId          contentAreaName indicatorId
+#> 1            36 Precipitation & Flooding         106
+#> 2            36 Precipitation & Flooding         106
+#> 3            36 Precipitation & Flooding         106
+#> 4            36 Precipitation & Flooding         106
+#> 5            36 Precipitation & Flooding         106
+#> 6            36 Precipitation & Flooding         106
+#>                                            indicatorName measureId
+#> 1 Vulnerability & Preparedness: Precipitation & Flooding       581
+#> 2 Vulnerability & Preparedness: Precipitation & Flooding       582
+#> 3 Vulnerability & Preparedness: Precipitation & Flooding       583
+#> 4 Vulnerability & Preparedness: Precipitation & Flooding       584
+#> 5 Vulnerability & Preparedness: Precipitation & Flooding      1133
+#> 6 Vulnerability & Preparedness: Precipitation & Flooding      1134
+#>                                                            measureName
+#> 1      Number of Square Miles within FEMA Designated Flood Hazard Area
+#> 2 Percent Area (Square Miles) within FEMA Designated Flood Hazard Area
+#> 3            Number of People within FEMA Designated Flood Hazard Area
+#> 4     Number of Housing Units within FEMA Designated Flood Hazard Area
+#> 5       Number of Square Miles within EPA Designated Flood Hazard Area
+#> 6  Percent Area (Square Miles) within EPA Designated Flood Hazard Area
+#>   indicatorStatusId contentAreaStatusId
+#> 1                 3                   3
+#> 2                 3                   3
+#> 3                 3                   3
+#> 4                 3                   3
+#> 5                 3                   3
+#> 6                 3                   3
+#>                                                                                  keywords
+#> 1                         flood, hazard, area, flash, weather, wet, zone, climate, change
+#> 2                         flood, hazard, area, flash, weather, wet, zone, climate, change
+#> 3     flood, hazard, area, flash, weather, wet, zone, climate, change, population, people
+#> 4 flood, hazard, area, flash, weather, wet, zone, climate, change, housing, houses, units
+#> 5                                                           flood, flood hazard, flooding
+#> 6                                                           flood, flood hazard, flooding
 ```
 
-## Viewing available geography types and temporal periods for specified measures
+## Viewing available geographic and temporal types and items for specified measures
 
 Measures on the Tracking Network vary in their geographic resolution
-(e.g., state, county), and their temporal resolution (e.g., year, month)
-and extent (e.g., 2000-2010, 2010-2020). By becoming familiar with the
-locations and temporal periods for which data are available using this
-function, you can make more targeted data downloads.
+(e.g., state, county), geographic extent (e.g., Massachusetts, Michigan,
+Pennsylvania, California, Georgia), temporal resolution (e.g., year,
+month) and temporal extent (e.g., 2000-2010, 2010-2020). By becoming
+familiar with the geographies and temporal periods for which data are
+available using this function, you can make more targeted data
+downloads.
 
-#### List geography types available for specified measures
+#### List geographic types available for specified measures
 
 Measures are typically available at the state, county, or census tract
 level.
 
 ``` r
-geog_type_df <- list_geography_types(measure= "Number of extreme heat days",
-                             format="name")
+geog_type_df <- list_GeographicTypes(measure= "Number of Square Miles within FEMA Designated Flood Hazard Area")
 
-head(geog_type_df)
-#> [[1]]
-#>   geographicType geographicTypeId Measure_ID                Measure_Name
-#> 1         County                2        423 Number of extreme heat days
-#> 2   Census Tract                7        423 Number of extreme heat days
-#>             Measure_shortName
-#> 1 Number of extreme heat days
-#> 2 Number of extreme heat days
+head(geog_type_df[[1]])
+#>   geographicType geographicTypeId measureId
+#> 1         County                2       581
+#>                                                       measureName
+#> 1 Number of Square Miles within FEMA Designated Flood Hazard Area
+#>           smoothingLevel
+#> 1 No Smoothing Available
 ```
 
-#### List temporal periods available for specified measures
+#### List geographic items available for specified measures
 
-Measures are typically available at an annual scale, but also can be
-daily, monthly, or weekly.
+This function identifies the particular geographic items (e.g., Alabama)
+that are available for a specified measure. It will reveal both the
+lowest level geographic items available (e.g., a county or census tract)
+and an overarching items, like states (i.e., parent geographic item)
+that contains the lowest level geographic items you would like returned
+in the data.
 
 ``` r
-temp_df <- list_temporal(measure= "Number of extreme heat days",
-                             format="name")
+geog_item_df <- list_GeographicItems(measure= "Annual Number of Extreme Heat Days from May to September",
+                                     geo_type="County")
+
+head(geog_item_df[[1]])
+#>   parentGeographicId parentName childGeographicId childName measureId
+#> 1                  1    Alabama              1001   Autauga       423
+#> 2                  1    Alabama              1003   Baldwin       423
+#> 3                  1    Alabama              1005   Barbour       423
+#> 4                  1    Alabama              1007      Bibb       423
+#> 5                  1    Alabama              1009    Blount       423
+#> 6                  1    Alabama              1011   Bullock       423
+#>                                                measureName geo_type geo_typeID
+#> 1 Annual Number of Extreme Heat Days from May to September   County          2
+#> 2 Annual Number of Extreme Heat Days from May to September   County          2
+#> 3 Annual Number of Extreme Heat Days from May to September   County          2
+#> 4 Annual Number of Extreme Heat Days from May to September   County          2
+#> 5 Annual Number of Extreme Heat Days from May to September   County          2
+#> 6 Annual Number of Extreme Heat Days from May to September   County          2
+```
+
+#### List temporal items available for specified measures
+
+Measures are typically available at an annual scale, but also can be
+daily, monthly, or weekly. This function identifies the particular
+years, months, days etc. that are available for the specified measure
+(e.g., 2001, Aug 2020, etc.)
+
+``` r
+temp_df <- list_TemporalItems(measure= "Annual Number of Extreme Heat Days from May to September")
 
 head(temp_df[[1]])
-#>   parentTemporal parentTemporalType Geo_Type Measure_ID
-#> 1           1979               Year   County        423
-#> 2           1980               Year   County        423
-#> 3           1981               Year   County        423
-#> 4           1982               Year   County        423
-#> 5           1983               Year   County        423
-#> 6           1984               Year   County        423
-#>                       Measure
-#> 1 Number of extreme heat days
-#> 2 Number of extreme heat days
-#> 3 Number of extreme heat days
-#> 4 Number of extreme heat days
-#> 5 Number of extreme heat days
-#> 6 Number of extreme heat days
+#>     id parentTemporalId parentTemporal parentMinimumTemporalId
+#> 1 1979               NA             NA                      NA
+#> 2 1980               NA             NA                      NA
+#> 3 1981               NA             NA                      NA
+#> 4 1982               NA             NA                      NA
+#> 5 1983               NA             NA                      NA
+#> 6 1984               NA             NA                      NA
+#>   parentTemporalTypeId parentTemporalType temporalId minimumTemporalId
+#> 1                   NA                 NA       1979                NA
+#> 2                   NA                 NA       1980                NA
+#> 3                   NA                 NA       1981                NA
+#> 4                   NA                 NA       1982                NA
+#> 5                   NA                 NA       1983                NA
+#> 6                   NA                 NA       1984                NA
+#>   minimumTemporal temporal temporalTypeId temporalType temporalTextOverride
+#> 1              NA     1979              1         Year                   NA
+#> 2              NA     1980              1         Year                   NA
+#> 3              NA     1981              1         Year                   NA
+#> 4              NA     1982              1         Year                   NA
+#> 5              NA     1983              1         Year                   NA
+#> 6              NA     1984              1         Year                   NA
+#>   parentTemporalDisplay
+#> 1                      
+#> 2                      
+#> 3                      
+#> 4                      
+#> 5                      
+#> 6                      
+#>                                                measureName measureId geo_type
+#> 1 Annual Number of Extreme Heat Days from May to September       423   County
+#> 2 Annual Number of Extreme Heat Days from May to September       423   County
+#> 3 Annual Number of Extreme Heat Days from May to September       423   County
+#> 4 Annual Number of Extreme Heat Days from May to September       423   County
+#> 5 Annual Number of Extreme Heat Days from May to September       423   County
+#> 6 Annual Number of Extreme Heat Days from May to September       423   County
+#>   geo_typeID
+#> 1          2
+#> 2          2
+#> 3          2
+#> 4          2
+#> 5          2
+#> 6          2
 ```
 
 ## Viewing available Advanced Options for data stratification
@@ -248,12 +307,6 @@ In addition to geographic and temporal specifications, some measures on
 the Tracking Network have a set of **Advanced Options** that allow users
 to access data stratified by other variables. For instance, data on
 asthma hospitalizations can be broken down by age and/or gender.
-
-Users are not yet able to directly select a specific stratification
-level with this package. Rather, users select whether they’d like the
-data stratified to receive results for all levels. Specific
-stratification levels can then be selected using filtering functions in
-the local environment.
 
 #### List available stratification levels for a measure
 
@@ -266,38 +319,73 @@ state, county) for the specified measure. Each row in the data frame
 elements of the list shows a stratification available for the measure.
 
 ``` r
-strat_df <- list_stratification_levels(measure=99, format="ID")
+strat_df <- list_StratificationLevels(measure=99)
 
-head(strat_df)
+head(strat_df[[1]])
+#>   stratificationLevelId stratificationLevelName stratificationLevelAbbreviation
+#> 1                     1                   State                              ST
+#> 2                     3             State x Age                           ST_AG
+#> 3                     4          State x Gender                           ST_GN
+#> 4                    37    State x Age x Gender                        ST_AG_GN
+#> 5                     2          State x County                           ST_CT
+#>   geographicTypeId                                   stratificationType
+#> 1                1                                                 NULL
+#> 2                1                          3, Age Group, AG, AgeBandId
+#> 3                1                              4, Gender, GN, GenderId
+#> 4                1 3, 4, Age Group, Gender, AG, GN, AgeBandId, GenderId
+#> 5                2                                                 NULL
+#>   measureId                                  measureName Geo_Type geo_typeID
+#> 1        99 Annual Number of Hospitalizations for Asthma    State          1
+#> 2        99 Annual Number of Hospitalizations for Asthma    State          1
+#> 3        99 Annual Number of Hospitalizations for Asthma    State          1
+#> 4        99 Annual Number of Hospitalizations for Asthma    State          1
+#> 5        99 Annual Number of Hospitalizations for Asthma   County          2
+```
+
+#### List available stratification types for a measure
+
+If you’d like to query Tracking data by a specific stratification level
+(e.g., you’d like data for just males), then you need to run the
+`list_StratificationTypes()` function to identify the internal name for
+the stratification and the appropriate code for the stratification level
+of interest (e.g., 1 for male, 2 for female). The internal name can be
+found in the in the ColumnName column of the function output and codes
+can be found in the nested list found in the stratificationItem column
+of the function output. Refer back to these when constructing queries
+with with the `get_data()` function.
+
+``` r
+strat_df <- list_StratificationTypes(measure=99,
+                                     geo_type="State")
+
+strat_df[[1]]
+#>   displayName isDisplayed isRequired isGrouped displayAllValues selectOneItem
+#> 1   Age Group        TRUE      FALSE     FALSE            FALSE         FALSE
+#> 2      Gender        TRUE      FALSE     FALSE            FALSE         FALSE
+#>                                                                                                                                                            stratificationItem
+#> 1 0 TO 4, 5 TO 14, 15 TO 34, 35 TO 64, >= 65, 0 TO 4, 5 TO 14, 15 TO 34, 35 TO 64, >= 65, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 1, 2, 3, 4, 5
+#> 2                                                                                                                Male, Female, Male, Female, FALSE, FALSE, FALSE, FALSE, 1, 2
+#>   columnName stratificationTypeId measureId
+#> 1  AgeBandId                    3        99
+#> 2   GenderId                    4        99
+#>                                    measureName Geo_Type geo_typeID
+#> 1 Annual Number of Hospitalizations for Asthma    State          1
+#> 2 Annual Number of Hospitalizations for Asthma    State          1
+
+#viewing the nested list in the stratificationItem column of the function output to identify stratification level codes
+strat_df[[1]]$stratificationItem
 #> [[1]]
-#>   id                 name abbreviation geographicTypeId
-#> 1  1                State           ST                1
-#> 2  3          State x Age        ST_AG                1
-#> 3  4       State x Gender        ST_GN                1
-#> 4 37 State x Age x Gender     ST_AG_GN                1
-#>                                     stratificationType Measure_ID
-#> 1                                                 NULL         99
-#> 2                          3, Age Group, AG, AgeBandId         99
-#> 3                              4, Gender, GN, GenderId         99
-#> 4 3, 4, Age Group, Gender, AG, GN, AgeBandId, GenderId         99
-#>                            Measure_Name                      Measure_shortName
-#> 1 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 2 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 3 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 4 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#>   Geo_Type Geo_Type_ID
-#> 1    State           1
-#> 2    State           1
-#> 3    State           1
-#> 4    State           1
+#>       name longName isDefault useLongName localId
+#> 1   0 TO 4   0 TO 4     FALSE       FALSE       1
+#> 2  5 TO 14  5 TO 14     FALSE       FALSE       2
+#> 3 15 TO 34 15 TO 34     FALSE       FALSE       3
+#> 4 35 TO 64 35 TO 64     FALSE       FALSE       4
+#> 5    >= 65    >= 65     FALSE       FALSE       5
 #> 
 #> [[2]]
-#>   id           name abbreviation geographicTypeId stratificationType Measure_ID
-#> 1  2 State x County        ST_CT                2               NULL         99
-#>                            Measure_Name                      Measure_shortName
-#> 1 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#>   Geo_Type Geo_Type_ID
-#> 1   County           2
+#>     name longName isDefault useLongName localId
+#> 1   Male     Male     FALSE       FALSE       1
+#> 2 Female   Female     FALSE       FALSE       2
 ```
 
 ## Accessing Tracking Network data
@@ -306,24 +394,24 @@ You can use the information from the functions listed above to request
 specific data from the Tracking Network Data API. Be careful when making
 queries. If you request data that include many years and/or data at a
 fine geographic scale, the dataset could be very large and take a long
-time to download (if it doesn’t crash your session).
+time to download (if it doesn’t crash your session and bog down the
+entire API).
 
 We recommend that you include only one measure and one stratification
-level in a data query. However, many geographies and temporal periods
-may be submitted. The function will likely still work if vectors of
-multiple measures or stratifications are submitted, but the resulting
+level in a data query. Many geographies and temporal periods may be
+submitted. The function will likely still work if vectors of multiple
+measures or stratification levels are submitted, but the resulting
 object will be a multi-element list and distinguishing the element that
-applies to a particular measure or stratification level might be
-difficult. The output of calls with a single measure and stratification
+applies to a particular measure or stratification might be difficult.
+The output of function calls with a single measure and stratification
 level is a list with one element containing the relevant data frame.
 
 #### Downloading state-level measure data
 
 ``` r
-
-data_st<-get_data(measure=99, 
-                      format="ID",  
-                      strat_level = "ST")
+data_st<-get_data(measure=99,
+                  strat_level = "ST")
+#> Building API call for measure: 99 with stratification: State.
 #> Retrieving data...
 #> Done
 
@@ -370,70 +458,122 @@ head(data_st[[1]])
 #> 4                     NA                     NA            NA                NA
 #> 5                     NA                     NA            NA                NA
 #> 6                     NA                     NA            NA                NA
-#>   secondaryValue secondaryValueName   title confidenceIntervalLowName
-#> 1             NA                 NA Arizona                          
-#> 2             NA                 NA Arizona                          
-#> 3             NA                 NA Arizona                          
-#> 4             NA                 NA Arizona                          
-#> 5             NA                 NA Arizona                          
-#> 6             NA                 NA Arizona                          
-#>   parentMinimumTemporal parentMinimumTemporalId Measure_ID
-#> 1                    NA                      NA         99
-#> 2                    NA                      NA         99
-#> 3                    NA                      NA         99
-#> 4                    NA                      NA         99
-#> 5                    NA                      NA         99
-#> 6                    NA                      NA         99
-#>                            Measure_Name                      Measure_shortName
-#> 1 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 2 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 3 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 4 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 5 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 6 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#>   Strat_Level_ID Geo_Type_ID Geo_Type
-#> 1              1           1    State
-#> 2              1           1    State
-#> 3              1           1    State
-#> 4              1           1    State
-#> 5              1           1    State
-#> 6              1           1    State
+#>   secondaryValue secondaryValueName descriptiveValue descriptiveValueName
+#> 1             NA                 NA               NA                   NA
+#> 2             NA                 NA               NA                   NA
+#> 3             NA                 NA               NA                   NA
+#> 4             NA                 NA               NA                   NA
+#> 5             NA                 NA               NA                   NA
+#> 6             NA                 NA               NA                   NA
+#>   includeDescriptiveValueName   title confidenceIntervalLowName
+#> 1                          NA Arizona                          
+#> 2                          NA Arizona                          
+#> 3                          NA Arizona                          
+#> 4                          NA Arizona                          
+#> 5                          NA Arizona                          
+#> 6                          NA Arizona                          
+#>   parentMinimumTemporal parentMinimumTemporalId measureId
+#> 1                    NA                      NA        99
+#> 2                    NA                      NA        99
+#> 3                    NA                      NA        99
+#> 4                    NA                      NA        99
+#> 5                    NA                      NA        99
+#> 6                    NA                      NA        99
+#>                                    measureName geo_typeID Geo_Type
+#> 1 Annual Number of Hospitalizations for Asthma          1    State
+#> 2 Annual Number of Hospitalizations for Asthma          1    State
+#> 3 Annual Number of Hospitalizations for Asthma          1    State
+#> 4 Annual Number of Hospitalizations for Asthma          1    State
+#> 5 Annual Number of Hospitalizations for Asthma          1    State
+#> 6 Annual Number of Hospitalizations for Asthma          1    State
 ```
 
 #### Downloading measure data with advanced options
 
 The advanced stratification options are submitted via the `strat_level`
-argument and do not need to be included elsewhere.
+argument and the subset of stratification levels derived from the
+`list_StratificationTypes()` function can be submitted with the
+`stratItems` argument.
 
 ``` r
 
-data_ad<-get_data(measure=99, 
-                      format="ID",  
-                      strat_level = "ST_AG_GN")
+
+
+data_strat.item <- get_data(measure=99,
+                  strat_level =  "ST_AG_GN",
+                  temporalItems = c(2005),
+                  geoItems = "Arizona",
+                  stratItems = c("GenderId=1","AgeBandId=3"))
+#> Building API call for measure: 99 with stratification: State x Age x Gender.
 #> Retrieving data...
 #> Done
 
-head(data_ad[[1]])
+head(data_strat.item[[1]])
 #>       geo geoId   geoAbbreviation parentGeographicTypeId parentGeo parentGeoId
 #> 1 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 2 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 3 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 4 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 5 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 6 Arizona    04 StateAbbreviation                     NA        NA          NA
 #>   parentGeoAbbreviation temporalTypeId temporal temporalDescription
 #> 1                    NA              1     2005         Single Year
-#> 2                    NA              1     2005         Single Year
-#> 3                    NA              1     2005         Single Year
-#> 4                    NA              1     2005         Single Year
-#> 5                    NA              1     2005         Single Year
-#> 6                    NA              1     2005         Single Year
 #>   temporalColumnName temporalRollingColumnName temporalId minimumTemporal
 #> 1         ReportYear          RollingYearCount       2005              NA
-#> 2         ReportYear          RollingYearCount       2005              NA
-#> 3         ReportYear          RollingYearCount       2005              NA
-#> 4         ReportYear          RollingYearCount       2005              NA
-#> 5         ReportYear          RollingYearCount       2005              NA
+#>   minimumTemporalId parentTemporalTypeId parentTemporalType parentTemporal
+#> 1                NA                   NA                 NA             NA
+#>   parentTemporalId date dataValue suppressionFlag confidenceIntervalLow
+#> 1               NA 2005       304               0                    NA
+#>   confidenceIntervalHigh confidenceIntervalName standardError standardErrorName
+#> 1                     NA                     NA            NA                NA
+#>   secondaryValue secondaryValueName descriptiveValue descriptiveValueName
+#> 1             NA                 NA               NA                   NA
+#>   includeDescriptiveValueName   title confidenceIntervalLowName
+#> 1                          NA Arizona                          
+#>   parentMinimumTemporal parentMinimumTemporalId full_stratification Gender
+#> 1                    NA                      NA      Male, 15 TO 34   Male
+#>   Age Group measureId                                  measureName geo_typeID
+#> 1  15 TO 34        99 Annual Number of Hospitalizations for Asthma          1
+#>   Geo_Type
+#> 1    State
+```
+
+#### Downloading measure data with advanced options and specific geographies
+
+You can submit state names, abbreviations, or state FIPS codes with the
+`geoItems` argument. This will return data for either the specified
+state(s) or all the sub-state geographies within the state, depending on
+the geography type of the data (e.g., state, county). Individual
+sub-state geographies can also be submitted by FIPS code or name with
+this argument. For measures with sub-state geographies, a mix of state
+and sub-state entries can be submitted.
+
+``` r
+data_mo.geo<-get_data(measure=99,  
+                      strat_level = "State x County", #this can be written by name or ID (i.e., "ST_CT)
+                      geoItems = c("Massachusetts",
+                                   "Alameda, CA", #county name should not include word 'county' and must have state
+                                   1001))
+#> Building API call for measure: 99 with stratification: State x County.
+#> Retrieving data...
+#> Done
+
+head(data_mo.geo[[1]])
+#>       geo geoId    geoAbbreviation parentGeographicTypeId  parentGeo
+#> 1 Alameda 06001 CountyAbbreviation                      1 California
+#> 2 Alameda 06001 CountyAbbreviation                      1 California
+#> 3 Alameda 06001 CountyAbbreviation                      1 California
+#> 4 Alameda 06001 CountyAbbreviation                      1 California
+#> 5 Alameda 06001 CountyAbbreviation                      1 California
+#> 6 Alameda 06001 CountyAbbreviation                      1 California
+#>   parentGeoId parentGeoAbbreviation temporalTypeId temporal temporalDescription
+#> 1          06                    CA              1     2000         Single Year
+#> 2          06                    CA              1     2001         Single Year
+#> 3          06                    CA              1     2002         Single Year
+#> 4          06                    CA              1     2003         Single Year
+#> 5          06                    CA              1     2004         Single Year
+#> 6          06                    CA              1     2005         Single Year
+#>   temporalColumnName temporalRollingColumnName temporalId minimumTemporal
+#> 1         ReportYear          RollingYearCount       2000              NA
+#> 2         ReportYear          RollingYearCount       2001              NA
+#> 3         ReportYear          RollingYearCount       2002              NA
+#> 4         ReportYear          RollingYearCount       2003              NA
+#> 5         ReportYear          RollingYearCount       2004              NA
 #> 6         ReportYear          RollingYearCount       2005              NA
 #>   minimumTemporalId parentTemporalTypeId parentTemporalType parentTemporal
 #> 1                NA                   NA                 NA             NA
@@ -443,12 +583,12 @@ head(data_ad[[1]])
 #> 5                NA                   NA                 NA             NA
 #> 6                NA                   NA                 NA             NA
 #>   parentTemporalId date dataValue suppressionFlag confidenceIntervalLow
-#> 1               NA 2005       879               0                    NA
-#> 2               NA 2005       422               0                    NA
-#> 3               NA 2005       739               0                    NA
-#> 4               NA 2005       436               0                    NA
-#> 5               NA 2005       304               0                    NA
-#> 6               NA 2005       541               0                    NA
+#> 1               NA 2000      2389               0                    NA
+#> 2               NA 2001      2243               0                    NA
+#> 3               NA 2002      2260               0                    NA
+#> 4               NA 2003      2383               0                    NA
+#> 5               NA 2004      2059               0                    NA
+#> 6               NA 2005      2348               0                    NA
 #>   confidenceIntervalHigh confidenceIntervalName standardError standardErrorName
 #> 1                     NA                     NA            NA                NA
 #> 2                     NA                     NA            NA                NA
@@ -456,135 +596,44 @@ head(data_ad[[1]])
 #> 4                     NA                     NA            NA                NA
 #> 5                     NA                     NA            NA                NA
 #> 6                     NA                     NA            NA                NA
-#>   secondaryValue secondaryValueName   title confidenceIntervalLowName
-#> 1             NA                 NA Arizona                          
-#> 2             NA                 NA Arizona                          
-#> 3             NA                 NA Arizona                          
-#> 4             NA                 NA Arizona                          
-#> 5             NA                 NA Arizona                          
-#> 6             NA                 NA Arizona                          
-#>   parentMinimumTemporal parentMinimumTemporalId   stratification Measure_ID
-#> 1                    NA                      NA     0 TO 4, Male         99
-#> 2                    NA                      NA   0 TO 4, Female         99
-#> 3                    NA                      NA    5 TO 14, Male         99
-#> 4                    NA                      NA  5 TO 14, Female         99
-#> 5                    NA                      NA   15 TO 34, Male         99
-#> 6                    NA                      NA 15 TO 34, Female         99
-#>                            Measure_Name                      Measure_shortName
-#> 1 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 2 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 3 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 4 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 5 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 6 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#>   Strat_Level_ID Geo_Type_ID Geo_Type
-#> 1             37           1    State
-#> 2             37           1    State
-#> 3             37           1    State
-#> 4             37           1    State
-#> 5             37           1    State
-#> 6             37           1    State
-```
-
-#### Downloading measure data with advanced options and specific geographies
-
-You can submit state-level FIPS codes with the geo\_ID argument. This
-will return data for either the specified states or all the sub-county
-geographies within the state, depending on the requested stratification
-level. County-level FIPS codes cannot yet be submitted, but this feature
-is in development.
-
-``` r
-
-data_mo.geo<-get_data(measure=988, 
-                      format="ID",  
-                      strat_level = "ST_PT",
-                      geo_ID = c(4,8,9,12))
-#> Retrieving data...
-#> Done
-
-head(data_mo.geo[[1]])
-#>       geo geoId   geoAbbreviation parentGeographicTypeId parentGeo parentGeoId
-#> 1 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 2 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 3 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 4 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 5 Arizona    04 StateAbbreviation                     NA        NA          NA
-#> 6 Arizona    04 StateAbbreviation                     NA        NA          NA
-#>   parentGeoAbbreviation temporalTypeId temporal temporalDescription
-#> 1                    NA              4   200001        Single Month
-#> 2                    NA              4   200002        Single Month
-#> 3                    NA              4   200003        Single Month
-#> 4                    NA              4   200004        Single Month
-#> 5                    NA              4   200005        Single Month
-#> 6                    NA              4   200006        Single Month
-#>   temporalColumnName temporalRollingColumnName temporalId minimumTemporal
-#> 1        ReportMonth              RollingCount     200001              NA
-#> 2        ReportMonth              RollingCount     200002              NA
-#> 3        ReportMonth              RollingCount     200003              NA
-#> 4        ReportMonth              RollingCount     200004              NA
-#> 5        ReportMonth              RollingCount     200005              NA
-#> 6        ReportMonth              RollingCount     200006              NA
-#>   minimumTemporalId parentTemporalTypeId parentTemporalType parentTemporal
-#> 1                NA                    1               Year           2000
-#> 2                NA                    1               Year           2000
-#> 3                NA                    1               Year           2000
-#> 4                NA                    1               Year           2000
-#> 5                NA                    1               Year           2000
-#> 6                NA                    1               Year           2000
-#>   parentTemporalId   date dataValue suppressionFlag confidenceIntervalLow
-#> 1             2000 200001         4               0                    NA
-#> 2             2000 200002         4               0                    NA
-#> 3             2000 200003         4               0                    NA
-#> 4             2000 200004         4               0                    NA
-#> 5             2000 200005         4               0                    NA
-#> 6             2000 200006         4               0                    NA
-#>   confidenceIntervalHigh confidenceIntervalName standardError standardErrorName
-#> 1                     NA                     NA            NA                NA
-#> 2                     NA                     NA            NA                NA
-#> 3                     NA                     NA            NA                NA
-#> 4                     NA                     NA            NA                NA
-#> 5                     NA                     NA            NA                NA
-#> 6                     NA                     NA            NA                NA
-#>   secondaryValue secondaryValueName   title confidenceIntervalLowName
-#> 1             NA                 NA Arizona                          
-#> 2             NA                 NA Arizona                          
-#> 3             NA                 NA Arizona                          
-#> 4             NA                 NA Arizona                          
-#> 5             NA                 NA Arizona                          
-#> 6             NA                 NA Arizona                          
-#>   parentMinimumTemporal parentMinimumTemporalId  stratification Measure_ID
-#> 1                    NA                      NA Any policy type        988
-#> 2                    NA                      NA Any policy type        988
-#> 3                    NA                      NA Any policy type        988
-#> 4                    NA                      NA Any policy type        988
-#> 5                    NA                      NA Any policy type        988
-#> 6                    NA                      NA Any policy type        988
-#>                         Measure_Name                  Measure_shortName
-#> 1 State Agency Rule-making Authority State Agency Rule-making Authority
-#> 2 State Agency Rule-making Authority State Agency Rule-making Authority
-#> 3 State Agency Rule-making Authority State Agency Rule-making Authority
-#> 4 State Agency Rule-making Authority State Agency Rule-making Authority
-#> 5 State Agency Rule-making Authority State Agency Rule-making Authority
-#> 6 State Agency Rule-making Authority State Agency Rule-making Authority
-#>   Strat_Level_ID Geo_Type_ID Geo_Type
-#> 1           2239           1    State
-#> 2           2239           1    State
-#> 3           2239           1    State
-#> 4           2239           1    State
-#> 5           2239           1    State
-#> 6           2239           1    State
+#>   secondaryValue secondaryValueName descriptiveValue descriptiveValueName
+#> 1             NA                 NA               NA                   NA
+#> 2             NA                 NA               NA                   NA
+#> 3             NA                 NA               NA                   NA
+#> 4             NA                 NA               NA                   NA
+#> 5             NA                 NA               NA                   NA
+#> 6             NA                 NA               NA                   NA
+#>   includeDescriptiveValueName       title confidenceIntervalLowName
+#> 1                          NA Alameda, CA                          
+#> 2                          NA Alameda, CA                          
+#> 3                          NA Alameda, CA                          
+#> 4                          NA Alameda, CA                          
+#> 5                          NA Alameda, CA                          
+#> 6                          NA Alameda, CA                          
+#>   parentMinimumTemporal parentMinimumTemporalId measureId
+#> 1                    NA                      NA        99
+#> 2                    NA                      NA        99
+#> 3                    NA                      NA        99
+#> 4                    NA                      NA        99
+#> 5                    NA                      NA        99
+#> 6                    NA                      NA        99
+#>                                    measureName geo_typeID Geo_Type
+#> 1 Annual Number of Hospitalizations for Asthma          2   County
+#> 2 Annual Number of Hospitalizations for Asthma          2   County
+#> 3 Annual Number of Hospitalizations for Asthma          2   County
+#> 4 Annual Number of Hospitalizations for Asthma          2   County
+#> 5 Annual Number of Hospitalizations for Asthma          2   County
+#> 6 Annual Number of Hospitalizations for Asthma          2   County
 ```
 
 #### Downloading measure data with specific geographies and temporal periods selected
 
 ``` r
-
-data_tpm.geo<-get_data(measure=99, format="ID",  
+data_tpm.geo <- get_data(measure=99, 
                       strat_level = "ST",
-                      geo = c("CO", "ME", "FL"),
-                      temporal_period = c(2014:2018)
-                      )
+                      geoItems = c("CO", "ME", "FL"),
+                      temporalItems = c(2014:2018))
+#> Building API call for measure: 99 with stratification: State.
 #> Retrieving data...
 #> Done
 
@@ -631,34 +680,34 @@ head(data_tpm.geo[[1]])
 #> 4                     NA                     NA            NA                NA
 #> 5                     NA                     NA            NA                NA
 #> 6                     NA                     NA            NA                NA
-#>   secondaryValue secondaryValueName    title confidenceIntervalLowName
-#> 1             NA                 NA Colorado                          
-#> 2             NA                 NA Colorado                          
-#> 3             NA                 NA Colorado                          
-#> 4             NA                 NA Colorado                          
-#> 5             NA                 NA Colorado                          
-#> 6             NA                 NA  Florida                          
-#>   parentMinimumTemporal parentMinimumTemporalId Measure_ID
-#> 1                    NA                      NA         99
-#> 2                    NA                      NA         99
-#> 3                    NA                      NA         99
-#> 4                    NA                      NA         99
-#> 5                    NA                      NA         99
-#> 6                    NA                      NA         99
-#>                            Measure_Name                      Measure_shortName
-#> 1 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 2 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 3 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 4 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 5 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#> 6 Number of hospitalizations for asthma Number of hospitalizations for asthma 
-#>   Strat_Level_ID Geo_Type_ID Geo_Type
-#> 1              1           1    State
-#> 2              1           1    State
-#> 3              1           1    State
-#> 4              1           1    State
-#> 5              1           1    State
-#> 6              1           1    State
+#>   secondaryValue secondaryValueName descriptiveValue descriptiveValueName
+#> 1             NA                 NA               NA                   NA
+#> 2             NA                 NA               NA                   NA
+#> 3             NA                 NA               NA                   NA
+#> 4             NA                 NA               NA                   NA
+#> 5             NA                 NA               NA                   NA
+#> 6             NA                 NA               NA                   NA
+#>   includeDescriptiveValueName    title confidenceIntervalLowName
+#> 1                          NA Colorado                          
+#> 2                          NA Colorado                          
+#> 3                          NA Colorado                          
+#> 4                          NA Colorado                          
+#> 5                          NA Colorado                          
+#> 6                          NA  Florida                          
+#>   parentMinimumTemporal parentMinimumTemporalId measureId
+#> 1                    NA                      NA        99
+#> 2                    NA                      NA        99
+#> 3                    NA                      NA        99
+#> 4                    NA                      NA        99
+#> 5                    NA                      NA        99
+#> 6                    NA                      NA        99
+#>                                    measureName geo_typeID Geo_Type
+#> 1 Annual Number of Hospitalizations for Asthma          1    State
+#> 2 Annual Number of Hospitalizations for Asthma          1    State
+#> 3 Annual Number of Hospitalizations for Asthma          1    State
+#> 4 Annual Number of Hospitalizations for Asthma          1    State
+#> 5 Annual Number of Hospitalizations for Asthma          1    State
+#> 6 Annual Number of Hospitalizations for Asthma          1    State
 ```
 
 ## Public Domain Standard Notice
