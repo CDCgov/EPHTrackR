@@ -6,11 +6,10 @@
 \usage{
 update_inventory()
 }
-\value{
-An updated data frame stored in the package's "data/" folder and accessible by running data(measures_indicators_CAs).
-}
 \description{
-This function retrieves the latest inventory of content areas, indicators, and measures from the Tracking Network Data API. This information is used internally by the package to send appropriate API data requests. Run this function prior to each session to ensure that the inventory is up-to-date.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function was deprecated because automatic inventory updates were incorporated directly within the list_measures() function in version 1.0.0.
 }
 \examples{
 \dontrun{
@@ -21,3 +20,4 @@ update_inventory()
 
 }
 }
+\keyword{internal}

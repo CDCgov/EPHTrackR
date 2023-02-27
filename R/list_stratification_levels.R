@@ -1,9 +1,10 @@
 #' @name list_stratification_levels
-#' @title List stratification levels
-#' @description  Some measures on the Tracking Network have a set of "Advanced Options" that allow the user to access data stratified by variables other than geography or temporal period. For instance, data on asthma hospitalizations can be broken down further by age and/or gender. This function allows the user to list available "Advanced Options" stratification levels for specified measures and geographic types. For instance, in the case of the asthma hospitalization data, it would be possible to view the full range of stratifications available, including gender, age, and both gender and age combined.
+#' @title DEPRECATED -List stratification levels
+#' @description 
+#' `r lifecycle::badge("deprecated")`
 #' 
-#' 
-#'Because "Advanced Options" may only be available at a particular geographic scale (e.g., an age-breakdown of asthma hospitalizations is only available at the state level), results showing available stratification levels always include the geography type. Therefore, this function can be used to identify geography types and stratification levels of interest.
+#' Replaced by new more power function, list_StratificationLevels().
+#' @keywords internal
 #' @import dplyr
 #' @param measure Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.
 #' @param geo_type An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). The "geographicType" column in the list_geography_types() output contains a list of geo_types associated with each measure.
@@ -32,6 +33,10 @@ list_stratification_levels<-
            geo_type=NA,geo_type_ID=NA,
            format="ID",
            smoothing=0){
+    
+    lifecycle::deprecate_warn(when = "1.0.0",
+                              what = "list_stratification_levels()",
+                              with = "list_StratificationLevels()" )
     
     format<-match.arg(format, choices = c("ID","name","shortName"))
     

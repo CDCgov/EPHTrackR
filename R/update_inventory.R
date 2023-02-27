@@ -1,7 +1,10 @@
 #' @name update_inventory
 #' @title Update inventory of content areas, indicators, and measures
-#' @description  This function retrieves the latest inventory of content areas, indicators, and measures from the Tracking Network Data API. This information is used internally by the package to send appropriate API data requests. Run this function prior to each session to ensure that the inventory is up-to-date.
-#' @return An updated data frame stored in the package's "data/" folder and accessible by running data(measures_indicators_CAs).
+#' @description  
+#' `r lifecycle::badge("deprecated")`
+#' 
+#' This function was deprecated because automatic inventory updates were incorporated directly within the list_measures() function in version 1.0.0.
+#' @keywords internal
 #' @examples \dontrun{
 #' 
 #' 
@@ -14,9 +17,15 @@
 
 update_inventory<-function(){
   
+  lifecycle::deprecate_stop(when = "1.0.0",
+                            what = "update_inventory()",
+                            details ="This function was deprecated because automatic inventory updates were incorporated directly within the list_measures() function." )
+  
+  
+  
   message("Downloading inventory...")
   
-  CAs_raw<-
+  CAs_raw <-
     httr::GET("https://ephtracking.cdc.gov:443/apigateway/api/v1/contentareas/json")
   CAs<-jsonlite::fromJSON(rawToChar(CAs_raw$content))
   CA_id<-CAs$id
@@ -26,9 +35,9 @@ update_inventory<-function(){
   
   inds_list<-list()
   for(ind in 1:length(CA_id)){
-    inds<-httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/indicators/",CA_id[ind]))
-    inds_list[[ind]]<-jsonlite::fromJSON(rawToChar(inds$content))
-    inds_list[[ind]]$Content_Area<-CA_id[ind]
+    inds <- httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/indicators/",CA_id[ind]))
+    inds_list[[ind]] <- jsonlite::fromJSON(rawToChar(inds$content))
+    inds_list[[ind]]$Content_Area <- CA_id[ind]
   }
   
   Inds<-purrr::map_dfr(inds_list,as.data.frame)

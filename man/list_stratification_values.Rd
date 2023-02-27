@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_stratification_values.R
 \name{list_stratification_values}
 \alias{list_stratification_values}
-\title{List stratification values}
+\title{DEPRECATED - List stratification values}
 \usage{
 list_stratification_values(
   measure = NA,
@@ -27,10 +27,9 @@ list_stratification_values(
 This function returns a list with each element containing a data frame corresponding to all combinations of specified measures and geographic types. Within each row of the data frame is a nested data frame containing the stratification values. If the specified measure and associated geography type do not have any "Advanced Options" stratifications, the returned list element will be empty.
 }
 \description{
-Some measures on the Tracking Network have a set of "Advanced Options" that allow the user to access data stratified by variables other than geography or temporal period. For instance, data on asthma hospitalizations can be broken down further by age and/or gender. This function allows the user to list available "Advanced Options" stratification values for specified measures and geographic types. For instance, in the case of the asthma hospitalization data, it would be possible to view the potential gender (e.g., Male, Female), and age (e.g., 0–4 years, >=65 years) values that are available.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-
-The user should not need this function to retrieve data from the Tracking Network Data API because the get_data() function calls it internally. It can, however, be used as a reference to view available stratification values.
+Replaced by new more power function, list_StratificationTypes().
 }
 \examples{
 \dontrun{
@@ -38,3 +37,4 @@ The user should not need this function to retrieve data from the Tracking Networ
 
 }
 }
+\keyword{internal}

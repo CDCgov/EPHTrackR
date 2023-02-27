@@ -4,7 +4,10 @@
 \alias{list_content_areas}
 \title{List all content areas}
 \usage{
-list_content_areas()
+list_content_areas(token = NULL)
+}
+\arguments{
+\item{token}{An optional argument to submit a Tracking API token acquired from trackingsupport(AT)cdc.gov as a quoted string. It is recommended that you save your token using the tracking_api_token() function so that you don't need to enter your token when you run this function. It will be automatically pulled from you .Renviron file.}
 }
 \value{
 This function returns a data frame containing all content area names, shortNames, and IDs.
@@ -14,6 +17,8 @@ Lists the content areas available on the CDC Tracking Network. Content areas are
 }
 \examples{
 \dontrun{
+
+#return a comprehensive inventory of all content areas
 list_content_areas()
 }
 }

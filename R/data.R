@@ -1,7 +1,9 @@
 #' Data frame containing all content areas, indicators, and measures
 #'
 #' Data frame containing all Tracking Network content areas, indicators, and measures and their associated IDs
-#'
+#' @description  
+#' `r lifecycle::badge("deprecated")`
+#' @keywords internal
 #' @format A data frame with 674 rows and 9 variables:
 #' \describe{
 #'   \item{measure_ID}{Measure unique identifier}
@@ -15,5 +17,5 @@
 #'   \item{content_area_shortName}{Short content area name}
 #'   ...
 #' }
-#' @source \url{https://ephtracking.cdc.gov/}
+#' @source <https://ephtracking.cdc.gov/>
 "measures_indicators_CAs"

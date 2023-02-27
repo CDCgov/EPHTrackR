@@ -1,9 +1,9 @@
 ############################################################
-##  Suggesting to update inventory   ##
+##  Sending a welcome message   ##
 ############################################################
 
 .onAttach <- function(libname, pkgname) {
 
-  packageStartupMessage("Run `update_inventory()` to update the stored list of content areas, indicators, and measures.")
+  packageStartupMessage("Welcome to the CDC Environmental Public Health Tracking Network! This package provides an R interface to the Tracking Network Data API. To easily visualize our data products, please visit https://ephtracking.cdc.gov/DataExplorer/.")
   
 }

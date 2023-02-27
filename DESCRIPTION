@@ -1,7 +1,7 @@
 Package: EPHTrackR
 Type: Package
 Title: R interface to the CDC National Public Health Tracking Network
-Version: 0.2.0
+Version: 1.0.0
 Author: William White, Battelle Memorial Institute; Nicholas Skaff, CDC
 Maintainer: Nicholas Skaff <nephtrackingsupport@cdc.gov>
 Description: Provides programmatic access to data hosted on the CDC National Public Health Tracking Network (Tracking Network) via the Tracking Network Data API.
@@ -10,8 +10,13 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: 
-  httr (>= 1.4.0), 
-  dplyr (>= 0.8.0.1),
-  purrr (>= 0.3.0),
-  jsonlite (>= 1.5)
-RoxygenNote: 7.1.1
+    httr (>= 1.4.0),
+    dplyr (>= 0.8.0.1),
+    purrr (>= 0.3.0),
+    jsonlite (>= 1.5),
+    lifecycle
+RoxygenNote: 7.1.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)

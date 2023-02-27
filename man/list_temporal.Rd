@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_temporal.R
 \name{list_temporal}
 \alias{list_temporal}
-\title{List temporal periods}
+\title{DEPRECATED - List temporal periods}
 \usage{
 list_temporal(
   measure = NA,
@@ -36,7 +36,9 @@ list_temporal(
 This function returns a list with each element containing a data frame corresponding to each combination of the specified measures and geographic types.
 }
 \description{
-List the temporal periods available for specified measures, geography types, and geographies.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+Replaced by new more power function, list_TemporalItems().
 }
 \examples{
 \dontrun{
@@ -49,3 +51,4 @@ temp <- list_temporal(measure = 99,
                           
 }
 }
+\keyword{internal}

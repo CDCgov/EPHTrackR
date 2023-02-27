@@ -1,6 +1,11 @@
 #' @name list_geographies
-#' @title List available geographies
-#' @description  Lists available geographies (e.g., Fulton County, Georgia) for specified measures and geographic types. If multiple measures or geography types are submitted, the results for each combination of these two inputs will be returned as a separate list element in the output.
+#' @title DEPRECATED - List available geographies
+#' @description  
+#' `r lifecycle::badge("deprecated")`
+#' 
+#' 
+#' Replaced by new more power function, list_GeographicItems().
+#' @keywords internal
 #' @import dplyr
 #' @param measure Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.
 #' @param geo_type An optional argument in which you can specify a geographic type as a quoted string (e.g., "State", "County"). The "geographicType" column in the list_geography_types() output contains a list of geo_types associated with each measure.
@@ -27,6 +32,11 @@ list_geographies<-function(measure=NA,
                     format="ID",
                     simplified_output = TRUE,
                     rollup=0){
+  
+  lifecycle::deprecate_warn(when = "1.0.0",
+                            what = "list_geographies()",
+                            with = "list_GeographicItems()" )
+  
   
   format<-match.arg(format, 
                     choices = c("ID","name","shortName"))

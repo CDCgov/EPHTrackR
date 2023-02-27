@@ -1,0 +1,20 @@
+Release v1.0.0
+
+- list_geographies() function deprecated and replaced by list_GeographicItems()
+- list_geography_types() function deprecated and replaced by list_GeographicTypes()
+- list_stratification_levels() deprecated and replaced by list_StratificationLevels()
+- list_stratification_values() deprecated and replaced by list_StratificationTypes()
+- update_inventory() function deprecated
+- list_temporal() function deprecated and replaced by list_TemporalItems(). Note that "child temporal items" no longer exist in the output. "Temporal items" represent the lowest level temporal period reported for a measure. Some measures may still have "parent temporal items" if the lowest-level "temporal item" is sub-annual.
+- get_data() function now uses a POST request to contact the API instead of a GET request to allow for long API calls (e.g., situations where many years are called)
+- removed geotypeID argument in favor of specifying either geography names or IDs in the geo_type argument
+- removed strat_levelID argument in favor of specifying either stratification names, abbreviations or IDs in the strat_level argument
+- allowing full statification names to be specified in the strat_level argument
+- advanced options can now be requested for particular levels (e.g., male only) using the stratItems argument in get_data()
+- separate output column listing each stratification level has been added to get_data() outputs with multiple stratItems (advanced options)
+- added support for Tracking API tokens in all function calls
+- created the tracking_api_token() function to save Tracking API tokens so that they don't need to be called in each function
+- intelligible error messages are now produced if the API returns a 404 status code
+- many other error messages were added to identify common problems
+- measures data that was prevoiusly packaged with the package has been removed in favor or direct calls to the Tracking API to acquire measures data
+- removed requirment to enter the format of measure entries (e.g., ID, name etc.)
