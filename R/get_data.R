@@ -251,8 +251,15 @@ get_data<-
            #determining which stratification types are needed for the particular stratification level
            SL_strat_types <- SL_list[[y]]$stratificationType[[j]]$columnName
            
+    
+           
            #subsetting to just relevant strat types
            ms_df <- ms_df[which(ms_df$columnName %in% SL_strat_types),]
+           
+           if(nrow(ms_df)==0){
+             stop("While the stratification level you entered does exist, it appears that there is no data associated with it. Please try a different stratification level.")
+             
+           }
            
            
            adv_cal_vec <- c()
@@ -537,8 +544,6 @@ get_data<-
                                        "hatching",
                                        "noDataBreakGroup",
                                        "categoryId",
-                                       "category",
-                                       "categoryName",
                                        "titleconfidenceIntervalLowName",
                                        "confidenceIntervalHighName",
                                        "standardErrorDisplay",

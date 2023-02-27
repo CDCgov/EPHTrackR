@@ -188,4 +188,4 @@
 # 
 # #View(test11[[1]])
 # 
-# 
+# #measure 1142 is categoricals
