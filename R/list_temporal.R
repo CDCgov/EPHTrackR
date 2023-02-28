@@ -4,7 +4,7 @@
 #' `r lifecycle::badge("deprecated")`
 #' 
 #' 
-#' Replaced by new more power function, list_TemporalItems().
+#' Replaced by new more powerful function, list_TemporalItems().
 #' @keywords internal
 #' @import dplyr
 #' @param measure Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.

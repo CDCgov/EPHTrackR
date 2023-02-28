@@ -4,7 +4,7 @@
 #' `r lifecycle::badge("deprecated")`
 #' 
 #' 
-#' Replaced by new more power function, list_GeographicTypes().
+#' Replaced by new more powerful function, list_GeographicTypes().
 #' @keywords internal
 #' @param measure Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.
 #' @param format Indicates whether the measure argument contains entries formatted as an ID, name, or shortName as a quoted string (e.g., "name", "shortName"). The default is ID.

@@ -3,7 +3,7 @@
 #' @description 
 #' `r lifecycle::badge("deprecated")`
 #' 
-#' Replaced by new more power function, list_StratificationLevels().
+#' Replaced by new more powerful function, list_StratificationLevels().
 #' @keywords internal
 #' @import dplyr
 #' @param measure Specifies the measure of interest as an ID, name, or shortName. IDs should be unquoted; name and shortName entries should be quoted strings.
