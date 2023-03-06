@@ -72,7 +72,7 @@ list_measures <- function(indicator=NA,
   
   if(meas$status_code == 404 ||
      length(meas$content)==2){
-    Sys.sleep(5)
+    Sys.sleep(10)
     
     meas <-
       httr::GET(url)
