@@ -60,7 +60,7 @@ library(EPHTrackR)
 
 ## Saving a Tracking API token
 
-The `tracking_api_token()` function adds a Tracking API token to your .Renviron file so it can be called securely without being stored in your code. After you have run this function, the token will be called automatically by all the other functions in this package. Leaving the default argument `install=T`, ensures that the token will be saved in future R sessions. A token can be acquired by emailing, trackingsupport(AT)cdc.gov. Further information is available at https://ephtracking.cdc.gov/apihelp. 
+The `tracking_api_token()` function adds a Tracking API token to your .Renviron file so it can be called securely without being stored in your code. After you have run this function, the token will be called automatically by all the other functions in this package. Leaving the default argument `install=T`, ensures that the token will be saved in future R sessions. A token can be acquired by emailing, trackingsupport(AT)cdc.gov. A token is not required to use this package, but you will experience less throttling and better API support if you have one. Further information is available at https://ephtracking.cdc.gov/apihelp. 
 
 ```{r save_token, eval=FALSE, echo=t}
 

@@ -75,7 +75,9 @@ code. After you have run this function, the token will be called
 automatically by all the other functions in this package. Leaving the
 default argument `install=T`, ensures that the token will be saved in
 future R sessions. A token can be acquired by emailing,
-trackingsupport(AT)cdc.gov. Further information is available at
+trackingsupport(AT)cdc.gov. A token is not required to use this package,
+but you will experience less throttling and better API support if you
+have one. Further information is available at
 <https://ephtracking.cdc.gov/apihelp>.
 
 ``` r
@@ -465,27 +467,27 @@ head(data_st[[1]])
 #> 4             NA                 NA               NA                   NA
 #> 5             NA                 NA               NA                   NA
 #> 6             NA                 NA               NA                   NA
-#>   includeDescriptiveValueName   title confidenceIntervalLowName
-#> 1                          NA Arizona                          
-#> 2                          NA Arizona                          
-#> 3                          NA Arizona                          
-#> 4                          NA Arizona                          
-#> 5                          NA Arizona                          
-#> 6                          NA Arizona                          
-#>   parentMinimumTemporal parentMinimumTemporalId measureId
-#> 1                    NA                      NA        99
-#> 2                    NA                      NA        99
-#> 3                    NA                      NA        99
-#> 4                    NA                      NA        99
-#> 5                    NA                      NA        99
-#> 6                    NA                      NA        99
-#>                                    measureName geo_typeID Geo_Type
-#> 1 Annual Number of Hospitalizations for Asthma          1    State
-#> 2 Annual Number of Hospitalizations for Asthma          1    State
-#> 3 Annual Number of Hospitalizations for Asthma          1    State
-#> 4 Annual Number of Hospitalizations for Asthma          1    State
-#> 5 Annual Number of Hospitalizations for Asthma          1    State
-#> 6 Annual Number of Hospitalizations for Asthma          1    State
+#>   includeDescriptiveValueName category categoryName   title
+#> 1                          NA       NA           NA Arizona
+#> 2                          NA       NA           NA Arizona
+#> 3                          NA       NA           NA Arizona
+#> 4                          NA       NA           NA Arizona
+#> 5                          NA       NA           NA Arizona
+#> 6                          NA       NA           NA Arizona
+#>   confidenceIntervalLowName parentMinimumTemporal parentMinimumTemporalId
+#> 1                                              NA                      NA
+#> 2                                              NA                      NA
+#> 3                                              NA                      NA
+#> 4                                              NA                      NA
+#> 5                                              NA                      NA
+#> 6                                              NA                      NA
+#>   measureId                                  measureName geo_typeID Geo_Type
+#> 1        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 2        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 3        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 4        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 5        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 6        99 Annual Number of Hospitalizations for Asthma          1    State
 ```
 
 #### Downloading measure data with advanced options
@@ -523,14 +525,14 @@ head(data_strat.item[[1]])
 #> 1                     NA                     NA            NA                NA
 #>   secondaryValue secondaryValueName descriptiveValue descriptiveValueName
 #> 1             NA                 NA               NA                   NA
-#>   includeDescriptiveValueName   title confidenceIntervalLowName
-#> 1                          NA Arizona                          
-#>   parentMinimumTemporal parentMinimumTemporalId full_stratification Gender
-#> 1                    NA                      NA      Male, 15 TO 34   Male
-#>   Age Group measureId                                  measureName geo_typeID
-#> 1  15 TO 34        99 Annual Number of Hospitalizations for Asthma          1
-#>   Geo_Type
-#> 1    State
+#>   includeDescriptiveValueName category categoryName   title
+#> 1                          NA       NA           NA Arizona
+#>   confidenceIntervalLowName parentMinimumTemporal parentMinimumTemporalId
+#> 1                                              NA                      NA
+#>   full_stratification Gender Age Group measureId
+#> 1      Male, 15 TO 34   Male  15 TO 34        99
+#>                                    measureName geo_typeID Geo_Type
+#> 1 Annual Number of Hospitalizations for Asthma          1    State
 ```
 
 #### Downloading measure data with advanced options and specific geographies
@@ -603,27 +605,27 @@ head(data_mo.geo[[1]])
 #> 4             NA                 NA               NA                   NA
 #> 5             NA                 NA               NA                   NA
 #> 6             NA                 NA               NA                   NA
-#>   includeDescriptiveValueName       title confidenceIntervalLowName
-#> 1                          NA Alameda, CA                          
-#> 2                          NA Alameda, CA                          
-#> 3                          NA Alameda, CA                          
-#> 4                          NA Alameda, CA                          
-#> 5                          NA Alameda, CA                          
-#> 6                          NA Alameda, CA                          
-#>   parentMinimumTemporal parentMinimumTemporalId measureId
-#> 1                    NA                      NA        99
-#> 2                    NA                      NA        99
-#> 3                    NA                      NA        99
-#> 4                    NA                      NA        99
-#> 5                    NA                      NA        99
-#> 6                    NA                      NA        99
-#>                                    measureName geo_typeID Geo_Type
-#> 1 Annual Number of Hospitalizations for Asthma          2   County
-#> 2 Annual Number of Hospitalizations for Asthma          2   County
-#> 3 Annual Number of Hospitalizations for Asthma          2   County
-#> 4 Annual Number of Hospitalizations for Asthma          2   County
-#> 5 Annual Number of Hospitalizations for Asthma          2   County
-#> 6 Annual Number of Hospitalizations for Asthma          2   County
+#>   includeDescriptiveValueName category categoryName       title
+#> 1                          NA       NA           NA Alameda, CA
+#> 2                          NA       NA           NA Alameda, CA
+#> 3                          NA       NA           NA Alameda, CA
+#> 4                          NA       NA           NA Alameda, CA
+#> 5                          NA       NA           NA Alameda, CA
+#> 6                          NA       NA           NA Alameda, CA
+#>   confidenceIntervalLowName parentMinimumTemporal parentMinimumTemporalId
+#> 1                                              NA                      NA
+#> 2                                              NA                      NA
+#> 3                                              NA                      NA
+#> 4                                              NA                      NA
+#> 5                                              NA                      NA
+#> 6                                              NA                      NA
+#>   measureId                                  measureName geo_typeID Geo_Type
+#> 1        99 Annual Number of Hospitalizations for Asthma          2   County
+#> 2        99 Annual Number of Hospitalizations for Asthma          2   County
+#> 3        99 Annual Number of Hospitalizations for Asthma          2   County
+#> 4        99 Annual Number of Hospitalizations for Asthma          2   County
+#> 5        99 Annual Number of Hospitalizations for Asthma          2   County
+#> 6        99 Annual Number of Hospitalizations for Asthma          2   County
 ```
 
 #### Downloading measure data with specific geographies and temporal periods selected
@@ -687,27 +689,27 @@ head(data_tpm.geo[[1]])
 #> 4             NA                 NA               NA                   NA
 #> 5             NA                 NA               NA                   NA
 #> 6             NA                 NA               NA                   NA
-#>   includeDescriptiveValueName    title confidenceIntervalLowName
-#> 1                          NA Colorado                          
-#> 2                          NA Colorado                          
-#> 3                          NA Colorado                          
-#> 4                          NA Colorado                          
-#> 5                          NA Colorado                          
-#> 6                          NA  Florida                          
-#>   parentMinimumTemporal parentMinimumTemporalId measureId
-#> 1                    NA                      NA        99
-#> 2                    NA                      NA        99
-#> 3                    NA                      NA        99
-#> 4                    NA                      NA        99
-#> 5                    NA                      NA        99
-#> 6                    NA                      NA        99
-#>                                    measureName geo_typeID Geo_Type
-#> 1 Annual Number of Hospitalizations for Asthma          1    State
-#> 2 Annual Number of Hospitalizations for Asthma          1    State
-#> 3 Annual Number of Hospitalizations for Asthma          1    State
-#> 4 Annual Number of Hospitalizations for Asthma          1    State
-#> 5 Annual Number of Hospitalizations for Asthma          1    State
-#> 6 Annual Number of Hospitalizations for Asthma          1    State
+#>   includeDescriptiveValueName category categoryName    title
+#> 1                          NA       NA           NA Colorado
+#> 2                          NA       NA           NA Colorado
+#> 3                          NA       NA           NA Colorado
+#> 4                          NA       NA           NA Colorado
+#> 5                          NA       NA           NA Colorado
+#> 6                          NA       NA           NA  Florida
+#>   confidenceIntervalLowName parentMinimumTemporal parentMinimumTemporalId
+#> 1                                              NA                      NA
+#> 2                                              NA                      NA
+#> 3                                              NA                      NA
+#> 4                                              NA                      NA
+#> 5                                              NA                      NA
+#> 6                                              NA                      NA
+#>   measureId                                  measureName geo_typeID Geo_Type
+#> 1        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 2        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 3        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 4        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 5        99 Annual Number of Hospitalizations for Asthma          1    State
+#> 6        99 Annual Number of Hospitalizations for Asthma          1    State
 ```
 
 ## Public Domain Standard Notice
