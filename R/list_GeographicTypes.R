@@ -42,7 +42,7 @@ list_GeographicTypes <- function(measure,
   
 
   
-  meas_df <- list_measures()
+  meas_df <- list_measures(token=token)
   
   meas_ID <- unique(meas_df$measureId[
     c(match(measure,meas_df$measureId ),
