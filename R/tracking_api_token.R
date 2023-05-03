@@ -15,6 +15,8 @@
 #' @references This function and accompanying documentation were adapted from the tidycensus package with very little modification.
 #' Walker K, Herman M (2023). tidycensus: Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames. 
 #' R package version 1.3.2, https://walker-data.com/tidycensus/.
+#' @export
+#' 
 
 
 

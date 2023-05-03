@@ -16,17 +16,19 @@
 #' @examples \dontrun{
 #' 
 #' 
-# list_stratification_values(measure=370,format="ID")
-
-# list_stratification_values(measure=c(370,423,707),format="ID")
-
-# list_stratification_values(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
-#                                 "Number of extreme heat days","Number of months of mild drought or worse per year"),
-#                       format="name")
-
-# list_stratification_values(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
-#                                 "Number of extreme heat days","Number of months of drought per year"),
-#                       format="shortName")
+#' 
+#'  list_stratification_values(measure=370,format="ID")
+#'  
+#'  
+#'  list_stratification_values(measure=c(370,423,707),format="ID")
+#'  list_stratification_values(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+#'   "Number of extreme heat days","Number of months of mild drought or worse per year"),
+#'    format="name")
+#'    
+#'    
+#'    list_stratification_values(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+#'    "Number of extreme heat days","Number of months of drought per year"),
+#'     format="shortName")
 
 
 #' }

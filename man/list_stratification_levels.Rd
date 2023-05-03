@@ -29,7 +29,7 @@ The output of this function is a list with a separate element for each geography
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-Replaced by new more power function, list_StratificationLevels().
+Replaced by new more powerful function, list_StratificationLevels().
 }
 \examples{
 \dontrun{

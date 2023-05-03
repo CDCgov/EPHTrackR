@@ -29,7 +29,7 @@ This function returns a list with each element containing a data frame correspon
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-Replaced by new more power function, list_StratificationTypes().
+Replaced by new more powerful function, list_StratificationTypes().
 }
 \examples{
 \dontrun{
