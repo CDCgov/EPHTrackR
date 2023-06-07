@@ -27,5 +27,13 @@ The user should not need this function to retrieve data from the Tracking Networ
 \dontrun{
 
 
+list_StratificationTypes(measure=370)
+
+list_StratificationTypes(measure=c(370,423,707))
+ 
+list_StratificationTypes(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
+  "Number of extreme heat days","Number of months of mild drought or worse per year"))
+  
+list_StratificationTypes(measure=c("Number of summertime (May-Sep) heat-related deaths, by year",
 }
 }

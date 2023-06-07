@@ -56,7 +56,7 @@ list_geography_types<-function(measure=NA,
              [which(EPHTrackR::measures_indicators_CAs[,meas_formatting]%in%measure )])
   }
 
-  GL_list<-purrr::map( 1:length(meas_ID), function(geolev){
+  GL_list<-purrr::map(1:length(meas_ID), function(geolev){
     GL<-
       httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/geographicLevels/",
                  meas_ID[geolev]))
