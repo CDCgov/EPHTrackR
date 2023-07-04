@@ -442,7 +442,8 @@ get_data<-
       
       
       if(MD$status_code == 404 ||
-         length(MD$content) == 2){
+         length(MD$content) == 2 ||
+         MD$status_code == 405 ){
         stop("The Tracking API may be down. If the problem persists for more than 24 hours, contact trackingsupport(AT)cdc.gov.")
       }
 
