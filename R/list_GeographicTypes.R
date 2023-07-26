@@ -67,7 +67,7 @@ list_GeographicTypes <- function(measure,
                   meas_ID[geolev])
     
     if(!is.null(token) & 
-       !is.na(token)){
+       is.character(token)){
       
       url <- paste0(url,  "?apiToken=", token)
       

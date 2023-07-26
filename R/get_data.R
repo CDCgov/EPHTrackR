@@ -403,7 +403,7 @@ get_data<-
           
           
         if(!is.null(token) & 
-           !is.na(token)){
+           is.character(token)){
           
           url <- paste0(url,  "&apiToken=", token)
           
@@ -421,7 +421,7 @@ get_data<-
         
         
         if(!is.null(token) & 
-           !is.na(token)){
+           is.character(token)){
           
           url <- paste0(url,  "?apiToken=", token)
           

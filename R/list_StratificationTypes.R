@@ -93,7 +93,7 @@ list_StratificationTypes <-
                         GL_list_sub$geographicTypeId[i],"/",smoothing)
           
           if(!is.null(token) & 
-             !is.na(token)){
+             is.character(token)){
             
             url <- paste0(url,  "?apiToken=", token)
             

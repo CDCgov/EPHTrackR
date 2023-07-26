@@ -71,7 +71,7 @@ list_TemporalItems <- function(measure,
                     "ALL","/","ALL")
       
       if(!is.null(token) & 
-         !is.na(token)){
+         is.character(token)){
         
         url <- paste0(url,  "?apiToken=", token)
         
@@ -93,7 +93,7 @@ list_TemporalItems <- function(measure,
                       geoitemsfiterID)
         
         if(!is.null(token) & 
-           !is.na(token)){
+           is.character(token)){
           
           url <- paste0(url,  "?apiToken=", token)
           

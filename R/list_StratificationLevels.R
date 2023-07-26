@@ -92,7 +92,7 @@ list_StratificationLevels <-
                         smoothing)
           
           if(!is.null(token) & 
-             !is.na(token)){
+             is.character(token)){
             
             url <- paste0(url,  "?apiToken=", token)
             
