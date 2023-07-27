@@ -5,7 +5,7 @@
 \title{List available geographies}
 \usage{
 list_GeographicItems(
-  measure = NA,
+  measure,
   geo_type = NA,
   simplified_output = TRUE,
   rollup = 0,
