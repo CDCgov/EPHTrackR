@@ -38,14 +38,15 @@ list_TemporalItems <- function(measure,
     
     token <- Sys.getenv("TRACKING_API_TOKEN")
     
-  }else if (is.null(token)) {
+  }else if (is.null(token) &
+            !is.character(token)) {
     
     warning("Consider obtaining a Tracking API token from trackingsupport@cdc.gov to avoid throttling or other issues with your API calls.")
   }
   
   
-  geo_list <- list_GeographicItems(measure,
-                      geo_type,
+  geo_list <- list_GeographicItems(measure=measure,
+                      geo_type=geo_type,
                       simplified_output=F,
                       token = token)
   

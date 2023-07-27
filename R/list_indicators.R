@@ -33,14 +33,15 @@ list_indicators <- function(content_area=NA,
     
     token <- Sys.getenv("TRACKING_API_TOKEN")
     
-  }else if (is.null(token)) {
+  }else if (is.null(token) &
+            !is.character(token)) {
     
     warning("Consider obtaining a Tracking API token from trackingsupport@cdc.gov to avoid throttling or other issues with your API calls.")
   }
   
 
   
-  inds <- list_measures()
+  inds <- list_measures(token=token)
   
   if(any(is.na(content_area))){
     

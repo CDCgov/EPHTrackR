@@ -20,7 +20,7 @@
 
 ### Print out geographic items for a Measure ID, Geographic Type and Geographic Rollup (rollup forces a view of all the parent geographic items) ###
 
-list_GeographicItems <- function(measure=NA,
+list_GeographicItems <- function(measure,
                     geo_type=NA,
                     simplified_output = TRUE,
                     rollup=0,
@@ -36,15 +36,17 @@ list_GeographicItems <- function(measure=NA,
     
     token <- Sys.getenv("TRACKING_API_TOKEN")
     
-  }else if (is.null(token)) {
+  }else if (is.null(token) &
+            !is.character(token)) {
     
     warning("Consider obtaining a Tracking API token from trackingsupport@cdc.gov to avoid throttling or other issues with your API calls.")
   }
   
   
 
-  GL_list <- list_GeographicTypes(measure,
-                            simplified_output=F)
+  GL_list <- list_GeographicTypes(measure=measure,
+                            simplified_output=F,
+                            token=token)
   
   GL_table <- unique(purrr::map_dfr(GL_list,as.data.frame))
   
