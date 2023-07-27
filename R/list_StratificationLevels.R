@@ -40,14 +40,15 @@ list_StratificationLevels <-
       
       token <- Sys.getenv("TRACKING_API_TOKEN")
       
-    }else if (is.null(token)) {
+    }else if (is.null(token) &
+              !is.character(token)) {
       
       warning("Consider obtaining a Tracking API token from trackingsupport@cdc.gov to avoid throttling or other issues with your API calls.")
     }
     
     
     
-    GL_list <- list_GeographicTypes(measure,
+    GL_list <- list_GeographicTypes(measure=measure,
                                     token=token)
     
     

@@ -54,7 +54,8 @@ get_data<-
       
       token <- Sys.getenv("TRACKING_API_TOKEN")
       
-    }else if (is.null(token)) {
+    }else if (is.null(token) &
+              !is.character(token)) {
       
       warning("Consider obtaining a Tracking API token from trackingsupport@cdc.gov to avoid throttling or other issues with your API calls.")
     }
@@ -65,9 +66,9 @@ get_data<-
      
      #the retrieved geography is determined by the strat level. The other geographic entries just specify the scale that you'd like to submit the request as
      SL_list <-
-       list_StratificationLevels(measure,
-                                 geo_type,
-                                 smoothing,
+       list_StratificationLevels(measure=measure,
+                                 geo_type=geo_type,
+                                 smoothing=smoothing,
                                  token=token)
      
      
@@ -144,8 +145,8 @@ get_data<-
          ######################
          #retrieving all temporal items for measure
          temp_list <- 
-           list_TemporalItems(SL_measure,
-                              SL_geotype, 
+           list_TemporalItems(measure=SL_measure,
+                              geo_type = SL_geotype, 
                               simplified_output = FALSE,
                               token=token)
          
@@ -189,8 +190,8 @@ get_data<-
          ##################
          #retrieving all geographic items for measure
          geo_list <- 
-           list_GeographicItems(SL_measure,
-                                SL_geotype,
+           list_GeographicItems(measure=SL_measure,
+                                geo_type =  SL_geotype,
                                 simplified_output = FALSE,
                                 token=token)
          
@@ -242,8 +243,8 @@ get_data<-
            
           
              MS_list <-
-             list_StratificationTypes(SL_measure,
-                                      SL_geotype,
+             list_StratificationTypes(measure=SL_measure,
+                                      geo_type = SL_geotype,
                                       token=token)
            
            ms_df <- MS_list[[1]]

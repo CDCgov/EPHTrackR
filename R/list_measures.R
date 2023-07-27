@@ -48,7 +48,8 @@ list_measures <- function(indicator=NA,
     
     token <- Sys.getenv("TRACKING_API_TOKEN")
     
-  }else if (is.null(token)) {
+  }else if (is.null(token) &
+            !is.character(token)) {
     
     warning("Consider obtaining a Tracking API token from trackingsupport@cdc.gov to avoid throttling or other issues with your API calls.")
   }
@@ -75,7 +76,7 @@ list_measures <- function(indicator=NA,
     Sys.sleep(10)
     
     meas <-
-      httr::GET(url)
+      httr::GET(measures_url)
     
     if(meas$status_code == 404 ||
        length(meas$content)==2){
@@ -87,6 +88,11 @@ list_measures <- function(indicator=NA,
   
   meas_cont <- jsonlite::fromJSON(rawToChar(meas$content))
   
+  
+  if(!is.null(meas_cont$message)){
+    
+    stop(meas_cont$message)
+  }
   
   if(any(is.na(indicator)) & 
      any(is.na(content_area))){
