@@ -29,7 +29,7 @@ on the Tracking Network [Indicators and
 Data](https://ephtracking.cdc.gov/searchMetadata) page. Users might find
 it easier to view the online [Data
 Explorer](https://ephtracking.cdc.gov/DataExplorer/) to get a sense of
-the available datasets before or while using this package.
+the available datasets before or while using this package. 
 
 The purpose of the Tracking Network is to deliver information and data
 to protect the nation from health issues arising from or directly
