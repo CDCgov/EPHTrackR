@@ -274,7 +274,7 @@ get_data<-
              #saving strat col names and values for future use
              strat_col_name[k] <- ms_df$columnName[k]
             
-             strat_vals[[k]] <- ms_df[[7]][[k]]$localId                              
+             strat_vals[[k]] <- ms_df$stratificationItem[[k]]$localId                              
                                                    
       
              adv_cal_vec[k] <- paste0(strat_col_name[k], "=",
