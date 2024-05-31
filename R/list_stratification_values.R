@@ -68,7 +68,7 @@ list_stratification_values <-
     MS_list<-purrr::map(1:length(meas_ID),function(measstrat){
       
       MS<-
-        httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/measurestratification/",
+        httr::GET(paste0("https://ephtracking.cdc.gov/apigateway/api/v1/measurestratification/",
                          meas_ID[measstrat],"/",
                          geo_type_ID[measstrat],"/",smoothing))
       

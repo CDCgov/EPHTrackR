@@ -56,7 +56,7 @@ list_measures <- function(indicator=NA,
   
   
   
-  measures_url <- "https://ephtracking.cdc.gov:443/apigateway/api/v1/measuresearch"
+  measures_url <- "https://ephtracking.cdc.gov/apigateway/api/v1/measuresearch"
   
   
   if(!is.null(token) & 

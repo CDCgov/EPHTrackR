@@ -67,7 +67,7 @@ list_GeographicItems <- function(measure,
                        function(gg){
                          
                          url <- paste0(
-                           "https://ephtracking.cdc.gov:443/apigateway/api/v1/geographicItems/",
+                           "https://ephtracking.cdc.gov/apigateway/api/v1/geographicItems/",
                            meas_ID[gg],"/",geo_typeID[gg],"/",rollup)
                          
                          if(!is.null(token) & 

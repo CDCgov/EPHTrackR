@@ -89,7 +89,7 @@ list_StratificationTypes <-
           # ephtracking.cdc.gov/apigateway/api/{version}/stratificationTypes/{measureId}/{geographicTypeId}/
           #   {isSmoothed}[?apiToken]
           
-          url <- paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/stratificationTypes/",
+          url <- paste0("https://ephtracking.cdc.gov/apigateway/api/v1/stratificationTypes/",
                         GL_list_sub$measureId[i],"/",
                         GL_list_sub$geographicTypeId[i],"/",smoothing)
           

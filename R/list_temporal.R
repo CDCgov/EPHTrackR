@@ -71,7 +71,7 @@ list_temporal <- function(measure=NA,
   temp_list<-purrr::map(1:nrow(geo_parentid_table), function(tp){
     
     temp<-
-      httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/temporal/",
+      httr::GET(paste0("https://ephtracking.cdc.gov/apigateway/api/v1/temporal/",
                        geo_parentid_table$Measure_ID[tp],"/",
                        geo_parentid_table$Geo_Type_ID[tp],"/",
                        geo_filter,"/",geo_parentid_table$parentGeographicId[tp]))
