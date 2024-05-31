@@ -31,7 +31,7 @@ list_content_areas <- function(token=NULL){
   }
   
   
-  url <- "https://ephtracking.cdc.gov:443/apigateway/api/v1/contentareas/json"
+  url <- "https://ephtracking.cdc.gov/apigateway/api/v1/contentareas/json"
   
   if(!is.null(token) & 
      is.character(token)){

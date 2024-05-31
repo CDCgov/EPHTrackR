@@ -66,7 +66,7 @@ list_GeographicTypes <- function(measure,
 
   GL_list <- purrr::map( 1:length(meas_ID), function(geolev){
     
-    url <- paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/geographicTypes/",
+    url <- paste0("https://ephtracking.cdc.gov/apigateway/api/v1/geographicTypes/",
                   meas_ID[geolev])
     
     if(!is.null(token) & 

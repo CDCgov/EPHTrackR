@@ -26,7 +26,7 @@ update_inventory<-function(){
   message("Downloading inventory...")
   
   CAs_raw <-
-    httr::GET("https://ephtracking.cdc.gov:443/apigateway/api/v1/contentareas/json")
+    httr::GET("https://ephtracking.cdc.gov/apigateway/api/v1/contentareas/json")
   CAs<-jsonlite::fromJSON(rawToChar(CAs_raw$content))
   CA_id<-CAs$id
   
@@ -35,7 +35,7 @@ update_inventory<-function(){
   
   inds_list<-list()
   for(ind in 1:length(CA_id)){
-    inds <- httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/indicators/",CA_id[ind]))
+    inds <- httr::GET(paste0("https://ephtracking.cdc.gov/apigateway/api/v1/indicators/",CA_id[ind]))
     inds_list[[ind]] <- jsonlite::fromJSON(rawToChar(inds$content))
     inds_list[[ind]]$Content_Area <- CA_id[ind]
   }
@@ -49,7 +49,7 @@ update_inventory<-function(){
   meas_list<-list()
   for(mezr in 1:length(ind_id)){
     meas<-
-      httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/measures/",
+      httr::GET(paste0("https://ephtracking.cdc.gov/apigateway/api/v1/measures/",
                        ind_id[mezr]))
     meas_list[[mezr]]<-jsonlite::fromJSON(rawToChar(meas$content))
     meas_list[[mezr]]$Indicator<-ind_id[mezr]

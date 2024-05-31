@@ -396,7 +396,7 @@ get_data<-
         
         
         
-        url <- paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/getCoreHolder/",
+        url <- paste0("https://ephtracking.cdc.gov/apigateway/api/v1/getCoreHolder/",
                         SL_df_complete[gch,]$measureId,"/",
                         SL_df_complete[gch,]$stratificationLevelId,"/", #stratification level id
                         smoothing, "/",
@@ -414,7 +414,7 @@ get_data<-
         
       }else{
         
-        url  <- paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/getCoreHolder/",
+        url  <- paste0("https://ephtracking.cdc.gov/apigateway/api/v1/getCoreHolder/",
                        SL_df_complete[gch,]$measureId,"/",
                        SL_df_complete[gch,]$stratificationLevelId,"/", #stratification level id
                        smoothing, "/",

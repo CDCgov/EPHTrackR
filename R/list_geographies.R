@@ -62,7 +62,7 @@ list_geographies<-function(measure=NA,
 
   geo_list <- purrr::map(1:length(meas_ID), 
                        function(gg){
-                         geo<-httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/geography/",
+                         geo<-httr::GET(paste0("https://ephtracking.cdc.gov/apigateway/api/v1/geography/",
                                                meas_ID[gg],"/",geo_type_ID[gg],"/",rollup))
                          geo_cont<-jsonlite::fromJSON(rawToChar(geo$content))
                          geo_cont$Measure_ID<-meas_ID[gg]

@@ -87,7 +87,7 @@ list_StratificationLevels <-
           #ephtracking.cdc.gov/apigateway/api/{version}/stratificationlevel/
           # {measureId}/{geographicTypeId}/{isSmoothed}[?apiToken]
           
-          url <- paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/stratificationlevel/",
+          url <- paste0("https://ephtracking.cdc.gov/apigateway/api/v1/stratificationlevel/",
                         GL_list_sub$measureId[i],"/",
                         GL_list_sub$geographicTypeId[i],"/",
                         smoothing)

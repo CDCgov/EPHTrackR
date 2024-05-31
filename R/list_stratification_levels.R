@@ -63,7 +63,7 @@ list_stratification_levels<-
     SL_list<-purrr::map(1:length(meas_ID), function(strlev){
       
       SL<-
-        httr::GET(paste0("https://ephtracking.cdc.gov:443/apigateway/api/v1/stratificationlevel/",
+        httr::GET(paste0("https://ephtracking.cdc.gov/apigateway/api/v1/stratificationlevel/",
                          meas_ID[strlev],"/",geo_type_ID[strlev],"/",smoothing))
       SL_cont<-jsonlite::fromJSON(rawToChar(SL$content))
       SL_cont$Measure_ID<-meas_ID[strlev]
