@@ -20,13 +20,13 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 
 The `EPHTrackR` package provides an R interface to access and download
 publicly available data stored on the [CDC National Environmental Public
-Health Tracking Network](https://www.cdc.gov/nceh/tracking/about.htm)
-(Tracking Network) via a connection with the [Tracking Network Data
+Health Tracking Network](https://ephtracking.cdc.gov/) (Tracking
+Network) via a connection with the [Tracking Network Data
 API](https://ephtracking.cdc.gov/apihelp). A detailed user guide
 describing available API calls and associated outputs can be found at
 that link. Associated metadata for downloaded measure data can be found
 on the Tracking Network [Indicators and
-Data](https://ephtracking.cdc.gov/searchMetadata) page. Users might find
+Data](https://ephtracking.cdc.gov/metadataSearch) page. Users might find
 it easier to view the online [Data
 Explorer](https://ephtracking.cdc.gov/DataExplorer/) to get a sense of
 the available datasets before or while using this package.
